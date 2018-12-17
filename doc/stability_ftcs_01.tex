@@ -1,0 +1,250 @@
+\documentclass{article}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=blue,pdfstartview=FitH]{hyperref}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{5px}
+
+%\input{macrosblog}
+
+%%%%%%%%% For wordpress conversion
+
+\def\more{}
+
+\newif\ifblog
+\newif\iftex
+\blogfalse
+\textrue
+
+
+\usepackage{ulem}
+\def\em{\it}
+\def\emph#1{\textit{#1}}
+
+\def\image#1#2#3{\begin{center}\includegraphics[#1pt]{#3}\end{center}}
+
+\let\hrefnosnap=\href
+
+\newenvironment{btabular}[1]{\begin{tabular} {#1}}{\end{tabular}}
+
+\newenvironment{red}{\color{red}}{}
+\newenvironment{green}{\color{green}}{}
+\newenvironment{blue}{\color{blue}}{}
+
+%%%%%%%%% Typesetting shortcuts
+
+\def\B{\{0,1\}}
+\def\xor{\oplus}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\var{{\bf Var}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\def\Q{{\mathbb Q}}
+\def\eps{{\epsilon}}
+
+\def\bz{{\bf z}}
+
+\def\true{{\tt true}}
+\def\false{{\tt false}}
+
+%%%%%%%%% Theorems and proofs
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$} %\medskip} 
+%%%%%%%%% I added
+\newtheorem{assumption}{Assumption}
+%%%%%%%%
+
+\begin{document}
+
+\section{Abstract}
+\begin{itemize}
+ \item Implement FTCS on heat equation
+ \item Demonstrate instability
+\end{itemize}
+
+\section{Problem}
+Demonstrate instability of FTCS solution of the heat equation
+$$u_t = u_{xx}, \quad t>0, x\in \mathbb R$$
+with initial data
+$$
+u(x, 0) = \phi(x), \quad x\in \mathbb R.
+$$
+
+{\bf parameters}
+
+\begin{itemize}
+ \item $\phi(x) = |1 - 10 x| \cdot I (|x| <0.1).$
+ \item space step size $h = .2$
+ \item time step size $\theta = h^2 = .04$.
+
+\end{itemize}
+
+
+\section{Analysis}
+
+We use FTCS (Forward finite difference in time, Central finite difference in state) to solve the above heat equation. This means that we use finite difference form of
+$$u_{t}(x, t) \simeq \frac{u(x, t+ \theta) - u(x, t)}{\theta} := 
+\delta^{t}_{\theta} u (x, t)$$
+and
+$$u_{xx}(x, t) \simeq \frac{u(x+h, t) - 2u(x, t) + u(x-h, t)}{h^{2}}
+:= \delta^{xx}_{h} u (x, t).$$
+where $h$ and $\theta$ are some positive 
+mesh size in space $h$ and in time, respectively. 
+
+Discrete domain is accordingly a grid of
+$$\{(jh, n\theta): j +1 \in \mathbb N, j\in \mathbb Z\}.$$
+We denote by $u_{j}^{n}$ is the FTCS solution at grid point $(jh, n\theta)$, 
+then we shall have
+$$u_{t}(jh, n\theta) \simeq \frac{u_{j}^{n+1} - u_{j}^{n}}{\theta}, 
+\quad u_{xx}(jh, n\theta) \simeq 
+\frac{u_{j+1}^{n} - 2u_{j}^{n} + u_{j-1}^{n}}{h^{2}}.$$
+Plug it into heat equation, we obtain discrete heat equation of
+$$
+\frac{u_{j}^{n+1} - u_{j}^{n}}{\theta} = \frac{u_{j+1}^{n} - 2u_{j}^{n} + u_{j-1}^{n}}{h^{2}}.
+$$
+For simplicity, we set
+$$s = \frac{\theta}{h^{2}}$$
+and isolate $u^{n+1}$ to the left hand side, then
+\begin{equation}
+\label{eq:ftcs01}
+u_{j}^{n+1} = s u_{j+1}^{n} + (1-2s) u_{j}^{n} + s u_{j-1}^{n}, \quad \forall j\in \mathbb Z, n+1 \in \mathbb N. 
+\end{equation}
+Together with initial condition, we have
+\begin{equation}
+ \label{eq:ftcs00}
+ u_{j}^{0} = \phi(jh), \quad \forall j\in \mathbb Z.
+\end{equation}
+
+As a summary, 
+\begin{itemize}
+ \item By the FTCS solution of heat equation, we mean 
+ $$\{u_{j}^{n}: \forall j\in \mathbb Z, n \in \mathbb N \}$$ satisfying
+ equations \eqref{eq:ftcs00} - \eqref{eq:ftcs01}.
+ 
+ \item By $L^{\infty}$ convergence, we mean that the $L^{\infty}$ error 
+ $$\epsilon_{h, \theta} = 
+ \sup_{ \forall j\in \mathbb Z, n \in \mathbb N }
+ | u_{j}^{n} - u(jh, n\theta) |
+ $$
+ goes to zero as $(h, \theta) \to (0^{+}, 0^{+})$.
+ 
+ \item By $L^{\infty}$ stability, we mean the uniform boundedness of the numerical solution, i.e. there exists a constant $K$ such that
+ $$\sup_{ \forall j\in \mathbb Z, n \in \mathbb N }
+ | u_{j}^{n}| < K, \ \forall h, \theta>0.$$
+\end{itemize}
+
+For any numerical solution, our ultimate wish is to have its convergence.
+To have a convergence, it is crucial to examine its stability. 
+Accordingly, the number $s = \theta/h^{2}$ is defined for simplicity earlier, 
+but it turns out to be crucial.
+
+Implementing FTCS is essentially  a sequence of realization of the following , stencil (template) given by \eqref{eq:ftcs01} line by line in $n$.
+$$
+\begin{array}
+ {ccc}
+ \\
+ & * & 
+ \\
+ \\
+ \circ  & \circ & \circ
+ \\
+(s) &  (1-2s) &  (s)
+\end{array}
+$$
+
+{\bf Pseudocode} heat\_ftcs($h, \theta$):
+\begin{itemize}
+ \item Set initial $\{u_{j}^{0}, \forall j \in \mathbb Z\}$ by \eqref{eq:ftcs00};
+ \item For $n-1 \in \mathbb N$, do:
+ $$u_{j}^{n} \implies u_{j}^{n+1}, \forall j  \in \mathbb Z \hbox{ by \eqref{eq:ftcs01}}.$$
+\end{itemize}
+
+The above pseudocode is not practical since the grid points are infinitely many. But, if the desired computation is for instance
+$$\{u_{j}^{n}: j = a, a+1, \ldots, b-1, b\}$$
+for some integers $n$ and $a<b$, then one can set initial on finitely many points
+$$\{u_{j}^{0}, \quad j = a-n, a-n+1, \ldots, b+n-1, b+n\}.$$
+
+
+\section{Numerical result}
+We use hand computation to demonstrate instability with the parameters given as
+\begin{itemize}
+ \item $\phi(x) = |1 - 10 x| \cdot I (|x| <0.1).$
+ \item space step size $h = .2$
+ \item time step size $\theta = h^2 = .04$.
+\end{itemize}
+
+Note that, $s =1$ and corresponding stencil is
+$$
+\begin{array}
+ {ccc}
+ \\
+ & * & 
+ \\
+ \\
+ \circ  & \circ & \circ
+ \\
+(1) &  (-1) &  (1)
+\end{array}
+$$
+
+
+One can easily figure out numerical outcomes 
+$$\{u^{3}_{j}: j = -4, -3, \ldots, 3, 4\}$$
+as follows.
+
+
+$$
+\begin{array}
+ {ccccccccc}
+ \\
+ 0 & 1 & -3 & 6 & -7 & 6 & -3 & 1 & 0
+ \\
+ \\
+ & 0 & 1 & -2 & 3 & -2 & 1& 0 & 
+ \\
+ \\
+ && 0 & 1 & -1 & 1 & 0
+ \\
+ \\
+&&& 0 & 1 & 0
+\\
+&&&& (u_{0}^{0})
+\end{array}
+$$
+
+It can be seen that $|u_{0}^{n}| \to \infty$ as $n\to \infty$, which demonstrates its instability.
+
+
+
+
+
+
+
+
+
+
+\end{document}

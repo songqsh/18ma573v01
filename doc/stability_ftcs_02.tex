@@ -1,0 +1,195 @@
+\documentclass{article}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=blue,pdfstartview=FitH]{hyperref}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{5px}
+
+%\input{macrosblog}
+
+%%%%%%%%% For wordpress conversion
+
+\def\more{}
+
+\newif\ifblog
+\newif\iftex
+\blogfalse
+\textrue
+
+
+\usepackage{ulem}
+\def\em{\it}
+\def\emph#1{\textit{#1}}
+
+\def\image#1#2#3{\begin{center}\includegraphics[#1pt]{#3}\end{center}}
+
+\let\hrefnosnap=\href
+
+\newenvironment{btabular}[1]{\begin{tabular} {#1}}{\end{tabular}}
+
+\newenvironment{red}{\color{red}}{}
+\newenvironment{green}{\color{green}}{}
+\newenvironment{blue}{\color{blue}}{}
+
+%%%%%%%%% Typesetting shortcuts
+
+\def\B{\{0,1\}}
+\def\xor{\oplus}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\var{{\bf Var}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\def\Q{{\mathbb Q}}
+\def\eps{{\epsilon}}
+
+\def\bz{{\bf z}}
+
+\def\true{{\tt true}}
+\def\false{{\tt false}}
+
+%%%%%%%%% Theorems and proofs
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$} %\medskip} 
+%%%%%%%%% I added
+\newtheorem{assumption}{Assumption}
+%%%%%%%%
+
+\begin{document}
+
+
+\section{Abstract}
+\begin{itemize}
+ \item Derive stability condition on  FTCS solution of heat equation;
+ \item Give Von-Neumann condition. (no proof)
+\end{itemize}
+
+\section{Problem}
+We already observed the danger of FTCS scheme for the heat equation.
+Find stability condition of FTCS solution for the heat equation
+$$u_t = u_{xx}, \quad t>0, x\in \mathbb R$$
+with initial data
+$$
+u(x, 0) = \phi(x), \quad x\in \mathbb R.
+$$
+
+
+
+
+\section{Analysis}
+\subsection{Setup}
+First, we recall FTCS scheme. FTCS means that we use finite difference form of
+$$u_{t}(x, t) \simeq \frac{u(x, t+ \theta) - u(x, t)}{\theta} := 
+\delta^{t}_{\theta} u (x, t)$$
+and
+$$u_{xx}(x, t) \simeq \frac{u(x+h, t) - 2u(x, t) + u(x-h, t)}{h^{2}}
+:= \delta^{xx}_{h} u (x, t).$$
+where $h$ and $\theta$ are some positive 
+mesh size in space $h$ and in time, respectively. 
+
+Discrete domain is accordingly a grid of
+$$\{(jh, n\theta): j +1 \in \mathbb N, j\in \mathbb Z\}.$$
+We denote by $u_{j}^{n}$ is the FTCS solution at a grid point $(jh, n\theta)$, 
+then we shall have
+$$u_{t}(jh, n\theta) \simeq \frac{u_{j}^{n+1} - u_{j}^{n}}{\theta}, 
+\quad u_{xx}(jh, n\theta) \simeq 
+\frac{u_{j+1}^{n} - 2u_{j}^{n} + u_{j-1}^{n}}{h^{2}}.$$
+Plug it into the heat equation, we obtain discrete heat equation 
+\begin{equation}
+\label{eq:ftcs01}
+u_{j}^{n+1} = s u_{j+1}^{n} + (1-2s) u_{j}^{n} + s u_{j-1}^{n}, \quad \forall j\in \mathbb Z, n+1 \in \mathbb N. 
+\end{equation}
+with the initial condition
+\begin{equation}
+ \label{eq:ftcs00}
+ u_{j}^{0} = \phi(jh), \quad \forall j\in \mathbb Z.
+\end{equation}
+where 
+$$s = \frac{\theta}{h^{2}}.$$
+By the FTCS solution of heat equation, we mean 
+ $$\{u_{j}^{n}: \forall j\in \mathbb Z, n \in \mathbb N \}$$ 
+ satisfying
+ equations \eqref{eq:ftcs00} - \eqref{eq:ftcs01}.
+
+\subsection{Solution}
+
+In this below, we solve for FTCS solution in two steps. 
+First, we 
+use the technic of the separation in variable to 
+find all possible
+solutions satisfying \eqref{eq:ftcs01}. 
+Second step is to choose specific solution by fitting the initial condition \eqref{eq:ftcs00}.
+
+%\subsubsection{Solution}
+We first search for the solution of \eqref{eq:ftcs01} given by the product of 
+$j$-function and $n$-function:
+$$u_{j}^{n} = X_{j} T_{n}.$$
+Of course, any linear combination of such solutions shall give another solution of \eqref{eq:ftcs01}.
+
+Plug above form into \eqref{eq:ftcs01}, it writes
+$$\frac{T_{n+1}}{T_{n}} = 1 - 2s + s \frac{X_{j+1} - X_{j}}{X_{j}}.$$
+Note that, left hand side is a function of $n$ while right hand side is a function of $j$ for all $(n, j)$. Thus, to be equal, they must be equal to a constant, say $\xi$, i.e.
+$$\frac{T_{n+1}}{T_{n}} = 1 - 2s + s \frac{X_{j+1} - X_{j}}{X_{j}}: = \xi.$$
+Therefore, we have 
+$$T_{n} = \xi^{n} T_{0} = \xi^{n}, \forall n\in \mathbb N$$
+and
+$$
+1 - 2s + s \frac{X_{j+1} - X_{j}}{X_{j}}: = \xi, \forall j\in \mathbb Z.
+$$
+In the above, $T_{0} =1$ is assumed w.l.o.g. (why?) Another trick is to postulate $X$ in the form of
+$$
+X_{j} = (e^{ikh})^{j}
+$$
+for some $k\in \mathbb Z$. The reason is that, we expect the solution $X$ is in $L^{2}$, and our solution could be linear combination of the above Fourier basis functions.
+
+Then, we can solve for $\xi$ by plugging into $X$-equation above, that
+$$
+\xi(k) := \xi = 1 - 2s + 2s \cos khj.
+$$
+At last, we have general representation of the numerical solution:
+$$u_{j}^{n} =  \sum_{k\in \mathbb Z} b_{k} e^{ikhj} \xi^{n}(k).$$
+The rest is to determine coefficients 
+$(b_{k}: k\in \mathbb Z)$ from the initial condition using orthorgonal basis functions. 
+
+\subsection{Stability condition}
+From the above solution representation, we shall have 
+\begin{center}
+if $|\xi(k)| \le 1$ for all $k\in \mathbb Z$, then FTCS is stable.
+\end{center}
+Since $s>0$, the inequality $\xi(k) \le 1$ holds automatically.
+The lower bound of $\xi(k)$ is $1-4s$. So we shall require
+$-1 \le 1- 4s $
+for its stability, which at last gives the {\bf sufficient condition of the stability} 
+by
+$$s \le 1/2.$$
+
+The example discussed above indicates that the general procedure to determine stability in a diffusion or wave problem is to separate variables in the difference equation. For the time factor we obtain a simple equation with an amplication factor $\xi(k)$. 
+In the analysis above, we use $|\xi(k)| \le 1$ for the stability. More precisely, it can be shown that the correct condition necessary for stability is
+$$|\xi(k)| \le 1 + O(\theta), \forall k\in \mathbb Z.$$
+This is the {\bf von Neumann stability condition}.
+
+
+\end{document}

@@ -1,0 +1,186 @@
+\documentclass{article}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=blue,pdfstartview=FitH]{hyperref}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{5px}
+
+%\input{macrosblog}
+
+%%%%%%%%% For wordpress conversion
+
+\def\more{}
+
+\newif\ifblog
+\newif\iftex
+\blogfalse
+\textrue
+
+
+\usepackage{ulem}
+\def\em{\it}
+\def\emph#1{\textit{#1}}
+
+\def\image#1#2#3{\begin{center}\includegraphics[#1pt]{#3}\end{center}}
+
+\let\hrefnosnap=\href
+
+\newenvironment{btabular}[1]{\begin{tabular} {#1}}{\end{tabular}}
+
+\newenvironment{red}{\color{red}}{}
+\newenvironment{green}{\color{green}}{}
+\newenvironment{blue}{\color{blue}}{}
+
+%%%%%%%%% Typesetting shortcuts
+
+\def\B{\{0,1\}}
+\def\xor{\oplus}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\var{{\bf Var}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\def\Q{{\mathbb Q}}
+\def\eps{{\epsilon}}
+
+\def\bz{{\bf z}}
+
+\def\true{{\tt true}}
+\def\false{{\tt false}}
+
+%%%%%%%%% Theorems and proofs
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$} %\medskip} 
+%%%%%%%%% I added
+\newtheorem{assumption}{Assumption}
+%%%%%%%%
+
+\begin{document}
+
+
+\section{Abstract}
+\begin{itemize}
+\item derive Crank-Nicolson scheme
+\item prove unconditional stability
+\end{itemize}
+
+\section{Problem}
+We have seen that FTCS scheme is stable for the heat equation
+$$u_t = u_{xx}, \quad t>0, x\in \mathbb R$$
+with initial data
+$$
+u(x, 0) = \phi(x), \quad x\in \mathbb R.
+$$
+when $s= \frac{\theta}{h^{2}} < 1/2$ holds.
+Next, we are going to present Crank-Nicolson scheme and investigate its sability.
+
+
+
+
+\section{Analysis}
+\subsection{Solution}
+We recall that FFD in time is
+$$u_{t}(x, t) \simeq \frac{u(x, t+ \theta) - u(x, t)}{\theta} := 
+\delta^{t}_{\theta} u (x, t)$$
+and CFD2 in state is
+$$u_{xx}(x, t) \simeq \frac{u(x+h, t) - 2u(x, t) + u(x-h, t)}{h^{2}}
+:= \delta^{xx}_{h} u (x, t),$$
+where $h$ and $\theta$ are some positive 
+mesh size in space $h$ and in time, respectively. Again, we set
+$$s = \frac{\theta}{h^{2}}.$$
+
+Discrete domain is accordingly a grid of
+$$\{(jh, n\theta): j +1 \in \mathbb N, j\in \mathbb Z\}.$$
+Recall that FTCS is to find numerical values
+$u_{j}^{n}$ at a grid point $(jh, n\theta)$, 
+such that
+$$\delta_{\theta}^{t} u(jh, n\theta) \simeq 
+\frac{u_{j}^{n+1} - u_{j}^{n}}{\theta} := (\delta^{t}_{\theta} u)_{j}^{n}, 
+\quad 
+\delta^{xx}_{h}u(jh, n\theta) \simeq 
+\frac{u_{j+1}^{n} - 2u_{j}^{n} + u_{j-1}^{n}}{h^{2}} 
+:=( \delta^{xx}_{h} u)_{j}^{n}.$$
+Plug it into the heat equation, we obtain FTCS discrete heat equation 
+\begin{equation}
+\label{eq:ftcs01}
+u_{j}^{n+1} = s u_{j+1}^{n} + (1-2s) u_{j}^{n} + s u_{j-1}^{n}, \quad \forall j\in \mathbb Z, n+1 \in \mathbb N. 
+\end{equation}
+The Crank-Nicolson with parameter $\lambda$ (denoted by CS-$\lambda$) is 
+to find numerical values
+$u_{j}^{n}$ at each grid point $(jh, n\theta)$, 
+such that
+$$\delta_{\theta}^{t} u(jh, n\theta) \simeq  (\delta^{t}_{\theta} u)_{j}^{n}, 
+\quad 
+\delta^{xx}_{h}u(jh, n\theta) \simeq 
+(1 - \lambda)( \delta^{xx}_{h} u)_{j}^{n} + \lambda ( \delta^{xx} u)^{n+1}_{j}.$$
+Note that, if $\lambda =0$, then CS-$\lambda$ is FTCS discussed earlier.
+If $\lambda = 1$, then we call CS-$\lambda$ as BTCS (Backward in time and central in state). In this below, we only discuss for $\lambda \in (0,1]$.
+Plug it into the heat equation, we obtain 
+CS-$\lambda$ discrete heat equation 
+$$(\delta^{t}_{\theta} u)_{j}^{n} = (1 - \lambda)( \delta^{xx}_{h} u)_{j}^{n} + \lambda ( \delta^{xx} u)^{n+1}_{j},$$
+which is equivalent to
+\begin{equation}
+ \label{eq:cs01}
+ -s \lambda u_{j+1}^{n+1} + (1 + 2s\lambda) u_{j}^{n+1} - s\lambda u_{j-1}^{n+1} = s(1 - \lambda) u_{j+1}^{n} + (1 - 2s + 2s\lambda) u_{j}^{n} + 
+ s(1 - \lambda) u_{j-1}^{n}.
+ \end{equation}
+The numerical solution is to find $(u_{j}^{n})$ satisfying \eqref{eq:cs01}   ogether with the initial condition
+\begin{equation}
+ \label{eq:ftcs00}
+ u_{j}^{0} = \phi(jh), \quad \forall j\in \mathbb Z.
+\end{equation}
+
+ 
+
+\subsection{Stability}
+ 
+
+Again by using separation in variables, we deduce that
+$$T_{n} = \xi^{n}(k), X_{j} = e^{ijk h}$$
+where 
+\begin{equation}
+ \label{eq:xi}
+ \xi(k) = \frac{1 - 2(1-\lambda) s(1 - \cos k h)}{1+2\lambda s(1 - \cos k h)}.
+\end{equation}
+
+
+
+
+\begin{proposition}\label{p:satiblity01}
+ If $\lambda \in [1/2, 1]$, then CS-$\lambda$ is always stable. In other words, there is no restriction on the selection of $(h, \theta)$.
+\end{proposition}
+
+
+
+
+{\bf ex.} Write stencil and pseudocode with $\lambda = 1/2$. Explain why it is an implicit scheme while FTCS is explicit scheme.
+
+
+
+{\bf ex.} Prove the above Proposition \ref{p:satiblity01}.
+\end{document}
+
+

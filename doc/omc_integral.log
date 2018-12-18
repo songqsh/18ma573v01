@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.23)  18 DEC 2018 20:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.11.23)  18 DEC 2018 22:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -356,46 +356,41 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 230.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 189.
  [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 230.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 189.
 
 (./omc_integral.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 230.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 230.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 189.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 189.
 Package rerunfilecheck Info: File `omc_integral.out' has not changed.
-(rerunfilecheck)             Checksum: 57F0247D254C5520D4D0A2F5E13B99EC;311.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 230.
+(rerunfilecheck)             Checksum: 6925F04256BA2D859715E64282EBF912;426.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 189.
  ) 
 Here is how much of TeX's memory you used:
- 6031 strings out of 492649
- 87593 string characters out of 6129621
- 180735 words of memory out of 5000000
- 9845 multiletter control sequences out of 15000+600000
- 10710 words of font info for 42 fonts, out of 8000000 for 9000
+ 6013 strings out of 492649
+ 87448 string characters out of 6129621
+ 180738 words of memory out of 5000000
+ 9835 multiletter control sequences out of 15000+600000
+ 7309 words of font info for 29 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,8n,28p,266b,383s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,6n,28p,266b,383s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
 /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
-r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/
-local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/lo
-cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
-l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/t
-exlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texl
-ive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive
-/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/
-2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/20
-18/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/201
-8/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive
-/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on omc_integral.pdf (3 pages, 173066 bytes).
+usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
+r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/loc
+al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/
+texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/t
+exlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/tex
+live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texl
+ive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on omc_integral.pdf (3 pages, 125386 bytes).
 PDF statistics:
- 119 PDF objects out of 1000 (max. 8388607)
- 96 compressed objects within 1 object stream
+ 104 PDF objects out of 1000 (max. 8388607)
+ 86 compressed objects within 1 object stream
  12 named destinations out of 1000 (max. 500000)
- 49 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 65 words of extra memory for PDF output out of 10000 (max. 10000000)
 

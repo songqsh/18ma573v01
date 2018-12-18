@@ -1,6 +1,8 @@
 \BOOKMARK [1][-]{section.1}{Abstract}{}% 1
 \BOOKMARK [1][-]{section.2}{Problem}{}% 2
 \BOOKMARK [1][-]{section.3}{Analysis}{}% 3
-\BOOKMARK [1][-]{section.4}{Monte Carlo basics}{}% 4
-\BOOKMARK [2][-]{subsection.4.1}{Bias and MSE}{section.4}% 5
-\BOOKMARK [2][-]{subsection.4.2}{Ordinary Monte Carlo}{section.4}% 6
+\BOOKMARK [2][-]{subsection.3.1}{OMC by exact sampling}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{Evaluation of integral}{section.3}% 5
+\BOOKMARK [1][-]{section.4}{Others}{}% 6
+\BOOKMARK [2][-]{subsection.4.1}{Project 1}{section.4}% 7
+\BOOKMARK [2][-]{subsection.4.2}{Project 2}{section.4}% 8

@@ -138,7 +138,7 @@ $$\{X_i = h(Y_i): i = 1, 2, \ldots, n\};$$
 \end{itemize}
 
 \section{Others}
-\subsection{Project 1}
+\subsection{Homework}
  For the problem setup given above, 
 \begin{itemize}
  \item Find its convergence rate by the following procedure: \\
@@ -157,32 +157,6 @@ $$\{X_i = h(Y_i): i = 1, 2, \ldots, n\};$$
 $$\{(i, -\log_2 \sigma_i): i = 5, \ldots, 10\}.$$
 \end{itemize}
 
-\end{itemize}
-
-
-\subsection{Project 2}
-BS model assumes the distribution of stock as lognormal. In particular, with the parameters denoted by
-\begin{itemize}
- \item  $S(0)$: The initial stock price
- \item
- $S(T)$: The stock price at $T$
- \item
- $r$: interest rate
- \item $\sigma$: volatility
-\end{itemize}
-the exact value of call and put prices with maturity $T$ and $K$, denoted by $C_0$ and $P_0$, are given by
-$$C_0 = \mathbb E [e^{-rT} (S(T) - K)^+] = S_0  \Phi(d_1) - K e^{-rT} \Phi(d_2),$$
-and 
-$$P_0 = \mathbb E [e^{-rT} (S(T) - K)^-] = K e^{-rT} \Phi(- d_2) - S_0  \Phi(- d_1),$$
-where $d_i$ are given as
-$$d_1 = \frac{(r + \frac 1 2 \sigma^2) T - \ln \frac{K}{S_0}}{\sigma \sqrt T}, 
-\quad 
-d_2 = \frac{(r - \frac 1 2 \sigma^2) T - \ln \frac{K}{S_0}}{\sigma \sqrt T} = d_1 - \sigma \sqrt T.$$
-With parameters $$S(0) = 100, K = 110, r = 4.75\%, \sigma = 20\%, T = 1$$
-\begin{itemize}
- \item Find BS call and put price using BS formula above.
- \item Approximate BS call and put price using exact sampling omc.
- \item Compute theoretical convergence rate and demonstrate its convergence rate numerically.
 \end{itemize}
 
 

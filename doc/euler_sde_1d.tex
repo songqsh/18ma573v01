@@ -1,0 +1,143 @@
+\documentclass{article}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=blue,pdfstartview=FitH]{hyperref}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{5px}
+
+%\input{macrosblog}
+
+%%%%%%%%% For wordpress conversion
+
+\def\more{}
+
+\newif\ifblog
+\newif\iftex
+\blogfalse
+\textrue
+
+
+\usepackage{ulem}
+\def\em{\it}
+\def\emph#1{\textit{#1}}
+
+\def\image#1#2#3{\begin{center}\includegraphics[#1pt]{#3}\end{center}}
+
+\let\hrefnosnap=\href
+
+\newenvironment{btabular}[1]{\begin{tabular} {#1}}{\end{tabular}}
+
+\newenvironment{red}{\color{red}}{}
+\newenvironment{green}{\color{green}}{}
+\newenvironment{blue}{\color{blue}}{}
+
+%%%%%%%%% Typesetting shortcuts
+
+\def\B{\{0,1\}}
+\def\xor{\oplus}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\var{{\bf Var}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\def\Q{{\mathbb Q}}
+\def\eps{{\epsilon}}
+
+\def\bz{{\bf z}}
+
+\def\true{{\tt true}}
+\def\false{{\tt false}}
+
+%%%%%%%%% Theorems and proofs
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$} %\medskip} 
+%%%%%%%%% I added
+\newtheorem{assumption}{Assumption}
+%%%%%%%%
+
+\begin{document}
+
+\section{Abstract}
+You will learn
+\begin{itemize}
+ \item Euler approximation for the solution of 1-d SDE
+ \item Strong and weak convergence rate
+\end{itemize}
+
+\section{Problem}
+
+Consider 1-d SDE 
+$$d X_{t} = \mu(X_{t}) dt + \sigma(X_{t}) dW_{t}, X(0) = x_{0}$$
+We shall find, for some small step size $\delta$
+$$X^{\delta} (t) \approx X(t), \forall t\ge 0$$
+in some sense.
+
+\section{Analysis}
+\subsection{Euler scheme}
+The above SDE can be written as the following integral form:
+$$
+X_{t} = x_{0}  + \int_{0}^{t}  \mu(X_{s}) ds + \sigma(X_{s}) dW_{s}
+$$
+If we denote 
+$$X_{t,s} = X_{s} - X_{t},$$
+then 
+$$X_{t,t+\delta} = \int_{t}^{t+\delta}  \mu(X_{s}) ds + \sigma(X_{s}) dW_{s}.$$
+Ito formula says
+$$
+\mu(X_{s}) =
+\mu(X_{t}) + \int_{t}^{s} (\mu'(X_{r}) + \frac 1 2 \mu''(X_{r})) dr + \mu'(X_{r}) \sigma(X_{r}) dW_{r}
+$$
+and
+$$
+\sigma(X_{s}) =
+\sigma(X_{t}) + 
+\int_{t}^{s} (\sigma'(X_{r}) + \frac 1 2 \sigma''(X_{r})) dr + \sigma'(X_{r}) \sigma(X_{r}) dW_{r}.
+$$
+If $|s - t| < \delta$ and $\mu, \sigma \in C_{b}^{2}$, then
+\footnote{
+$f(\delta) = O^{\delta^{\gamma}}$ means 
+$|f(\delta)| \le K \delta^{\gamma}$
+for some random variable $K$ and all $\delta \in (0, \epsilon)$.
+}
+$$\mu(X_{s}) = \mu(X_{t}) + O(\delta^{1/2})$$
+and 
+$$\sigma(X_{s}) = \sigma(X_{t}) + O(\delta^{1/2}).$$
+Thus, $X_{t, t+\delta}$ can be rewritten as
+$$X_{t, t+\delta} = \mu(X_{t}) \delta + \sigma(X_{t}) W_{t,t+\delta} + O(\delta).
+$$
+or 
+$$
+X_{t, t+\delta} \approx \mu(X_{t}) \delta + \sigma(X_{t}) W_{t,t+\delta}.
+$$
+
+
+
+
+
+
+
+
+\end{document}

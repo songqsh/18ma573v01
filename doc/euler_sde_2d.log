@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.4)  31 DEC 2018 13:07
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.4)  31 DEC 2018 18:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**euler_sde_1d.tex
-(./euler_sde_1d.tex
+**euler_sde_2d.tex
+(./euler_sde_2d.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
@@ -274,8 +274,8 @@ Package: ulem 2012/05/18
 \c@example=\count113
 \c@assumption=\count114
 
-(./euler_sde_1d.aux)
-\openout1 = `euler_sde_1d.aux'.
+(./euler_sde_2d.aux)
+\openout1 = `euler_sde_2d.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
 LaTeX Font Info:    ... okay on input line 81.
@@ -306,9 +306,9 @@ LaTeX Info: Redefining \ref on input line 81.
 LaTeX Info: Redefining \pageref on input line 81.
 LaTeX Info: Redefining \nameref on input line 81.
 
-(./euler_sde_1d.out) (./euler_sde_1d.out)
+(./euler_sde_2d.out) (./euler_sde_2d.out)
 \@outlinefile=\write3
-\openout3 = `euler_sde_1d.out'.
+\openout3 = `euler_sde_2d.out'.
 
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
@@ -357,32 +357,39 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 93.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-(./euler_sde_1d.bbl (./euler_sde_1d.brf)
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+
+(./euler_sde_2d.bbl (./euler_sde_2d.brf)
 \tf@brf=\write4
-\openout4 = `euler_sde_1d.brf'.
+\openout4 = `euler_sde_2d.brf'.
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 217.
- [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 217.
- (./euler_sde_1d.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 217.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 217.
-Package rerunfilecheck Info: File `euler_sde_1d.out' has not changed.
-(rerunfilecheck)             Checksum: 439A1F70957C3D02CEB18D11C7D88B3D;442.
-Package rerunfilecheck Info: File `euler_sde_1d.brf' has not changed.
-(rerunfilecheck)             Checksum: 632CBA9F7E4EC780523F11A044EFD025;77.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 217.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 251.
+ [4]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 251.
+ (./euler_sde_2d.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 251.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 251.
+Package rerunfilecheck Info: File `euler_sde_2d.out' has not changed.
+(rerunfilecheck)             Checksum: C5FDB0A169E5260A74DB2F1B764E6042;567.
+
+
+Package rerunfilecheck Warning: File `euler_sde_2d.brf' has changed.
+(rerunfilecheck)                Rerun to get bibliographical references right.
+
+Package rerunfilecheck Info: Checksums for `euler_sde_2d.brf':
+(rerunfilecheck)             Before: 9752804E1BFE5658FE27183F255CAFAA;121
+(rerunfilecheck)             After:  2F4400BE48C8086922089474EB54EE10;121.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 251.
  ) 
 Here is how much of TeX's memory you used:
- 6320 strings out of 493089
- 90679 string characters out of 6134842
- 177598 words of memory out of 5000000
- 9723 multiletter control sequences out of 15000+600000
+ 6330 strings out of 493089
+ 90789 string characters out of 6134842
+ 176628 words of memory out of 5000000
+ 9729 multiletter control sequences out of 15000+600000
  10710 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,8n,28p,266b,323s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,8n,28p,266b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
@@ -402,10 +409,10 @@ e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2
 exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/te
 xmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/201
 5/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on euler_sde_1d.pdf (3 pages, 194724 bytes).
+Output written on euler_sde_2d.pdf (4 pages, 202375 bytes).
 PDF statistics:
- 141 PDF objects out of 1000 (max. 8388607)
- 115 compressed objects within 2 object streams
- 17 named destinations out of 1000 (max. 500000)
- 57 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 157 PDF objects out of 1000 (max. 8388607)
+ 130 compressed objects within 2 object streams
+ 21 named destinations out of 1000 (max. 500000)
+ 73 words of extra memory for PDF output out of 10000 (max. 10000000)
 

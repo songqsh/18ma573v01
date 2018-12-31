@@ -83,17 +83,51 @@
 \section{Abstract}
 You will learn
 \begin{itemize}
- \item Euler approximation for the solution of 1-d SDE
- \item Strong and weak convergence rate
+ \item Euler approximation for the solution of 2-d SDE
+ \item We shall adapt Euler scheme for 2-d for Heston
 \end{itemize}
 
 \section{Problem}
+\subsection{General problem}
+We will perform Euler scheme for the general 2-d SDE to be considered is given as
+$$d X_{t} = b(X_{t}) dt + \sigma(X_{t}) dW_{t}, X_{0} = x_{0}$$
+where $b: \mathbb R^{2} \mapsto \mathbb R^{2}$ is a smooth 
+vector field 
+on  $\mathbb R^{2}$,
+$\sigma: \mathbb R^{2} \mapsto \mathbb R^{2\times 2}$ is a smooth 
+matrix-valued function, $W$ is a 2-d standard Brownian motion, 
+and $x_{0}$ is the initial 2-d vector. It can be written by system of two 1-d SDEs as the following:
+$$
+\left\{
+\begin{array}
+ {ll}
+ d X_{1,t} = b_{1,t} dt + \sigma_{11,t}dW_{1,t} + \sigma_{12,t} dW_{2,t}, 
+ & X_{1,0} = x_{1,0}\\
+ d X_{2,t} = b_{2,t} dt + \sigma_{21,t}dW_{1,t} + \sigma_{22,t} dW_{2,t}, 
+ & X_{2,0} = x_{2,0}
+\end{array}
+\right.
+$$
+In the above, we assume $W_{1}$ and $W_{2}$ are two independent 1-d Brownian motions.
 
-Consider 1-d SDE 
-$$d X_{t} = \mu(X_{t}) dt + \sigma(X_{t}) dW_{t}, X(0) = x_{0}$$
-We shall find, for some small step size $\delta$
-$$X^{\delta} (t) \approx X(t), \forall t\ge 0$$
-in some sense.
+\subsection{Heston model}
+Heston model as a stochastic volatility model belongs to 2-d SDE in the above. However, the domain of the diffusion matrix $\sigma$ is not entire 2-d space. 
+
+In the Heston model, the dynamic involves two processes $(S_{t}, \nu_{t})$.
+More precisely, the asset price $S$ follows generalized geometric Brownian motion with random volatility process $\sqrt{\nu_{t}}$, i.e.  
+$$d S_{t} = r S_{t} dt + \sqrt{\nu_{t}} S_{t} dW_{1,t},$$
+while squared of volatility process $\nu$ follows CIR process
+$$ d \nu_{t} = \kappa (\theta - \nu_{t}) dt + \xi \sqrt{\nu_{t}} (\rho dW_{1,t} + 
+\bar \rho d W_{2,t})$$
+with $\rho^{2} + \bar \rho^{2} = 1.$ Feller condition for its existence of the solution is
+$$2\kappa \theta > \xi^{2}.$$
+
+Our goal is to adapt the above Euler scheme to Heston model with the following parameters:
+$$ S_{0} = 100, \nu(0) = .04, r = .05, \kappa = 1.2, 
+\theta = .04, \xi = .3, \rho = .5.$$
+The estimation of Call$(T =1, K = 100)$ is given as 10.3009, see Page 357 of \cite{Gla04}. We will use this for our comparison to our computation.
+
+
 
 \section{Analysis}
 \subsection{Euler scheme}

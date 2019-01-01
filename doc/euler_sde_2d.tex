@@ -142,12 +142,67 @@ $$
 \right.
 $$
 
+{\bf pseudocode} 
+With time\_grid := $(t_{0}< t_{1}<\cdots <t_{n})$
+
+euler\_2d(time\_grid):
+\begin{itemize}
+ \item generate $W_{1}$ and $W_{2}$ with time\_grid;
+ \item set initial $\hat X_{1,0} = x_{1,0}$ and $\hat X_{2,0} = x_{2,0}$;
+ \item for $i = 0, 1, \ldots, n-1$: \\
+ $$
+\left\{
+\begin{array}
+ {ll}
+ \hat X_{1, i+1} := 
+ \hat X_{1, i} + b_{1}(\hat X_{i}) \delta_{i} + 
+ \sigma_{11} (\hat X_{i}) \delta_{i} (W_{1}) + 
+ \sigma_{12}(\hat X_{i}) \delta_{i} (W_{2}) \\
+  \hat X_{2, i+1} := 
+ \hat X_{2, i} + b_{2}(\hat X_{i}) \delta_{i} + 
+ \sigma_{21} (\hat X_{i}) \delta_{i} (W_{1}) + 
+ \sigma_{22}(\hat X_{i}) \delta_{i} (W_{2}) 
+\end{array}
+\right.
+$$
+\end{itemize}
+
+
+
+
 In Heston model, the coefficients corresponds to, with $x = (x_{1}, x_{2})$
 $$b_{1}(x) = r x_{1}, b_{2}(x) = \kappa (\theta - x_{2}), 
 \sigma_{11} (x)  = \sqrt{x_{2}} x_{1}, \sigma_{12}(x) = 0,
 \sigma_{21}(x) = \xi \sqrt{x_{2}} \rho, \sigma_{22}(x) = \xi \sqrt{x_{2}} \bar \rho
 .$$
 However, the above scheme does not directly work out, since $X_{2, t}$ during approximation needs to take non-negative number to have $\sqrt{X_{2,t}}$ makes sense. Instead, we will replace it by $\sqrt{(X_{2,t})^{+}}$. 
+
+{\bf pseudocode} 
+With time\_grid := $(t_{0}< t_{1}<\cdots <t_{n})$
+
+euler\_2d(time\_grid):
+\begin{itemize}
+ \item generate $W_{1}$ and $W_{2}$ with time\_grid;
+ \item set initial $\hat X_{1,0} = x_{1,0}$ and $\hat X_{2,0} = x_{2,0}$;
+ \item for $i = 0, 1, \ldots, n-1$: \\
+ $$
+\left\{
+\begin{array}
+ {ll}
+ \hat X_{1, i+1} := 
+ \hat X_{1, i} + b_{1}(\hat X_{i}) \delta_{i} + 
+ \sigma_{11} (\hat X_{1,i}, \hat X_{2,i}^{+}) \delta_{i} (W_{1}) + 
+ \sigma_{12}(\hat X_{1,i}, \hat X_{2,i}^{+}) \delta_{i} (W_{2}) \\
+  \hat X_{2, i+1} := 
+ \hat X_{2, i} + b_{2}(\hat X_{i}) \delta_{i} + 
+ \sigma_{21} (\hat X_{1,i}, \hat X_{2,i}^{+}) \delta_{i} (W_{1}) + 
+ \sigma_{22}(\hat X_{1,i}, \hat X_{2,i}^{+}) \delta_{i} (W_{2}) 
+\end{array}
+\right.
+$$
+\end{itemize}
+
+
 
 
 

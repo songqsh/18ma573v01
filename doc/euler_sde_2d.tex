@@ -130,119 +130,29 @@ The estimation of Call$(T =1, K = 100)$ is given as 10.3009, see Page 357 of \ci
 
 
 \section{Analysis}
-\subsection{Euler scheme}
-The above SDE can be written as the following integral form:
+
+For the general problem with small $\delta>0$, we write Euler scheme as
 $$
-X_{t} = x_{0}  + \int_{0}^{t}  \mu(X_{s}) ds + \sigma(X_{s}) dW_{s}
+\left\{
+\begin{array}
+ {ll}
+ X_{1, t+\delta} \approx X_{1, t} + b_{1}(X_{t}) \delta + \sigma_{11} (X_{t}) W_{1, t, t+\delta} + \sigma_{12}(X_{t}) W_{2, t, t+\delta} \\
+ X_{2, t+\delta} \approx X_{2, t} + b_{2}(X_{t}) \delta + \sigma_{21} (X_{t}) W_{1, t, t+\delta} + \sigma_{22}(X_{t}) W_{2, t, t+\delta} 
+\end{array}
+\right.
 $$
-If we denote 
-$$X_{t,s} = X_{s} - X_{t},$$
-then 
-$$X_{t,t+\delta} = \int_{t}^{t+\delta}  \mu(X_{s}) ds + \sigma(X_{s}) dW_{s}.$$
-Ito formula says
-$$
-\mu(X_{s}) =
-\mu(X_{t}) + \int_{t}^{s} (\mu'(X_{r}) + \frac 1 2 \mu''(X_{r})) dr + \mu'(X_{r}) \sigma(X_{r}) dW_{r}
-$$
-and
-$$
-\sigma(X_{s}) =
-\sigma(X_{t}) + 
-\int_{t}^{s} (\sigma'(X_{r}) + \frac 1 2 \sigma''(X_{r})) dr + \sigma'(X_{r}) \sigma(X_{r}) dW_{r}.
-$$
-If $|s - t| < \delta$ and $\mu, \sigma \in C_{b}^{2}$, then
-\footnote{
-$f(\delta) = O^{\delta^{\gamma}}$ means 
-$|f(\delta)| \le K \delta^{\gamma}$
-for some random variable $K$ and all $\delta \in (0, \epsilon)$.
-}
-$$\mu(X_{s}) = \mu(X_{t}) + O(\delta^{1/2})$$
-and 
-$$\sigma(X_{s}) = \sigma(X_{t}) + O(\delta^{1/2}).$$
-Thus, $X_{t, t+\delta}$ can be rewritten as
-$$X_{t, t+\delta} = \mu(X_{t}) \delta + \sigma(X_{t}) W_{t,t+\delta} + O(\delta).
-$$
-or 
-$$
-X_{t, t+\delta} \approx \mu(X_{t}) \delta + \sigma(X_{t}) W_{t,t+\delta}.
-$$
-With the fact that $W_{i \delta, (i+1)\delta} \sim \sqrt \delta Z_{i}$ are iid normal random variables, we can write the following pseudocode.
-%\begin{itemize}
- %\item 
 
-pseudocode eulder\_1d\_path(T, N):
-\begin{itemize}
- \item partition $[0, T]$ equally by $\delta = T/N$;
- \item set initial $X_{0}^{\delta} = x_{0}$;
- \item For $i = 0, \ldots, N-1$,  with iid standard normal $Z_{i}$, 
-\begin{itemize}
- \item perform $X_{i+1}^{\delta} = X_{i}^{\delta} + \mu(X_{i}^{\delta}) \delta + 
- \sigma(X_{i}^{\delta}) \sqrt \delta Z_{i}.$
-\end{itemize}
-
-\end{itemize}
-%\end{itemize}
+In Heston model, the coefficients corresponds to, with $x = (x_{1}, x_{2})$
+$$b_{1}(x) = r x_{1}, b_{2}(x) = \kappa (\theta - x_{2}), 
+\sigma_{11} (x)  = \sqrt{x_{2}} x_{1}, \sigma_{12}(x) = 0,
+\sigma_{21}(x) = \xi \sqrt{x_{2}} \rho, \sigma_{22}(x) = \xi \sqrt{x_{2}} \bar \rho
+.$$
+However, the above scheme does not directly work out, since $X_{2, t}$ during approximation needs to take non-negative number to have $\sqrt{X_{2,t}}$ makes sense. Instead, we will replace it by $\sqrt{(X_{2,t})^{+}}$. 
 
 
-\subsection{Strong convergence rate}
 
-euler\_1d\_path(T, N) gives a sequence of numbers:
-$$(X_{0}^{\delta}, X_{1}^{\delta}, \ldots, X_{N}^{\delta}) := X^{\delta}.$$
-To compare with continuous true path $(X_{t}: t\in [0,T])$, we first do the piecewise linear interpolation of $X^{\delta}$, that is
-$$L^{\delta}_{t} = \frac{(i+1)\delta - t}{\delta} X_{i}^{\delta} 
-+ \frac{t - i\delta}{\delta} X_{i+1}^{\delta}, \ \hbox{ if } 
-i\delta \le t < (i+1)\delta.$$
 
-\begin{theorem}
- RMSE of Euler approximation 
- under uniform norm has convergence order $1/2$, i.e.
- $$\mathbb E \Big [\sup_{0 \le t\le T} |X_{t} - L_{t}^{\delta}| \Big] \le K \delta^{1/2}.$$
-\end{theorem}
-\begin{proof}
- see Theorem 2.7.3 of \cite{Mao07}.
-\end{proof}
 
-{\bf ex.} Show that 
-$$\mathbb E [ |X_{T} - L_{T}^{\delta} | ] \le K \delta^{1/2}.$$
-
-\subsubsection{A remark on constant interpolation of Euler solution}
-If we denote the piecewise constant interpolation by
-$$C_{t}^{\delta} = 
-X_{i}^{\delta}, \hbox{ if } i\delta \le t < (i+1) \delta, $$
-then the above strong convergence fails. Let's use the following example to illustrate this issue.
-
-Let $X = W$ be the Brownian motion itself.
-Euler yields
-$$C_{t}^{\delta} = W_{[t/\delta] \delta}.$$
-Therefore, 
-$$RMSE = 
-\mathbb E  \Big [\sup_{0 \le t\le T} |X_{t} - C_{t}^{\delta}| \Big] 
-= \mathbb E  \Big [\sup_{0 \le t\le T} |W_{t} - W_{[t/\delta]\delta}| \Big] 
-=  \mathbb E  \Big [\sup_{i = 0, \ldots, N-1} Y_{i} \Big],
-$$
-where 
-$$Y_{i} = \sup_{i\delta \le t < (i+1) \delta} |W_{t} - W_{i\delta}|.$$
-Note $Y_{i} \ge |W_{i\delta, (i+1)\delta}| := \sqrt \delta |Z_{i}|,$ then 
-$$RMSE \ge  \sqrt \delta  \mathbb E  
-\Big [\sup_{i = 0, \ldots, N-1} |Z_{i}| \Big ]
-> O(\delta^{1/2}).$$
-
-\subsection{Weak convergence rate}
-Given $Y^{\delta}$ and $X$, we define
-$$e^{g} (\delta) = \Big| \mathbb E[ g(X_{T})] - 
-\mathbb E[g (Y^{\delta}_{T})] \Big|.$$
-Then, we say $Y^{\delta}_{T} $ converges to $X_{T}$ weakly if
-$$\lim_{\delta\to 0} e^{g} (\delta) = 0, \ \forall g \in C_{b}.$$
-We say weak convergence rae is $\gamma$, if
-$$\exists K_{g} >0, \ s.t. \ e^{g}(\delta) \le K_{g} \delta^{\gamma}$$
-for any $g\in C_{b}$.
-
-\begin{theorem}
- $C^{\delta}$ covnverges to $X$ with $\gamma = 1.$
-\end{theorem}
-\begin{proof}
- see section 9.7 of  \cite{KP92}
-\end{proof}
 
 \bibliographystyle{plain}
 %\bibliographystyle{plainnat}

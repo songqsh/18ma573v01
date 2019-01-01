@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.4)  31 DEC 2018 18:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.4)  1 JAN 2019 06:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -357,62 +357,47 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 93.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
-
-(./euler_sde_2d.bbl (./euler_sde_2d.brf)
+{/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./eule
+r_sde_2d.bbl
+(./euler_sde_2d.brf)
 \tf@brf=\write4
 \openout4 = `euler_sde_2d.brf'.
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 251.
- [4]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 251.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 158.
+ [2]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 158.
  (./euler_sde_2d.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 251.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 251.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 158.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 158.
 Package rerunfilecheck Info: File `euler_sde_2d.out' has not changed.
-(rerunfilecheck)             Checksum: C5FDB0A169E5260A74DB2F1B764E6042;567.
-
-
-Package rerunfilecheck Warning: File `euler_sde_2d.brf' has changed.
-(rerunfilecheck)                Rerun to get bibliographical references right.
-
-Package rerunfilecheck Info: Checksums for `euler_sde_2d.brf':
-(rerunfilecheck)             Before: 9752804E1BFE5658FE27183F255CAFAA;121
-(rerunfilecheck)             After:  2F4400BE48C8086922089474EB54EE10;121.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 251.
+(rerunfilecheck)             Checksum: 7F6A90488B5C22B3721A3FF35A6FAED8;253.
+Package rerunfilecheck Info: File `euler_sde_2d.brf' has not changed.
+(rerunfilecheck)             Checksum: FF2D73C7224E8B1FE306629774815590;44.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 158.
  ) 
 Here is how much of TeX's memory you used:
- 6330 strings out of 493089
- 90789 string characters out of 6134842
- 176628 words of memory out of 5000000
- 9729 multiletter control sequences out of 15000+600000
- 10710 words of font info for 42 fonts, out of 8000000 for 9000
+ 6293 strings out of 493089
+ 90370 string characters out of 6134842
+ 176622 words of memory out of 5000000
+ 9710 multiletter control sequences out of 15000+600000
+ 7001 words of font info for 28 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,8n,28p,266b,382s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
-</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></us
-r/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/
-local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
-cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loca
-l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/
-texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/tex
-live/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texliv
-e/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2
-015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
-15/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2015
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2015/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2015/te
-xmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/201
-5/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on euler_sde_2d.pdf (4 pages, 202375 bytes).
+ 32i,7n,28p,266b,321s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+</usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></u
+sr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
+/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/lo
+cal/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loc
+al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local
+/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/
+texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on euler_sde_2d.pdf (2 pages, 108307 bytes).
 PDF statistics:
- 157 PDF objects out of 1000 (max. 8388607)
- 130 compressed objects within 2 object streams
- 21 named destinations out of 1000 (max. 500000)
- 73 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 86 PDF objects out of 1000 (max. 8388607)
+ 71 compressed objects within 1 object stream
+ 12 named destinations out of 1000 (max. 500000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

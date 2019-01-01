@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.4)  1 JAN 2019 07:44
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.4)  1 JAN 2019 08:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -385,10 +385,10 @@ Package rerunfilecheck Info: File `euler_sde_2d.brf' has not changed.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 216.
  ) 
 Here is how much of TeX's memory you used:
- 6296 strings out of 493089
- 90409 string characters out of 6134842
- 177622 words of memory out of 5000000
- 9712 multiletter control sequences out of 15000+600000
+ 6286 strings out of 493089
+ 90326 string characters out of 6134842
+ 177569 words of memory out of 5000000
+ 9704 multiletter control sequences out of 15000+600000
  7309 words of font info for 29 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  32i,8n,28p,266b,323s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -403,10 +403,10 @@ al/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
 l/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/
 texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/t
 exlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on euler_sde_2d.pdf (2 pages, 120843 bytes).
+Output written on euler_sde_2d.pdf (2 pages, 115701 bytes).
 PDF statistics:
- 90 PDF objects out of 1000 (max. 8388607)
- 74 compressed objects within 1 object stream
- 12 named destinations out of 1000 (max. 500000)
+ 88 PDF objects out of 1000 (max. 8388607)
+ 72 compressed objects within 1 object stream
+ 10 named destinations out of 1000 (max. 500000)
  41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

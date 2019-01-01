@@ -6,15 +6,4 @@ Paul Glasserman.
 \newblock {\em Monte Carlo Methods In Financial Engineering}.
 \newblock Springer, 2004.
 
-\bibitem{KP92}
-P.~E. Kloeden and E.~Platen.
-\newblock {\em Numerical solution of stochastic differential equations},
-  volume~23 of {\em Applications of Mathematics (New York)}.
-\newblock Springer-Verlag, Berlin, 1992.
-
-\bibitem{Mao07}
-Xuerong Mao.
-\newblock {\em Stochastic Differential Equations and Applications}.
-\newblock Horwood Pub Ltd, 2007.
-
 \end{thebibliography}

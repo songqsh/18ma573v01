@@ -1,0 +1,246 @@
+\RequirePackage[l2tabu]{nag}
+\documentclass[final, 12pt]{article}
+\usepackage[pdfpagelabels]{hyperref}
+	\hypersetup{
+		colorlinks   = true,
+		urlcolor    = blue
+		}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\pagestyle{myheadings} \pagenumbering{arabic}
+
+
+\topmargin=-0.5cm
+\textheight=23cm
+\oddsidemargin=-0.2truecm
+\evensidemargin=-0.2truecm
+\textwidth=17cm
+
+\begin{document}
+
+\flushleft
+Worcester Polytechnic Institute  \hfill Spring 2019 
+\linebreak
+Department of Mathematical Sciences
+\linebreak
+Professor: Qingshuo Song \\
+Teaching Assistant: TBD \\
+\vspace{50pt}
+\centering
+   {%\Large
+   { \textbf{Syllabus}}  \\ ${}$\\ 
+   %\huge
+   {
+    \textbf{Computational Methods of Financial Mathematics (MA573)}} \\ 
+\vspace{20pt}
+
+\vspace{20pt}
+\flushright
+\normalsize
+\vspace{10pt}
+
+
+\begin{enumerate}
+
+
+\item
+\textbf{Contact \& office hours:}
+\begin{tabbing}
+\textbf{Qingshuo Song} 
+Stratton Hall 202A  
+\qquad \qquad\qquad \qquad \qquad \qquad \= 508-831-6273\\
+Office hour: 
+Monday, 10:00 a.m. - 12:00 p.m. 
+\\
+and upon request per email: \href{mailto:qsong@wpi.edu}{qsong@wpi.edu}\\
+ \url{https://users.wpi.edu/~ssturm/}
+\end{tabbing}
+
+\begin{tabbing}
+	\textbf{Ming Min} \\
+	Stratton Hall 014 \qquad \qquad\qquad \qquad \qquad \qquad \= \\
+	Wednesday, 11:00 a.m. - 12:00 p.m.  \> Friday, 3:00 - 4:00 p.m. \\
+	\qquad and upon request per email: \href{mailto:mmin@wpi.edu}{mmin@wpi.edu}
+\end{tabbing}
+\vspace{5pt}
+
+\item
+\begin{tabbing}
+\textbf{Lecture}: \qquad \=Mon, Wed \qquad \=5:30-8:20 p.m.,\qquad\=Stratton Hall 202\=\\
+\end{tabbing}
+
+\vspace{5pt}
+
+\item
+\textbf{Literature}:\\
+
+\begin{itemize}
+\item Paul Glasserman, \textit{Monte Carlo Methods in Financial Engineering}. Springer 2004. \texttt{ISBN 978-0-387-00451-3}. Available electronically via the Gordon library, \url{http://au4sb9ax7m.search.serialssolutions.com/?V=1.0&L=AU4SB9AX7M&S=JCs&C=TC0001297708&T=marc&tab=BOOKS}.
+\end{itemize}
+
+\newpage
+
+Other recommended literature is
+\begin{itemize}
+\item Russel E. Caflisch, \textit{Monte Carlo and quasi-Monte-Carlo methods}. Acta Numerica 7 (1998), pp. 1--49. Available on the authors website \url{http://www.math.ucla.edu/~caflisch/Pubs/Pubs1995-1999/actaNumerica1998.pdf}.
+\item Daniel J. Duffy, \textit{Finite Difference Methods in Financial Engineering. A Partial Differential Approach}. Wiley 2006. \texttt{ISBN 978-0-470-85882-0}.
+\item Ali Hirsa, \textit{Computational Methods in Finance}. Chapman Hall/CRC 2013. \texttt{ISBN 978-1-4665-7604-9}.
+\item Domingo Tavella and Curt Randall, \textit{Pricing Financial Instruments. The Finite Difference Method}. Wiley 2000. \texttt{ISBN 978-0-471-1976-0}.
+\end{itemize}
+
+
+
+\vspace{5pt}
+%\newpage
+
+\item 
+\textbf{Resources}:
+
+\begin{itemize}
+	\item[$\bullet$] Homework problems, presentation slides and solutions to exams will be posted on Piazza, \url{https://piazza.com/wpi/spring2018/ma573/home}. Solutions to homework problems will not be published, but students who do not understand the problem after receiving the graded homework are \textit{highly encouraged} to discuss it in TA's and instructor's office hours. 
+	\item[$\bullet$]  A discussion forum will be hosted on Piazza, \url{https://piazza.com/wpi/spring2018/ma573/home}. The forum supports different formatting options, and in particular the inclusion of mathematical symbols via \LaTeX. See \url{https://piazza.com/help/formatting.html} for the general formatting guidelines and \url{https://en.wikibooks.org/wiki/LaTeX/Mathematics#Symbols} for a list of commands for specific symbols. While discussions (also about homework) are encouraged, please refrain from giving complete solutions of homework questions. Giving hints is okay, providing a solution is \textit{dishonest} and will be treated as violation of the academic honesty policy, see 12. Instructors will endorse correct student answers and  provide only answers if there is no student answer in reasonable time.
+	\item[$\bullet$]  Grades will be posted on Canvas, \url{https://canvas.wpi.edu}
+\end{itemize}
+
+%\newpage
+\vspace{5pt}
+
+\item
+\textbf{Course description}:
+
+Most realistic quantitative finance models are too complex to allow explicit analytic solutions and are solved by numerical computational methods. This course will give an introduction to different numerical techniques, notably Monte-Carlo methods and finite difference methods for partial differential equations (PDEs).
+
+Prerequisites: Foundations of financial mathematics at the level of MA 571, probability theory at the level of MA 528 and basic programming skills.
+
+\newpage
+%\vspace{5pt}
+
+\item
+\textbf{Preliminary course outline}:\\
+\begin{itemize}
+\item[] \textbf{Topic 1}: Monte Carlo Methods\\
+\begin{itemize}
+	\item[$\bullet$] Random number generation
+	\item[$\bullet$] Sample path generation
+	\item[$\bullet$] Variance reduction techniques
+	\item[$\bullet$] Numerical schemes for stochastic differential equations (SDEs)	
+\end{itemize}
+\item[] \textbf{Topic 2}: Finite Difference Schemes\\
+\begin{itemize}
+	\item[$\bullet$] Feynman--Kac formula and parabolic partial differential equations (PDEs)
+	\item[$\bullet$] Explicit, implicit and Crank--Nicholson finite difference schemes
+	\item[$\bullet$] Fixed and free boundary value problems
+	\item[$\bullet$] Convergence and stability analysis
+\end{itemize}
+\item[] \textbf{Topic 3}: Transform Methods (as time permits)\\
+\begin{itemize}
+	\item[$\bullet$] Fast Fourier transform
+\end{itemize}
+\end{itemize}
+
+\vspace{5pt}
+%\newpage
+
+
+\item 
+\textbf{Programming Language}: We will use Python 2.7 with Numpy for implementation. The language can be downloaded at \url{https://www.continuum.io/downloads}. An introductory crash course will be given by \textbf{Siamak Ghorbani Faal} (\href{mailto:sghorbanifaal@wpi.edu}{sghorbanifaal@wpi.edu}). Details TBA. % on \textbf{Monday, January 23, 3-5pm} in \textbf{HL 234} (participation voluntarily).
+
+
+\vspace{5pt}
+
+
+\item
+\textbf{Homework}: There will be two homework sets per week. One (usually shorter one) will be posted on Monday and will be due on Wednesday in class. The second (usually loner one) is posted on Wednesday and is due Monday, in class. The problem sets will be posted on \url{https://piazza.com/wpi/spring2018/ma573/home}.
+
+Guidelines:
+\begin{itemize}
+ \item[$\bullet$] Late submission policy: One extension of the deadline will be granted as long as they are requested per email at least 24 hours in advance. All other late homework (when submitted before the corrected homeworks of the other students are returned) will be graded with a reduction by 50\% of the points.
+ \item[$\bullet$] The homework submission has not only to contain the result, but carefully developed calculations and proofs that can actually be followed by a reader.
+ \item[$\bullet$] Whereas the discussion of homework problems in (small) groups is not only okay but encouraged, the final write-up has to be done individually. Any copying of homework is a violation of the academic honesty policy (see 12.) and will be treated as such.
+ \item[$\bullet$] Many homework problems will require (moderate) programming skills. Coding can be done in any higher programming language (while instructor will focus in class on \texttt{python}).
+ \end{itemize}
+
+\vspace{5pt}
+
+
+\item
+\textbf{Participation}: To check active participation, at the beginning of each class three questions about the content of the last class will be given. Students can volunteer to give a 1--5 min. presentation to clarify the notions and issues prompted. Two presentations per student are required to earn full participation credit. An alternative way to get participation credit is to provide meaningful, detailed answers to questions asked on piazza (two detailed answers can make up for one presentation missed).
+
+
+\vspace{5pt}
+
+
+\item
+\textbf{Bloomberg}: We will relying on Bloomberg terminals. You will be assigned video lectures from Bloomberg Market Concepts to learn the basics about the terminals. Students who have already a Bloomberg certification can ask for partial exemption of this requirement.
+
+
+\vspace{5pt}
+
+
+\item
+\textbf{Project}: There will be one final project for the  class, going in more depth about practical problems and relying on the use of Bloomberg terminals. Project will be done in teams of 2 students (exceptionally 3). The problem sets will be posted on \url{https://piazza.com/wpi/spring2018/ma573/home}.
+
+\vspace{5pt}
+%\newpage
+
+\item
+\textbf{Exam}: There will be one midterm exam consisting of a 50 minute written test. The exam will be closed books, but a (simple) calculator and one double-sided "cheat sheet" will be allowed.
+\begin{tabbing}
+\textbf{Midterm exam}\\
+ Wednesday, April 4, 5:30 p.m.\\
+Stratton Hall 202 
+\end{tabbing}
+
+%\vspace{5pt}
+
+\item
+\textbf{Grading}: The total score will be composed from the individual scores by using the following weighting: 
+\begin{itemize}
+\item[$\bullet$] 15\% Participation (Presentation \& Piazza Q\&A)
+\item[$\bullet$] 30\% Problem sets \quad --- \quad lowest result will be dropped
+\item[$\bullet$] 5\% Bloomberg Market Concepts
+\item[$\bullet$] 25\% Project
+\item[$\bullet$] 25\% Midterm exam
+\end{itemize}
+
+The achievement of the following total score will be sufficient for the stated letter grades:
+\begin{itemize}
+\item[$\bullet$] A \qquad 85\%
+\item[$\bullet$] B \qquad 75\%
+\item[$\bullet$] C \qquad 60\%
+\end{itemize}
+
+\vspace{5pt}
+
+\item
+\textbf{Capstone Projects}: Students who want to do their capstone project in MA 573 are expected to sign up in the first class or contact the instructor per email by  Wednesday, March 14, 2018. Capstone projects are undertaken in groups of 2 or 3 students and will cover methods not discussed in regular class. Capstone students are expected (1) to learn a new method, (2) apply it to a real-world problem, (3) write a report about the method and its application ($\sim$ 10-15 pages) and (4) give a presentation in class end of the term ($\sim$ 20 min).
+
+\vspace{5pt}
+
+
+\item \textbf{Writing Center}: The WPI Writing Center is a great resource to get help in writing your reports and project reports. This is in particular recommended for students for whom English is not the first language or that are aware that they have difficulties in scientific writing. Please sign up way ahead to be sure that you get an appointment.
+
+Located on the first floor of Daniels Hall (room 116), the Writing Center is a valuable resource for helping you improve as a writer. Writing Center tutors are your peers (other undergraduate and graduate students at WPI) who are experienced writers themselves and who enjoy helping others tackle thinking and writing problems. Although a single tutoring session should never be seen as a quick fix for any writing difficulty, these sessions can help you identify your strengths and weaknesses, and teach you strategies for organizing, revising, and editing your course papers, projects, and presentations. Writing Center services are free and open to all WPI students in all classes, and tutors will happily work with you at any stage of the writing process (early brainstorming, revising a draft, polishing sentences in a final draft). Visit the Writing Center website \url{http://wpi.edu/+writing} to make an appointment.
+
+
+\vspace{5pt}
+
+
+\item \textbf{Students with disabilities}: If you need course adaptations or accommodations because of a disability, or if you have medical information to share with me that may impact your performance or participation in this course, please make an appointment with me as soon as possible.
+
+If you have approved accommodations, please go to the Exam Proctoring Center (EPC) in Morgan Hall to pick up Letters of Accommodation.
+
+If you have not already done so, students with disabilities who need to utilize accommodations in this class are encouraged to contact the Office of Disability Services (ODS) as soon as possible to ensure that such accommodations are implemented in a timely fashion. This office can be contacted via email: \url{DisabilityServices@wpi.edu}, via phone: (508) 831-4908, or in person: 137 Daniels Hall. 
+
+\vspace{5pt}
+
+\item \textbf{Academic honesty}: Each student is expected to familiarize him/herself with WPI's Academic Honesty policies which can be found at \url{https://www.wpi.edu/about/policies/academic-integrity}. All acts of fabrication, plagiarism, cheating, and facilitation will be prosecuted according to the university's policy. If you are ever unsure as to whether your intended actions are considered academically honest or not, please contact me.
+
+\vfill
+\flushright
+ Enjoy the Course!
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,9 @@
+\def\cprime{$'$}
+\begin{thebibliography}{1}
+
+\bibitem{Gla04}
+Paul Glasserman.
+\newblock {\em Monte Carlo Methods In Financial Engineering}.
+\newblock Springer, 2004.
+
+\end{thebibliography}

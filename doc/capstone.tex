@@ -81,44 +81,63 @@
 \begin{document}
 
 \begin{center}
- MA573 - Capstone Project
+ MA573 - Final Project
 \end{center}
 
-Please address the following tasks step by step on the CEV model
-	\[
-	dS_t = rS_t \, dt + \sigma S_t^\beta S_t \, dW_t
-	\]
-	for a Brownian motion $W_t$, $\sigma > 0$ and $\beta \in [-1,0]$. 
+%\item 
+This project should be done in a group of 2-3 people, and 
+independently uploaded to your GitHub at last.
+Your analytic (non-coding) part shall be strictly in the range of 3-8 pages. Unless you have strong motivation to explore something more valuable, your final project 
+shall address the following tasks step by step: 
 	
 
 \begin{itemize}
-\item Design price engines for European call and put options using 
+\item Pull out real market data of call/put option prices 
+underlying some of your carefully chosen stocks. Bloomberg terminal is 
+available in the department for this step.
+\item Pick up your favorite underlying stock model.
+\item Design a price engine for European call and put options using 
 any of your favorite methods. 
-\item Using at least two different methods, 
-design price engine for your favorite discretely monitored 
-barrier option pricing using both crude Monte Carlo method 
-and  importance sampling and compare their performances. 
-
-\item Calibrate CEV model to the 
-market data of call/put option prices 
-underlying some of your carefully chosen stocks.
+\item Calibrate the model to the 
+market data. 
 The choice of the error function to be minimized is totally up to your taste.
 For simplicity, we treat the market call/put prices are European style.
 
 \item 
-To get a sense of validity of the result, use your price engine on your calibrated model 
-for the barrier option, and compare the results 
-with its corresponding market price. 
+To get a sense of validity of the result, 
+\begin{itemize}
+ \item Pull out real market data of some exotic option prices with the same underlying from Bloomberg;
+ \item Design corresponding price engine for the exotic option on your stock model;
+ \item Reproduce the exotic option price with your calibrated model and compare with real data. Explain if your model is a good fit or not.
+\end{itemize}
+\end{itemize}
 
-\item Note that the stock and ETF put/call options (except Index options) are American style. Design price engines for American call and put options and repeat all above calibration procedure.
-Compare the outcome with the one with European pricing.
+
+Regarding the capstone project, a collaborative group of 2-3 can be formed, and the following issues shall be addressed additionally: 
+\begin{itemize}
+ 
+\item Using at least two different methods, 
+design the price engine for your selected exotic option. 
+\begin{itemize}
+ \item  For instance, you can design discretely monitored 
+barrier option price engine using both crude Monte Carlo method 
+and  importance sampling and compare their performances. 
+It could merit a bonus point if you clearly address either theoretically or 
+numerically on the optimality of your probability measure in the importance sampling.
+\item {\it Performance comparison} among different pricing methods shall be up to you, but it's crucial.
+This may include analysis on convergence, convergence rate, stability, etc. 
+In case the mathematical rigorous proof is not available, 
+ one shall demonstrate your point heuristically with some experimental evidence, 
+ for instance, using computer running time, statistical estimate of variance, etc.
+
+\item Each member of capstone project team shall give a 20-minutes presentation.
+\end{itemize}
 
 \end{itemize}
 
+
 Some general suggestions are given in this below:
 \begin{itemize}
-\item 
-This project should be done independently and shall be uploaded to your github at last.
 
 \item You can (and should)  consult the (on- and off-line) literature and cite it correctly.
 
@@ -132,11 +151,19 @@ Not only code and numerical results, but also the analytical part is essential.
 Literature review, theoretical background, 
 mathematical derivation, and pseudo-codes must be included. 
 
-\item {\it Performance comparison} among different pricing methods shall be up to you, but it's crucial.
-This may include analysis on convergence, convergence rate, stability, etc. 
-In case the mathematical rigorous proof is not available, 
- one shall demonstrate your point heuristically with some experimental evidence, 
- for instance, using computer running time, statistical estimate of variance, etc.
+\end{itemize}
+
+Some technical guidelines are given in addition:
+\begin{itemize}
+ \item You are strongly 
+ encouraged to recover or outperform 
+ some numerical results from the existing literature. 
+ This could be bonus points. Some references will be gradually
+ introduced in the class.
+ 
+ 
+\item Note that the stock and ETF put/call options (except Index options) are American styles. People normally take European option pricing engine for the simplicity  for the use of calibration. One may curious how it would be differ if one use American option pricing engine for call/put.
+
 
 
  \item Although specified in the above explicitly, 
@@ -145,9 +172,7 @@ In case the mathematical rigorous proof is not available,
  if you have strong tendency to do so.
  
   
- \item You are encouraged to recover or outperform (bonus points) some numerical results from the existing literature;
- 
- \item To get better performance in calibration, you
+ \item To get better a performance in calibration, you
 may want to try different types of error functions, or different ticks of stocks. 
 
 \item Last but not least, if you have new findings, you shall highlight on it. 
@@ -155,9 +180,9 @@ Some hypothetical observations are given here:
 \begin{itemize}
  \item "More liquid stocks, better fit to CEV model", 
  \item 
-"Financial sector stocks have better fit to CEV than energy sector stocks", 
+"Financial sector stocks have better fit to Heston model than energy sector stocks", 
 \item 
-"CEV is not effective model whenever stock market is about big shock", 
+"SABR is not effective model whenever stock market is about big shock", 
 \item 
 "Finite difference method outperforms Monte Carlo method",
 \item 
@@ -172,13 +197,22 @@ the paper XXX",
 \item ...
 \end{itemize}
 
+
+
+
+
 That means, your "new findings" could be some empirical conclusion 
 or theoretical conclusion, as long as it has not been discussed in our class. 
 But if you could replicate an idea or observation from some existing literature with proper citation, we still count this as your "new findings" .
 \end{itemize}
 
-Look forward to your new findings!
+Be creative and look forward to your new findings!
 
 
+
+%\bibliographystyle{plain}
+%\bibliographystyle{plainnat}
+%\bibliographystyle{apalike}
+%\bibliography{/Users/songqsh/Dropbox/R/refs}
 
 \end{document}

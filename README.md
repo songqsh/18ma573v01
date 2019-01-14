@@ -40,7 +40,7 @@ __BSM option price__
 - Importing modules - 
     [md](https://github.com/songqsh/18ma573pub/blob/master/src/import_modules.md)
     
-## Calibration
+__Calibration__
 
 - volatility smile  - [ipynb](src/implied_vol.ipynb)
 - bsm_calibration - [ipynb](src/bsm_calibration.ipynb)

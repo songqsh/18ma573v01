@@ -42,7 +42,6 @@ __BSM option price__
     
 ## Calibration
 
-- BSM formula -  [ipynb](src/bsm_formula.ipynb)
 - volatility smile  - [ipynb](src/implied_vol.ipynb)
 - bsm_calibration - [ipynb](src/bsm_calibration.ipynb)
     

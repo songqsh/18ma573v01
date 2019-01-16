@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{ex\_fd}
+    \title{ftcs\_stability\_heat\_toy}
     
     
     
@@ -280,14 +280,87 @@
     
 
     
-    \section{Ex.}\label{ex.}
+    \section{FTCS on a toy problem}\label{ftcs-on-a-toy-problem}
 
-Suppose that we wish to approximate the first derivative \(u'(x)\) of a
-very smooth function with an error of only \(O(h)^4\), where \(h\) is
-the step size. Which difference approximation could we use?
+    \subsection{Absttract}\label{absttract}
 
-    \textbf{Soln}
-\[f'(x) \simeq \frac 2 3 \delta_{\pm h} f(x) - \frac 1 {12} \delta_{\pm 2h} f(x).\]
+FTCS stands for the finite difference operator of Forward in time and
+central in space. - We will perform FTCS on a simple heat equation -
+Handwriting computation is possible for FTCS solution - Demonstrate the
+dangerous instability issue
+
+    \subsection{Problem}\label{problem}
+
+Our heat equation is \[u_t = u_{xx}, \quad t\ge 0; x\in \mathbb R
+\] with initial condition \[u(x,0) = \phi(x), \quad x\in \mathbb R.\] In
+the above, \(\phi\) is a given function and \(u\) is unknown function we
+seek for. For instance, let's say \(\phi\) is a continuous function
+given by \[\phi(x) = \cos(c x) I_{(- \pi/2c, + \pi/2c)}(x).
+\]
+
+    \textbf{ex.} plot the function \(\phi\)
+
+    It is known that the above heat equation has unique solution. Now, we
+are going to use FTCS to approximate the solution with some grid
+\((\Delta x, \Delta t)\).
+
+    \subsection{Anal}\label{anal}
+
+    The \textbf{Grid} with \((\Delta x, \Delta t)\) is given by countable
+points
+\[\{(j \Delta x, n \Delta t): j \in \mathbb Z, n \in \mathbb Z^+\}.\]
+
+    The output of FTCS scheme are numbers \(u_j^n\) on each grid point
+above.
+
+    Our objective is to produce FTCS solution \((u_j^n)\), such that their
+linear interpolation is close to the true solution \(u\) on the domain,
+i.e.
+
+\begin{itemize}
+\tightlist
+\item
+  \(u_j^n \sim u(j\Delta x, n \Delta t)\)
+\item
+  If \((x, t)\) is in some grid satisying
+  \[j\Delta x \le x < (j+1) \Delta x, \quad n\Delta t \le t (n+1) \Delta t,\]
+  then the linear interpolation
+  \[\hat u(x, t) = p_j(x) q_n(t) u_j^n + p_{j+1}(x) q_n(t) u_{j+1}^n + p_j(x) q_{n+1})(t) u_j^{n+1} + p_{j+1}(x)q_{n+1}(t) u_{j+1}^{n+1}\]
+  with interpolation coefficients
+  \[p_j(x) = \frac{(j+1)\Delta x - x}{\Delta x}, \quad p_{j+1}(x) = 1 - p_j(x)\]
+  and
+  \[q_n(t) = \frac{(n+1)\Delta t - t}{\Delta t}, \quad q_{n+1}(t) = 1 - q_n(t)\]
+  satisfies \[\hat u(x, t) \sim u(x, t).\]
+\end{itemize}
+
+    \textbf{FTCS} scheme suggests the discretization of PDE in the following
+manner:
+\[\frac{u_j^{n+1} - u_j^n}{\Delta t} = \frac{u_{j+1}^n - 2 u_j^n + u_{j-1}^n}{(\Delta x)^2}\]
+with initialization \[u_j^0 = \phi(j\Delta x, 0).\] Then, the above FTCS
+can be implemented from \(n = 0, 1, 2, \ldots\) iteratively.
+
+    To see that, we simplify it with the following setup:
+\[\Delta = (\Delta x)^2, \frac{\pi}{2c} < \Delta x.\] Then, FTCS
+suggests to do the following iterations:
+
+\begin{itemize}
+\tightlist
+\item
+  compute \(u_j^0\) for all \(j\)
+\item
+  given \((u_j^n: j\in \mathbb Z)\) for some \(n\), compoute \(n+1\)
+  level by \[u_j^{n+1} = u_{j+1}^n -  u_j^n + u_{j-1}^n.\]
+\end{itemize}
+
+    The comutation yields that
+
+\[n = 2: \quad ... 0 \quad 1 \quad -2 \quad +3 \quad -2 \quad 1 \quad 0 ...\]
+\[n = 1: \quad ... 0 \quad 0 \quad +1 \quad -1 \quad +1 \quad 0 \quad 0 ...\]
+\[n = 0: \quad ... 0 \quad 0 \quad +0 \quad +1 \quad +0 \quad 0 \quad 0 ...\]
+
+    \textbf{hw}
+
+Find out \(\max_{j\in \mathbb Z} |u_j^{10}|\).
 
 
     % Add a bibliography block to the postdoc

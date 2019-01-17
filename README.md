@@ -84,8 +84,8 @@ __Calibration__
     - (hw) FTCS stability questions - [ipynb](src/hw_ftcs_stability.ipynb)
 - BTCS and CRR model - [pdf](doc/fdm_crr.pdf)
     - (demo) [ipynb](https://github.com/songqsh/MA6628v02/blob/master/L05s01.ipynb)
-- [FTCS and stability: Heat equation](./src/ftcs_stability_heat_1d.ipynb)
-- [BTCS and stability: Heat equation](./src/btcs_stability_heat_1d.ipynb)
+- FTCS and stability: Heat equation with Cauchy-Dirichlet data - [ipynb](./src/ftcs_stability_heat_1d.ipynb)
+- BTCS and stability: Heat equation - [ipynb](./src/btcs_stability_heat_1d.ipynb)
 
 
 # Problem Sets

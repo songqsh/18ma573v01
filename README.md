@@ -42,8 +42,10 @@ __BSM option price__
     
 __Calibration__
 
-- volatility smile  - [ipynb](src/implied_vol.ipynb)
-- bsm_calibration - [ipynb](src/bsm_calibration.ipynb)
+- implied volatility - [ipynb](https://nbviewer.jupyter.org/github/songqsh/18ma573pub/blob/master/src/implied_vol_v01.ipynb)
+    - (hw) IV - [ipynb](https://nbviewer.jupyter.org/github/songqsh/18ma573pub/blob/master/src/hw_implied_vol.ipynb)
+- volatility smile  - [ipynb](https://nbviewer.jupyter.org/github/songqsh/18ma573pub/blob/master/src/vol_smile.ipynb)
+- bsm_calibration - [ipynb](https://nbviewer.jupyter.org/github/songqsh/18ma573pub/blob/master/src/bsm_calibration.ipynb)
     
     
 ## Monte Carlo basics

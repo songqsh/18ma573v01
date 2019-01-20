@@ -21,10 +21,11 @@ Below, we will discuss some simple coding related to finite difference operators
 
 - First order finite difference operators - [ipynb](src/first_fd_v01.ipynb)
 - Convergence order - [ipynb](src/ffd_convergence_rate_v01.ipynb)
-- (hw) Second order finite difference operator - [ipynb](src/second_fd.ipynb) 
-    - soln - [ipynb](src/second_fd_soln.ipynb)
-- (hw) Finite difference operator with higher order convergence - [ipynb](src/ex_fd.ipynb)
-    - soln - [ipynb](src/ex_fd_soln.ipynb)
+    - (hw) Second order finite difference operator - [ipynb](src/second_fd.ipynb) 
+        - soln - [ipynb](src/second_fd_soln.ipynb)
+    - (hw) Finite difference operator with higher order convergence - [ipynb](src/ex_fd.ipynb)
+        - soln - [ipynb](src/ex_fd_soln.ipynb)
+    - (ex) FD - [ipynb](doc/fd_ex.pdf)
 
 
 __BSM option price__

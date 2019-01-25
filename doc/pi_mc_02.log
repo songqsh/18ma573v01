@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.4)  24 JAN 2019 17:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.11.4)  24 JAN 2019 16:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**pi_mc_01.tex
-(./pi_mc_01.tex
+**pi_mc_02.tex
+(./pi_mc_02.tex
 LaTeX2e <2015/01/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 (/usr/local/texlive/2015/texmf-dist/tex/latex/base/article.cls
@@ -270,8 +270,8 @@ Package: ulem 2012/05/18
 \c@theorem=\count112
 \c@example=\count113
 \c@assumption=\count114
- (./pi_mc_01.aux)
-\openout1 = `pi_mc_01.aux'.
+ (./pi_mc_02.aux)
+\openout1 = `pi_mc_02.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
 LaTeX Font Info:    ... okay on input line 81.
@@ -301,9 +301,9 @@ LaTeX Info: Redefining \ref on input line 81.
 LaTeX Info: Redefining \pageref on input line 81.
 LaTeX Info: Redefining \nameref on input line 81.
 
-(./pi_mc_01.out) (./pi_mc_01.out)
+(./pi_mc_02.out) (./pi_mc_02.out)
 \@outlinefile=\write3
-\openout3 = `pi_mc_01.out'.
+\openout3 = `pi_mc_02.out'.
 
 
 (/usr/local/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
@@ -353,16 +353,16 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/usr/local/texlive/2015/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 221.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 197.
  [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 221.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 197.
 
-(./pi_mc_01.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 221.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 221.
-Package rerunfilecheck Info: File `pi_mc_01.out' has not changed.
+(./pi_mc_02.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 197.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 197.
+Package rerunfilecheck Info: File `pi_mc_02.out' has not changed.
 (rerunfilecheck)             Checksum: 57F0247D254C5520D4D0A2F5E13B99EC;311.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 221.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 197.
  ) 
 Here is how much of TeX's memory you used:
  6089 strings out of 493089
@@ -389,7 +389,7 @@ ive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive
 15/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/201
 5/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive
 /2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on pi_mc_01.pdf (3 pages, 170652 bytes).
+Output written on pi_mc_02.pdf (3 pages, 168052 bytes).
 PDF statistics:
  119 PDF objects out of 1000 (max. 8388607)
  96 compressed objects within 1 object stream

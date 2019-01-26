@@ -1,0 +1,141 @@
+\documentclass{article}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=blue,pdfstartview=FitH]{hyperref}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{5px}
+
+%\input{macrosblog}
+
+%%%%%%%%% For wordpress conversion
+
+\def\more{}
+
+\newif\ifblog
+\newif\iftex
+\blogfalse
+\textrue
+
+
+\usepackage{ulem}
+\def\em{\it}
+\def\emph#1{\textit{#1}}
+
+\def\image#1#2#3{\begin{center}\includegraphics[#1pt]{#3}\end{center}}
+
+\let\hrefnosnap=\href
+
+\newenvironment{btabular}[1]{\begin{tabular} {#1}}{\end{tabular}}
+
+\newenvironment{red}{\color{red}}{}
+\newenvironment{green}{\color{green}}{}
+\newenvironment{blue}{\color{blue}}{}
+
+%%%%%%%%% Typesetting shortcuts
+
+\def\B{\{0,1\}}
+\def\xor{\oplus}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\var{{\bf Var}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\def\Q{{\mathbb Q}}
+\def\eps{{\epsilon}}
+
+\def\bz{{\bf z}}
+
+\def\true{{\tt true}}
+\def\false{{\tt false}}
+
+%%%%%%%%% Theorems and proofs
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$} %\medskip} 
+%%%%%%%%% I added
+\newtheorem{assumption}{Assumption}
+%%%%%%%%
+
+\begin{document}
+
+\section{Abstract}
+You will learn
+\begin{itemize}
+ \item taking definite integral by ordinary Monte Carlo (OMC)
+ \item exact sampling with python provided random number generators
+\end{itemize}
+
+\section{Problem}
+Our goal is to compute, using OMC by exact sampling
+$$\alpha = \int_0^1 h(x) dx$$
+where
+$$h(x) = 100 \cdot I_{(0, 1/100]}(x) + 1\cdot I_{(1/100, 1)} (x).$$
+The exact value shall be 
+$$\alpha = 1.98.$$
+
+\section{Analysis}
+
+\subsection{OMC by exact sampling}
+To estimate 
+$$\alpha = \mathbb E[X], \quad X \sim p(x)$$
+one can use random number generator by computer (if possible)
+$$\{iid \ X_i \sim p(x): i = 1, 2, \ldots, n, \} .$$
+Then, one can compute the approximation of $\alpha$ by
+$$\hat \alpha_n = \frac 1 n \sum_{i=1}^n X_i.$$
+
+We say $\hat \alpha_n$ as OMC by exact sampling, since the sample $X_i$
+produced by random generator has the same distribution as true distribution $X$, 
+i.e. 
+$$X_i \sim X, \ \forall i.$$
+The properties of the OMC by exact sampling are listed below:
+\begin{itemize}
+ \item $X_1$ its self can be treated as an unbiased MC, because
+ $$\mathbb E [X_1] = \alpha.$$
+ However, MSE is big, ie.
+ $$MSE(X_1) = Var(X) = \int x^2 p(x) dx.$$
+ \item $\hat \alpha_n$ is consistent almost surely due by LLN, i.e.
+ $$\hat \alpha_n \to \alpha, \hbox{ almost surely as } n\to \infty.$$
+ Moreover, $\hat \alpha_n$ is unbiased too, and
+ $$MSE(\hat \alpha_n) = Var(\hat \alpha_n) = \frac 1 n Var(X) \to 0.$$
+\end{itemize}
+
+\subsection{Evaluation of integral}
+Back to our example, we write
+$$\alpha = \mathbb E[X] = \mathbb E[h(Y)],$$
+where $X = h(Y)$ and $Y\sim U(0,1)$.
+In other words, although $X$-sampling is not directly available in python, 
+one can use $U(0,1)$ random generator (see {\it numpy.random.uniform}) to produce $Y_i$, then compute $h(Y_i)$ for 
+the sample $X_i$.
+
+Pseudocode for omc\_integral(n):
+\begin{itemize}
+\item Generate $n$ iid samples $$\{iid \ Y_i\sim U(0,1): i = 1, 2, \ldots, n\};$$
+\item Compute $n$ $X$ samples by
+$$\{X_i = h(Y_i): i = 1, 2, \ldots, n\};$$
+\item Take average of $X_i$'s
+\end{itemize}
+
+
+\end{document}

@@ -51,7 +51,7 @@ __Calibration__
     
 __Monte Carlo basics__
 
-- Monte Carlo basics: Estimating $\pi$ - [pdf](./doc/pi_mc_01.pdf)
+- Monte Carlo basics: Estimating $\pi$ - [pdf](./doc/pi_mc_01.pdf) - [ipynb](https://github.com/songqsh/18ma573pub/blob/master/src/pi.ipynb)
 - [Ordinary Monte Carlo: Definite integral](./doc/omc_integral.pdf)
 - [Exact sampling of Brownian motion](./src/bm_1d.ipynb)
     - [Prj: BSM + exact value + exact sampling](./doc/omc_integral_prj.pdf)

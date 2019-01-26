@@ -52,16 +52,25 @@ __Calibration__
 __Monte Carlo basics__
 
 - Monte Carlo basics: Estimating $\pi$ - [pdf](./doc/pi_mc_01.pdf) - [ipynb](https://github.com/songqsh/18ma573pub/blob/master/src/pi.ipynb)
-- [Ordinary Monte Carlo: Definite integral](./doc/omc_integral.pdf)
+    - (hw) [ipynb](https://github.com/songqsh/18ma573pub/blob/master/src/hw_mc_01.ipynb)
+    - (hw) [ipynb](https://github.com/songqsh/18ma573pub/blob/master/src/hw_mc_02.ipynb)
+- Ordinary Monte Carlo: Definite integral [pdf](https://github.com/songqsh/18ma573pub/blob/master/doc/omc_integral_01.pdf)
+    - (hw) [pdf](https://github.com/songqsh/18ma573pub/blob/master/doc/hw_omc_integral.pdf)
+    
+__Exact sampling__    
 - [Exact sampling of Brownian motion](./src/bm_1d.ipynb)
     - [Prj: BSM + exact value + exact sampling](./doc/omc_integral_prj.pdf)
 - [Inverse transform method + Importance sampling: Definite integral](./doc/is_it_integral.pdf)
+
+__Euler scheme__
 - 1d Euler scheme - [pdf](./doc/euler_sde_1d.pdf)
     - Demo: bm_1d_path - [ipynb](./src/bm_1d_path.ipynb)
     - Demo: euler_1d_path - [ipynb](./src/euler_1d.ipynb)
 - 2d Euler scheme - [pdf](./doc/euler_sde_2d.pdf)
     - Call on Heston model - [ipynb](./src/euler_heston.ipynb)
     - Heston European option data cook - [ipynb](./src/heston_data_cook.ipynb)
+    
+__Finite difference method__    
 - [Demonstration of Stability for FTCS](./doc/stability_ftcs_01.pdf)
 - [Stability analysis of FTCS](./doc/stability_ftcs_02.pdf)
 - [Crank-Nicolson scheme](./doc/stability_ftcs_03.pdf)

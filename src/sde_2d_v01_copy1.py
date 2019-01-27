@@ -154,31 +154,19 @@ if __name__ == '__main__':
     test SDE_2d.euler
     plot paths
     =============='''
-    sde1 = Sde_2d(init_state=[100., .04], 
-                  drift=lambda x:[.01, .03], 
-                  vol= lambda x:[[.1, 0],[0, .1]]
-                  )
+    sde1 = Sde_2d()
     grid = np.linspace(0,1,100)
-    num_path = 5
-    path = [sde1.euler(grid) for i in range(num_path)] #path container
-    
     
     plt.figure()
-    
-    
-    plt.subplot(2,1,1)
     plt.title('Sde_2d.euler')
-    plt.ylabel('1st state')
-    for i in range(num_path):
-        plt.plot(grid, path[i][0]) #first dimension of the path
+    for i in range(5):
+        xh = sde1.euler(grid)
+        plt.subplot(2,1,1)
+        plt.plot(grid, xh[0]) #x[0]
+        plt.subplot(2,1,2)
+        plt.plot(grid, xh[1]) #x[1]
 
-    plt.subplot(2,1,2)
-    plt.ylabel('2nd state')
-    for i in range(num_path):
-        plt.plot(grid, path[i][1]) #first dimension of the path
-
-
-
+    
     
     '''==========
     test plot euler paths for Heston
@@ -187,20 +175,14 @@ if __name__ == '__main__':
                      kappa=1.2, theta=.04, xi=.3, rho=.5)
     
     grid = np.linspace(0,1,100)
-    num_path = 5
-    path = [heston1.euler(grid) for i in range(num_path)] #path container
-    
     
     plt.figure()
+    plt.title('test Heston.euler')
+    for i in range(5):
+        xh = heston1.euler(grid)
+        plt.subplot(2,1,1)
+        plt.plot(grid, xh[0]) #x[0]
+        plt.subplot(2,1,2)
+        plt.plot(grid, xh[1]) #x[1]
     
-    
-    plt.subplot(2,1,1)
-    plt.title('Henston.euler')
-    plt.ylabel('1st state')
-    for i in range(num_path):
-        plt.plot(grid, path[i][0]) #first dimension of the path
 
-    plt.subplot(2,1,2)
-    plt.ylabel('2nd state')
-    for i in range(num_path):
-        plt.plot(grid, path[i][1]) #first dimension of the path

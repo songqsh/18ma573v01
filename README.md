@@ -70,6 +70,9 @@ __Euler scheme__
     - Call on Heston model - [ipynb](./src/euler_heston.ipynb)
     - Heston European option data cook - [ipynb](./src/heston_data_cook.ipynb)
     
+__Path dependent otpions__
+- BSM geometric asian option - [ipynb](src/bsm_geometric_asian_option.ipynb)
+    
 __Finite difference method__    
 - [Demonstration of Stability for FTCS](./doc/stability_ftcs_01.pdf)
 - [Stability analysis of FTCS](./doc/stability_ftcs_02.pdf)

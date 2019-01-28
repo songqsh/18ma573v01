@@ -128,6 +128,40 @@ Gbm_1d.bsm_price = bsm_price
 
 
 
+
+'''==============
+BSM geometric asian option price
+==============='''
+
+def bsm_geometric_asian_price(self,
+                          otype = 1,
+                          strike = 110.,
+                          maturity = 1, 
+                          num_step = 4 #patition number
+                          ):
+    vanilla_opt = VanillaOption(otype, strike, maturity) 
+    r = self.drift_ratio 
+    sigma = self.vol_ratio
+    
+    mu = r - sigma**2/2
+    mu_hat = mu/2
+    sigma_hat_sqr = sigma**2*(num_step*2+1)/6/(num_step+1)
+
+    sigma_hat = np.sqrt(sigma_hat_sqr)
+    r_hat = mu_hat + sigma_hat**2/2
+
+    
+    gbm1 = Gbm_1d(init_state=self.init_state, 
+                  drift_ratio=r_hat, vol_ratio=sigma_hat)
+    return gbm1.bsm_price(vanilla_opt)*np.exp((r_hat -r)*maturity)
+
+Gbm_1d.bsm_geometric_asian_price = bsm_geometric_asian_price
+
+
+
+
+
+
 # In[5]:
 
 if __name__ == '__main__':    
@@ -172,4 +206,19 @@ if __name__ == '__main__':
     
     print('>>>>>>>>>>call value is ' + str(gbm1.bsm_price(option1)))
     option2 = VanillaOption(otype=-1)
-    print('>>>>>>>>>>put value is ' + str(gbm1.bsm_price(option2)))        
+    print('>>>>>>>>>>put value is ' + str(gbm1.bsm_price(option2)))    
+
+
+    
+    '''==============
+    Test BSM geometric asian option price
+    ==============='''
+    gbm1 = Gbm_1d(init_state=100., drift_ratio=0.0475, vol_ratio=.2)
+    gao1 = gbm1.bsm_geometric_asian_price(
+                              otype = 1,
+                              strike = 110.,
+                              maturity = 1, 
+                              num_step = 4
+                              )
+    print('>>>>>> geometric call option value is ' + str(gao1))
+    

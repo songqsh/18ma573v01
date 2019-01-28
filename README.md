@@ -72,7 +72,6 @@ __Euler scheme__
     
 __Path dependent otpions__
 - BSM geometric asian option - [ipynb](src/bsm_geometric_asian_option.ipynb)
-- Path class - [ipynb](./src/path_nd_v01.ipynb)
     
 __Finite difference method__    
 - [Demonstration of Stability for FTCS](./doc/stability_ftcs_01.pdf)

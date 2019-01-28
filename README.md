@@ -71,7 +71,7 @@ __Euler scheme__
     - Heston European option data cook - [ipynb](./src/heston_data_cook.ipynb)
     
 __Path dependent otpions__
-- BSM geometric asian option 
+- BSM geometric asian option - [ipynb](src/bsm_geometric_asian_option.ipynb)
 - Path class - [ipynb](./src/path_nd_v01.ipynb)
     
 __Finite difference method__    

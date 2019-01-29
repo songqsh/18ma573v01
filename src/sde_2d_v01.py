@@ -108,6 +108,12 @@ class Heston(Sde_2d):
                  rho = .5,
                 ):
         self.init_state = init_state
+        self.r = r
+        self.kappa = kappa
+        self.theta = theta
+        self.xi = xi
+        self.rho = rho
+        
         rho_bar = np.sqrt(1 - rho**2)
         self.drift = lambda x: [r*x[0], kappa*(theta -x[1])]
         self.vol = lambda x: [

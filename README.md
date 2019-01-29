@@ -72,6 +72,7 @@ __Euler scheme__
     
 __Path dependent otpions__
 - BSM geometric asian option - [ipynb](src/bsm_geometric_asian_option.ipynb)
+- geometric asian option + Heston + Euler - [ipynb](src/heston_geometric_asian_euler.ipynb)
     
 __Finite difference method__    
 - [Demonstration of Stability for FTCS](./doc/stability_ftcs_01.pdf)

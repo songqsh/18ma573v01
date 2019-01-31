@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{bsm\_geometric\_asian\_option}
+    \title{hw\_bsm\_geometric\_asian\_option}
     
     
     
@@ -280,113 +280,25 @@
     
 
     
-    \textbf{Black and Scholes formula}
-
-    Recall that BS model assumes the distribution of stock as lognormal. In
-particular, it writes
-\[\ln \frac{S(T)}{S(0)} \sim \mathcal N((r - \frac 1 2 \sigma^2) T, \sigma^2 T)\]
-with respect to risk neutral measure. In the above, the parameters stand
-for
-
-\begin{itemize}
+    \begin{itemize}
 \tightlist
 \item
-  \(S(0)\): The initial stock price
+  Make sure 'Gbm\_1d' class is already in the module
+  'src/sde\_1d\_v01.py'.
 \item
-  \(S(T)\): The stock price at \(T\)
-\item
-  \(r\): interest rate
-\item
-  \(\sigma\): volatility
+  Create a method 'bsm\_geometric\_asian\_price' in the class 'Gbm\_1d',
+  then test the following code
 \end{itemize}
 
-The call and put price with maturity \(T\) and \(K\) will be known as
-\(C_0\) and \(P_0\) given as below:
-\[C_0 = \mathbb E [e^{-rT} (S(T) - K)^+] = S_0 e^{-\delta T} \Phi(d_1) - K e^{-rT} \Phi(d_2),\]
-and
-\[P_0 = \mathbb E [e^{-rT} (S(T) - K)^-] = K e^{-rT} \Phi(- d_2) - S_0 e^{-\delta T} \Phi(- d_1),\]
-where \(d_i\) are given as
-\[d_1 = \frac{(r + \frac 1 2 \sigma^2) T - \ln \frac{K}{S_0}}{\sigma \sqrt T},\]
-and
-\[d_2 = \frac{(r - \frac 1 2 \sigma^2) T - \ln \frac{K}{S_0}}{\sigma \sqrt T},\]
-
-    \textbf{Ex.}
-
-Find BS call and put price for the given parameters below
-
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}An example is given here}
-        \PY{n}{s0} \PY{o}{=} \PY{l+m+mf}{100.0}
-        \PY{n}{K} \PY{o}{=} \PY{l+m+mf}{110.0}
-        \PY{n}{r}\PY{o}{=}\PY{l+m+mf}{0.0475}
-        \PY{n}{sigma} \PY{o}{=} \PY{l+m+mf}{0.20}
-        \PY{n}{maturity} \PY{o}{=} \PY{l+m+mf}{1.}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
         \PY{k+kn}{from} \PY{n+nn}{contract\PYZus{}v01} \PY{k}{import} \PY{n}{VanillaOption}
         \PY{k+kn}{from} \PY{n+nn}{sde\PYZus{}1d\PYZus{}v01} \PY{k}{import} \PY{n}{Sde\PYZus{}1d}\PY{p}{,} \PY{n}{Gbm\PYZus{}1d}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}initiate option and sde instances}
-        \PY{n}{option1} \PY{o}{=} \PY{n}{VanillaOption}\PY{p}{(}\PY{n}{otype} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{strike} \PY{o}{=} \PY{l+m+mf}{110.}\PY{p}{,} \PY{n}{maturity}\PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{market\PYZus{}price}\PY{o}{=}\PY{l+m+mf}{15.}\PY{p}{)} 
-        \PY{n}{option2} \PY{o}{=} \PY{n}{VanillaOption}\PY{p}{(}\PY{n}{otype} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{strike} \PY{o}{=} \PY{l+m+mf}{110.}\PY{p}{,} \PY{n}{maturity}\PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{market\PYZus{}price}\PY{o}{=}\PY{l+m+mf}{15.}\PY{p}{)} 
-        \PY{n}{gbm1} \PY{o}{=} \PY{n}{Gbm\PYZus{}1d}\PY{p}{(}\PY{n}{init\PYZus{}state}\PY{o}{=}\PY{l+m+mf}{100.}\PY{p}{,} \PY{n}{drift\PYZus{}ratio}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{0475}\PY{p}{,} \PY{n}{vol\PYZus{}ratio}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{)}
-        \PY{n}{maturity} \PY{o}{=} \PY{n}{option1}\PY{o}{.}\PY{n}{maturity}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{} Exact call value is }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{gbm1}\PY{o}{.}\PY{n}{bsm\PYZus{}price}\PY{p}{(}\PY{n}{option1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{} Exact put value is }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{gbm1}\PY{o}{.}\PY{n}{bsm\PYZus{}price}\PY{p}{(}\PY{n}{option2}\PY{p}{)}\PY{p}{)}\PY{p}{)}  
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
->>>>>>>>>> Exact call value is 5.943273183452838
->>>>>>>>>> Exact put value is 10.84042522804176
-
-    \end{Verbatim}
-
-    \textbf{Application to Geometric asian option price}
-
-    Geometric asian call option with maturity \(T\) and strick \(K\) has its
-pay off as \[C(T) = (A(T) - K)^+,\] where \(A(T)\) is geometric average
-of the stock price at times \(0 \le t_1 < t_2, \ldots, < t_n = T\), i.e.
-\[A(T) = (S(t_1)S(t_2) \ldots S(t_n))^{1/n}.\]
-
-The call price can be thus written by
-\[C_0 = \mathbb E [e^{-rT} (A(T) - K)^+].\]
-
-    We set \(t_0 = 0\). Under the above BS model, one can show that the
-distribution of \(A(T)\) is again a lognormal in the form of
-\[\ln \frac{A(T)}{S(0)} \sim \mathcal N(\hat \mu T, \hat \sigma^2 T),\]
-where \[\mu = r - \frac 1 2 \sigma^2\]
-\[\hat \mu T = \frac \mu n \sum_{i=1}^n t_i,\]
-\[\hat \sigma^2 T = \frac{\sigma^2}{n^2} \sum_{j=0}^{n-1} (n-j)^2 (t_{j+1} - t_j).\]
-
-    Therefore, we can rewrite the price formula as, with
-\(Z\sim \mathcal N(0,1)\)
-\[C_0 = \mathbb E[ e^{-rT} (S(0) e^{\hat \mu T + \hat \sigma \sqrt T Z} - K)^+] 
-= e^{(\hat r - r) T} BSM(S(0), \hat r, \hat \sigma, K, T, call)\] with
-\[\hat r = \hat \mu + \frac 1 2 \hat \sigma^2.\]
-
-    Put formula is similar.
-\[P_0 = \mathbb E[ e^{-rT} (S(0) e^{\hat \mu T + \hat \sigma \sqrt T Z} - K)^-] 
-= e^{(\hat r - r) T} BSM(S(0), \hat r, \hat \sigma, K, T, put)\]
-
-    \textbf{ex}
-
-If the time stepsize is uniform \(m\) partitions on \([0, T]\) for the
-geometric asian option, the average points include actually \(n = m+1\)
-points: \[t_i = \frac T m  (i-1), \ \forall i = 1, 2, \ldots m+1,\] Note
-that \(t_1 = 0\). Then one can determine \(\hat r\) and \(\hat \mu\) as
-follows: \[\hat \mu = \frac{\mu}{2}\]
-\[\hat \sigma^2 = \frac{\sigma^2 (2m+1)}{6(m+1)}\]
-\[\hat r = \hat \mu + \frac 1 2 \hat \sigma^2.\]
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}==============}
+{\color{incolor}In [{\color{incolor}2}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}==============}
         \PY{l+s+sd}{Test BSM geometric asian option price}
         \PY{l+s+sd}{===============\PYZsq{}\PYZsq{}\PYZsq{}}
         \PY{n}{gbm1} \PY{o}{=} \PY{n}{Gbm\PYZus{}1d}\PY{p}{(}\PY{n}{init\PYZus{}state}\PY{o}{=}\PY{l+m+mf}{100.}\PY{p}{,} \PY{n}{drift\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.0475}\PY{p}{,} \PY{n}{vol\PYZus{}ratio}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{)}
@@ -396,14 +308,61 @@ follows: \[\hat \mu = \frac{\mu}{2}\]
                                   \PY{n}{maturity} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} 
                                   \PY{n}{num\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{4}
                                   \PY{p}{)}
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{} geometric call option value is }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{gao1}\PY{p}{)}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(\PYZsq{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{} geometric call option value is \PYZsq{} + str(gao1))}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  In the previous section, we have pretty good result on BSM model
+  calibration on the call price of 2-month maturity, see
+  \href{https://nbviewer.jupyter.org/github/songqsh/18ma573pub/blob/master/src/bsm_calibration.ipynb}{here}.
+  We say it is pretty good calibration because the calibrated volatility
+  reproduce 2-mon call price close to corresponding market data. A
+  further step to verify its performance is to use the same calibrated
+  volatility to reproduce other option prices available in the market.
+  In this below, we are going to reproduce geometric asian options given
+  below and justify the calibrated model performance by comparing with
+  the market data.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}===============}
+        \PY{l+s+sd}{market available data}
+        \PY{l+s+sd}{==================\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{c+c1}{\PYZsh{}paras for stock price}
+        \PY{n}{spot} \PY{o}{=} \PY{l+m+mi}{100}
+        \PY{n}{rate} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{05}
+        
+        \PY{c+c1}{\PYZsh{}paras for geometric asian options}
+        \PY{n}{otype} \PY{o}{=} \PY{l+m+mi}{1}
+        \PY{n}{maturity} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{/}\PY{l+m+mi}{12}
+        \PY{n}{num\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{8}
+        \PY{n}{strike\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{97}\PY{p}{,} \PY{l+m+mi}{99}\PY{p}{,} \PY{l+m+mi}{101}\PY{p}{,} \PY{l+m+mi}{103}\PY{p}{]}
+        \PY{n}{market\PYZus{}price\PYZus{}list} \PY{o}{=} \PY{p}{[}
+            \PY{l+m+mf}{3.7925736094875964}\PY{p}{,}
+            \PY{l+m+mf}{2.5429985313737244}\PY{p}{,}
+            \PY{l+m+mf}{1.6026613800895042}\PY{p}{,}
+            \PY{l+m+mf}{0.9366198675047346}\PY{p}{]}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
->>>>>> geometric call option value is 1.607164727431734
+{\color{incolor}In [{\color{incolor}4}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}================}
+        \PY{l+s+sd}{calibrated volatility based on vanilla options}
+        \PY{l+s+sd}{==================\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{n}{calibarated\PYZus{}vol} \PY{o}{=} \PY{l+m+mf}{0.18109375000000028}
+\end{Verbatim}
 
-    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}========}
+        \PY{l+s+sd}{your code is in this below}
+        \PY{l+s+sd}{============\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{k}{pass}
+\end{Verbatim}
+
 
 
     % Add a bibliography block to the postdoc

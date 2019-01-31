@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{ftcs\_stability\_heat\_toy}
+    \title{bsm\_geometric\_asian\_option}
     
     
     
@@ -280,87 +280,130 @@
     
 
     
-    \section{FTCS on a toy problem}\label{ftcs-on-a-toy-problem}
+    \textbf{Black and Scholes formula}
 
-    \subsection{Absttract}\label{absttract}
-
-FTCS stands for the finite difference operator of Forward in time and
-central in space. - We will perform FTCS on a simple heat equation -
-Handwriting computation is possible for FTCS solution - Demonstrate the
-dangerous instability issue
-
-    \subsection{Problem}\label{problem}
-
-Our heat equation is \[u_t = u_{xx}, \quad t\ge 0; x\in \mathbb R
-\] with initial condition \[u(x,0) = \phi(x), \quad x\in \mathbb R.\] In
-the above, \(\phi\) is a given function and \(u\) is unknown function we
-seek for. For instance, let's say \(\phi\) is a continuous function
-given by \[\phi(x) = \cos(c x) I_{(- \pi/2c, + \pi/2c)}(x).
-\]
-
-    \textbf{ex.} plot the function \(\phi\)
-
-    It is known that the above heat equation has unique solution. Now, we
-are going to use FTCS to approximate the solution with some grid
-\((\Delta x, \Delta t)\).
-
-    \subsection{Anal}\label{anal}
-
-    The \textbf{Grid} with \((\Delta x, \Delta t)\) is given by countable
-points
-\[\{(j \Delta x, n \Delta t): j \in \mathbb Z, n \in \mathbb Z^+\}.\]
-
-    The output of FTCS scheme are numbers \(u_j^n\) on each grid point
-above.
-
-    Our objective is to produce FTCS solution \((u_j^n)\), such that their
-linear interpolation is close to the true solution \(u\) on the domain,
-i.e.
+    Recall that BS model assumes the distribution of stock as lognormal. In
+particular, it writes
+\[\ln \frac{S(T)}{S(0)} \sim \mathcal N((r - \frac 1 2 \sigma^2) T, \sigma^2 T)\]
+with respect to risk neutral measure. In the above, the parameters stand
+for
 
 \begin{itemize}
 \tightlist
 \item
-  \(u_j^n \sim u(j\Delta x, n \Delta t)\)
+  \(S(0)\): The initial stock price
 \item
-  If \((x, t)\) is in some grid satisying
-  \[j\Delta x \le x < (j+1) \Delta x, \quad n\Delta t \le t (n+1) \Delta t,\]
-  then the linear interpolation
-  \[\hat u(x, t) = p_j(x) q_n(t) u_j^n + p_{j+1}(x) q_n(t) u_{j+1}^n + p_j(x) q_{n+1})(t) u_j^{n+1} + p_{j+1}(x)q_{n+1}(t) u_{j+1}^{n+1}\]
-  with interpolation coefficients
-  \[p_j(x) = \frac{(j+1)\Delta x - x}{\Delta x}, \quad p_{j+1}(x) = 1 - p_j(x)\]
-  and
-  \[q_n(t) = \frac{(n+1)\Delta t - t}{\Delta t}, \quad q_{n+1}(t) = 1 - q_n(t)\]
-  satisfies \[\hat u(x, t) \sim u(x, t).\]
+  \(S(T)\): The stock price at \(T\)
+\item
+  \(r\): interest rate
+\item
+  \(\sigma\): volatility
 \end{itemize}
 
-    \textbf{FTCS} scheme suggests the discretization of PDE in the following
-manner:
-\[\frac{u_j^{n+1} - u_j^n}{\Delta t} = \frac{u_{j+1}^n - 2 u_j^n + u_{j-1}^n}{(\Delta x)^2}\]
-with initialization \[u_j^0 = \phi(j\Delta x, 0).\] Then, the above FTCS
-can be implemented from \(n = 0, 1, 2, \ldots\) iteratively.
+The call and put price with maturity \(T\) and \(K\) will be known as
+\(C_0\) and \(P_0\) given as below:
+\[C_0 = \mathbb E [e^{-rT} (S(T) - K)^+] = S_0 e^{-\delta T} \Phi(d_1) - K e^{-rT} \Phi(d_2),\]
+and
+\[P_0 = \mathbb E [e^{-rT} (S(T) - K)^-] = K e^{-rT} \Phi(- d_2) - S_0 e^{-\delta T} \Phi(- d_1),\]
+where \(d_i\) are given as
+\[d_1 = \frac{(r + \frac 1 2 \sigma^2) T - \ln \frac{K}{S_0}}{\sigma \sqrt T},\]
+and
+\[d_2 = \frac{(r - \frac 1 2 \sigma^2) T - \ln \frac{K}{S_0}}{\sigma \sqrt T},\]
 
-    To see that, we simplify it with the following setup:
-\[\Delta = (\Delta x)^2, \frac{\pi}{2c} < \Delta x.\] Then, FTCS
-suggests to do the following iterations:
+    \textbf{Ex.}
 
-\begin{itemize}
-\tightlist
-\item
-  compute \(u_j^0\) for all \(j\)
-\item
-  given \((u_j^n: j\in \mathbb Z)\) for some \(n\), compoute \(n+1\)
-  level by \[u_j^{n+1} = u_{j+1}^n -  u_j^n + u_{j-1}^n.\]
-\end{itemize}
+Find BS call and put price for the given parameters below
 
-    The comutation yields that
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{c+c1}{\PYZsh{}An example is given here}
+        \PY{n}{s0} \PY{o}{=} \PY{l+m+mf}{100.0}
+        \PY{n}{K} \PY{o}{=} \PY{l+m+mf}{110.0}
+        \PY{n}{r}\PY{o}{=}\PY{l+m+mf}{0.0475}
+        \PY{n}{sigma} \PY{o}{=} \PY{l+m+mf}{0.20}
+        \PY{n}{maturity} \PY{o}{=} \PY{l+m+mf}{1.}
+\end{Verbatim}
 
-\[n = 2: \quad ... 0 \quad 1 \quad -2 \quad +3 \quad -2 \quad 1 \quad 0 ...\]
-\[n = 1: \quad ... 0 \quad 0 \quad +1 \quad -1 \quad +1 \quad 0 \quad 0 ...\]
-\[n = 0: \quad ... 0 \quad 0 \quad +0 \quad +1 \quad +0 \quad 0 \quad 0 ...\]
 
-    \textbf{hw}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{from} \PY{n+nn}{contract\PYZus{}v01} \PY{k}{import} \PY{n}{VanillaOption}
+        \PY{k+kn}{from} \PY{n+nn}{sde\PYZus{}1d\PYZus{}v01} \PY{k}{import} \PY{n}{Sde\PYZus{}1d}\PY{p}{,} \PY{n}{Gbm\PYZus{}1d}
+\end{Verbatim}
 
-Find out \(\max_{j\in \mathbb Z} |u_j^{10}|\).
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}initiate option and sde instances}
+        \PY{n}{option1} \PY{o}{=} \PY{n}{VanillaOption}\PY{p}{(}\PY{n}{otype} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{strike} \PY{o}{=} \PY{l+m+mf}{110.}\PY{p}{,} \PY{n}{maturity}\PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{market\PYZus{}price}\PY{o}{=}\PY{l+m+mf}{15.}\PY{p}{)} 
+        \PY{n}{option2} \PY{o}{=} \PY{n}{VanillaOption}\PY{p}{(}\PY{n}{otype} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{strike} \PY{o}{=} \PY{l+m+mf}{110.}\PY{p}{,} \PY{n}{maturity}\PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{market\PYZus{}price}\PY{o}{=}\PY{l+m+mf}{15.}\PY{p}{)} 
+        \PY{n}{gbm1} \PY{o}{=} \PY{n}{Gbm\PYZus{}1d}\PY{p}{(}\PY{n}{init\PYZus{}state}\PY{o}{=}\PY{l+m+mf}{100.}\PY{p}{,} \PY{n}{drift\PYZus{}ratio}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{0475}\PY{p}{,} \PY{n}{vol\PYZus{}ratio}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{maturity} \PY{o}{=} \PY{n}{option1}\PY{o}{.}\PY{n}{maturity}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{} Exact call value is }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{gbm1}\PY{o}{.}\PY{n}{bsm\PYZus{}price}\PY{p}{(}\PY{n}{option1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{} Exact put value is }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{gbm1}\PY{o}{.}\PY{n}{bsm\PYZus{}price}\PY{p}{(}\PY{n}{option2}\PY{p}{)}\PY{p}{)}\PY{p}{)}  
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+>>>>>>>>>> Exact call value is 5.943273183452838
+>>>>>>>>>> Exact put value is 10.84042522804176
+
+    \end{Verbatim}
+
+    \textbf{Application to Geometric asian option price}
+
+    Geometric asian call option with maturity \(T\) and strick \(K\) has its
+pay off as \[C(T) = (A(T) - K)^+,\] where \(A(T)\) is geometric average
+of the stock price at times \(0 \le t_1 < t_2, \ldots, < t_n = T\), i.e.
+\[A(T) = (S(t_1)S(t_2) \ldots S(t_n))^{1/n}.\]
+
+The call price can be thus written by
+\[C_0 = \mathbb E [e^{-rT} (A(T) - K)^+].\]
+
+    We set \(t_0 = 0\). Under the above BS model, one can show that the
+distribution of \(A(T)\) is again a lognormal in the form of
+\[\ln \frac{A(T)}{S(0)} \sim \mathcal N(\hat \mu T, \hat \sigma^2 T),\]
+where \[\mu = r - \frac 1 2 \sigma^2\]
+\[\hat \mu T = \frac \mu n \sum_{i=1}^n t_i,\]
+\[\hat \sigma^2 T = \frac{\sigma^2}{n^2} \sum_{j=0}^{n-1} (n-j)^2 (t_{j+1} - t_j).\]
+
+    Therefore, we can rewrite the price formula as, with
+\(Z\sim \mathcal N(0,1)\)
+\[C_0 = \mathbb E[ e^{-rT} (S(0) e^{\hat \mu T + \hat \sigma \sqrt T Z} - K)^+] 
+= e^{(\hat r - r) T} BSM(S(0), \hat r, \hat \sigma, K, T, call)\] with
+\[\hat r = \hat \mu + \frac 1 2 \hat \sigma^2.\]
+
+    Put formula is similar.
+\[P_0 = \mathbb E[ e^{-rT} (S(0) e^{\hat \mu T + \hat \sigma \sqrt T Z} - K)^-] 
+= e^{(\hat r - r) T} BSM(S(0), \hat r, \hat \sigma, K, T, put)\]
+
+    \textbf{ex}
+
+If the time stepsize is uniform \(m\) partitions on \([0, T]\) for the
+geometric asian option, the average points include actually \(n = m+1\)
+points: \[t_i = \frac T m  (i-1), \ \forall i = 1, 2, \ldots m+1,\] Note
+that \(t_1 = 0\). Then one can determine \(\hat r\) and \(\hat \mu\) as
+follows: \[\hat \mu = \frac{\mu}{2}\]
+\[\hat \sigma^2 = \frac{\sigma^2 (2m+1)}{6(m+1)}\]
+\[\hat r = \hat \mu + \frac 1 2 \hat \sigma^2.\]
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}==============}
+        \PY{l+s+sd}{Test BSM geometric asian option price}
+        \PY{l+s+sd}{===============\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{n}{gbm1} \PY{o}{=} \PY{n}{Gbm\PYZus{}1d}\PY{p}{(}\PY{n}{init\PYZus{}state}\PY{o}{=}\PY{l+m+mf}{100.}\PY{p}{,} \PY{n}{drift\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.0475}\PY{p}{,} \PY{n}{vol\PYZus{}ratio}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{gao1} \PY{o}{=} \PY{n}{gbm1}\PY{o}{.}\PY{n}{bsm\PYZus{}geometric\PYZus{}asian\PYZus{}price}\PY{p}{(}
+                                  \PY{n}{otype} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,}
+                                  \PY{n}{strike} \PY{o}{=} \PY{l+m+mf}{110.}\PY{p}{,}
+                                  \PY{n}{maturity} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} 
+                                  \PY{n}{num\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{4}
+                                  \PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{} geometric call option value is }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{gao1}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+>>>>>> geometric call option value is 1.607164727431734
+
+    \end{Verbatim}
 
 
     % Add a bibliography block to the postdoc

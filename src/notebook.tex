@@ -284,10 +284,7 @@
 \tightlist
 \item
   Make sure 'Gbm\_1d' class is already in the module
-  'src/sde\_1d\_v01.py'.
-\item
-  Create a method 'bsm\_geometric\_asian\_price' in the class 'Gbm\_1d',
-  then test the following code
+  'src/sde\_1d\_v01.py', and import the followings
 \end{itemize}
 
     \begin{Verbatim}[commandchars=\\\{\}]
@@ -297,8 +294,33 @@
 \end{Verbatim}
 
 
+    \begin{itemize}
+\tightlist
+\item
+  Create a method 'bsm\_geometric\_asian\_price' in the class 'Gbm\_1d',
+  then test the following code
+\end{itemize}
+
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}2}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}==============}
+        \PY{l+s+sd}{output: BSM geometric asian option price}
+        \PY{l+s+sd}{===============\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+        \PY{k}{def} \PY{n+nf}{bsm\PYZus{}geometric\PYZus{}asian\PYZus{}price}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}
+                                  \PY{n}{otype} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,}
+                                  \PY{n}{strike} \PY{o}{=} \PY{l+m+mf}{110.}\PY{p}{,}
+                                  \PY{n}{maturity} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} 
+                                  \PY{n}{num\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{4} \PY{c+c1}{\PYZsh{}patition number}
+                                  \PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZgt{}\PYZgt{}\PYZgt{} input your code here}
+            \PY{k}{pass}
+        
+        \PY{n}{Gbm\PYZus{}1d}\PY{o}{.}\PY{n}{bsm\PYZus{}geometric\PYZus{}asian\PYZus{}price} \PY{o}{=} \PY{n}{bsm\PYZus{}geometric\PYZus{}asian\PYZus{}price}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}==============}
         \PY{l+s+sd}{Test BSM geometric asian option price}
         \PY{l+s+sd}{===============\PYZsq{}\PYZsq{}\PYZsq{}}
         \PY{n}{gbm1} \PY{o}{=} \PY{n}{Gbm\PYZus{}1d}\PY{p}{(}\PY{n}{init\PYZus{}state}\PY{o}{=}\PY{l+m+mf}{100.}\PY{p}{,} \PY{n}{drift\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.0475}\PY{p}{,} \PY{n}{vol\PYZus{}ratio}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{)}
@@ -328,7 +350,7 @@
 \end{itemize}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}===============}
+{\color{incolor}In [{\color{incolor}4}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}===============}
         \PY{l+s+sd}{market available data}
         \PY{l+s+sd}{==================\PYZsq{}\PYZsq{}\PYZsq{}}
         \PY{c+c1}{\PYZsh{}paras for stock price}
@@ -349,7 +371,7 @@
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}================}
+{\color{incolor}In [{\color{incolor}5}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}================}
         \PY{l+s+sd}{calibrated volatility based on vanilla options}
         \PY{l+s+sd}{==================\PYZsq{}\PYZsq{}\PYZsq{}}
         \PY{n}{calibarated\PYZus{}vol} \PY{o}{=} \PY{l+m+mf}{0.18109375000000028}
@@ -357,7 +379,7 @@
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}========}
+{\color{incolor}In [{\color{incolor}6}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}========}
         \PY{l+s+sd}{your code is in this below}
         \PY{l+s+sd}{============\PYZsq{}\PYZsq{}\PYZsq{}}
         \PY{k}{pass}

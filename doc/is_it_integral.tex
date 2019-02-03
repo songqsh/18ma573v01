@@ -131,7 +131,8 @@ $$p_{1} (x) = \frac{1}{C} (2 \cdot I_{(0, 1/100]} (x) + 1 \cdot I_{(1/100, 1)}(x
 where
 $C = 101/100$ is the normalizing constant to make $p_{1}$ to be a valid pdf.
 
-Pseudocode is\_integral(n): 
+Pseudocode 
+\\importance\_sampling\_integral(n): 
 \begin{itemize}
  \item Generate iid $p_{1}$ samples, denoted by
  $$\{X_{i}: i = 1, 2, \ldots, n\}.$$
@@ -155,26 +156,16 @@ Inverse transform method provides exact sampling as long as the inverse of CDF i
  $F^{-1}(U) \sim X$, where $U\sim U(0,1)$.
 \end{proposition}
 \begin{proof}
- $$\mathbb P(F^{-1}(U) \le x) = \mathbb P(U\le F(x) = F(x).$$
+ $$\mathbb P(F^{-1}(U) \le x) = \mathbb P(U\le F(x)) = F(x).$$
 \end{proof}
 
-Pseudocode it\_sampling($F^{-1}, n$):
+Pseudocode 
+\\inverse\_transform\_sampling($F^{-1}, n$):
 \begin{itemize}
  \item Generate iid $U(0,1)$ random variables
  $$\{Y_{i}: i = 1, \ldots, n\}.$$
  \item Compute
  $$\{X_{i} = F^{-1}(Y_{i}): i = 1, \ldots, n\}.$$
 \end{itemize}
-
-\section{Exercises}
-\begin{enumerate}
- \item Find $F_{1}$, the cdf of $p_{1}$.
- \item Find $F_{1}^{-1}$.
- \item Implement it\_sampling()
- \item Implement is\_integral()
- \item Demonstrate the convergence rate of is\_integral()
- \item Could you find a pdf $p_{2}$ better than $p_{1}$?
-\end{enumerate}
-
 
 \end{document}

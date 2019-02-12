@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{hw\_bsm\_geometric\_asian\_option}
+    \title{bm\_1d}
     
     
     
@@ -280,111 +280,115 @@
     
 
     
-    \begin{itemize}
-\tightlist
-\item
-  Make sure 'Gbm\_1d' class is already in the module
-  'src/sde\_1d\_v01.py', and import the followings
-\end{itemize}
+    \section{Exact sampling of Brownian path and Geometric Brownian
+path}\label{exact-sampling-of-brownian-path-and-geometric-brownian-path}
+
+    \subsection{Abstract}\label{abstract}
+
+You will learn eact sampling of BM path and GBM path
+
+Reference:
+
+{[}1{]} Section 3.1 of {[}Gla03{]}: Random walk construction
+
+    \subsection{Analysis}\label{analysis}
+
+To have exact simulation of Brownian path by random walk, one can follow
+(3.2) of {[}1{]}, i.e.
+\[W(t_{i+1}) = W(t_i) + \sqrt{t_{i+1} - t_i} Z_{i+1}.\]
+
+    \subsubsection{A function to generate a BM path using uniform
+mesh}\label{a-function-to-generate-a-bm-path-using-uniform-mesh}
+
+Given an interval \([0,T]\), we can generate exact simulation with \(n\)
+uniform mesh by
+\[\hat W(t_{i+1}) = \hat W(t_i) + \frac{1}{\sqrt n} Z_{i+1}, \hbox{ for } i = 0, 1, \ldots, n-1.\]
+
+    \textbf{Demo} Generate multiple paths and plot
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-        \PY{k+kn}{from} \PY{n+nn}{contract\PYZus{}v01} \PY{k}{import} \PY{n}{VanillaOption}
-        \PY{k+kn}{from} \PY{n+nn}{sde\PYZus{}1d\PYZus{}v01} \PY{k}{import} \PY{n}{Sde\PYZus{}1d}\PY{p}{,} \PY{n}{Gbm\PYZus{}1d}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
 \end{Verbatim}
 
 
-    \begin{itemize}
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}define a function of BM path generator}
+        \PY{k}{def} \PY{n+nf}{BM\PYZus{}gen}\PY{p}{(}\PY{n}{T1}\PY{p}{,} \PY{n}{T2}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{}para: start time, end time, and the mesh number }
+            \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{T1}\PY{p}{,} \PY{n}{T2}\PY{p}{,} \PY{n}{num} \PY{o}{=} \PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{}init mesh}
+            \PY{n}{W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{}init BM}
+            \PY{c+c1}{\PYZsh{}Run (3.2)}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
+                \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{l+m+mf}{1.}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{n}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{p}{)}
+                
+            \PY{k}{return} \PY{n}{t}\PY{p}{,} \PY{n}{W}
+            
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}test BM\PYZus{}gen and plot}
+        \PY{c+c1}{\PYZsh{}Also compute average and variance of \PYZdl{}W(n)\PYZdl{}}
+        
+        \PY{n}{MeshN} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{;} \PY{n}{SimN} \PY{o}{=} \PY{l+m+mi}{80}\PY{p}{;} \PY{c+c1}{\PYZsh{}Mesh number and simulation number}
+        \PY{n}{SumW} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;} \PY{n}{SqsumW} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{}init sum of \PYZdl{}W(n)\PYZdl{} and sum of \PYZdl{}W\PYZca{}2(n)\PYZdl{}}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{SimN}\PY{p}{)}\PY{p}{:}
+            \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{W}\PY{p}{]} \PY{o}{=} \PY{n}{BM\PYZus{}gen}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{MeshN}\PY{p}{)}
+            \PY{n}{SumW} \PY{o}{+}\PY{o}{=} \PY{n}{W}\PY{p}{[}\PY{n}{MeshN}\PY{p}{]}\PY{p}{;} \PY{n}{SqsumW} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{W}\PY{p}{[}\PY{n}{MeshN}\PY{p}{]}\PY{p}{)}
+            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{W}\PY{p}{)}\PY{p}{;}
+            
+        \PY{n}{MeanW} \PY{o}{=} \PY{n}{SumW}\PY{o}{/}\PY{n}{SimN}\PY{p}{;} \PY{n}{VarW} \PY{o}{=} \PY{n}{SqsumW}\PY{o}{/}\PY{n}{SimN} \PY{o}{\PYZhy{}} \PY{n}{MeanW}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}    
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{MeanW}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Variance is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{VarW}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+mean is -0.20913269439465204 Variance is 0.8564578613469325
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \textbf{Generating GBM path}
+
+GBM is given by
+\[X(t) = x_0 \exp\{(r - \frac 1 2 \sigma^2)t + \sigma W(t)\}.\] We can
+replace \(W(t)\) by its exact simulation \(\hat W(t)\) to get exact
+simulation of \(X(t)\), i.e.
+\[\hat X(t) = x_0 \exp\{(r - \frac 1 2 \sigma^2)t + \sigma \hat W(t)\}.\]
+
+    \textbf{Application to Arithmetic asian option price}
+
+    Arithmetic asian call option with maturity \(T\) and strick \(K\) has
+its pay off as \[C(T) = (A(T) - K)^+,\] where \(A(T)\) is arithmetic
+average of the stock price at times
+\(0 \le t_1 < t_2, \ldots, < t_n = T\), i.e.
+\[A(T) = \frac{1}{n} \sum_{i=1}^n S(t_i).\]
+
+The call price can be thus written by
+\[C_0 = \mathbb E [e^{-rT} (A(T) - K)^+].\]
+
+Unlike the geometric asian option, arithmetic counterpart does not have
+explicit formula for its price. In this below, we shall use MC. In
+practice, an arithmetic asian option with a given number \(n\) of time
+steps takes the price average at \(n+1\) points
+\[t_i = (i-1) \frac{T}{n}, \quad i = 1, 2, \ldots, (n+1).\]
+
+    \textbf{Pseudocode} bsm\_arithmetic\_asian\_price(otype, strike,
+maturity, num\_step, num\_path):
+
+\begin{itemize}
 \tightlist
 \item
-  Create a method 'bsm\_geometric\_asian\_price' in the class 'Gbm\_1d',
-  then test the following code
-\end{itemize}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}==============}
-        \PY{l+s+sd}{output: BSM geometric asian option price}
-        \PY{l+s+sd}{===============\PYZsq{}\PYZsq{}\PYZsq{}}
-        
-        \PY{k}{def} \PY{n+nf}{bsm\PYZus{}geometric\PYZus{}asian\PYZus{}price}\PY{p}{(}\PY{n+nb+bp}{self}\PY{p}{,}
-                                  \PY{n}{otype} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,}
-                                  \PY{n}{strike} \PY{o}{=} \PY{l+m+mf}{110.}\PY{p}{,}
-                                  \PY{n}{maturity} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} 
-                                  \PY{n}{num\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{4} \PY{c+c1}{\PYZsh{}patition number}
-                                  \PY{p}{)}\PY{p}{:}
-            \PY{c+c1}{\PYZsh{}\PYZhy{}\PYZhy{}\PYZgt{}\PYZgt{}\PYZgt{} input your code here}
-            \PY{k}{pass}
-        
-        \PY{n}{Gbm\PYZus{}1d}\PY{o}{.}\PY{n}{bsm\PYZus{}geometric\PYZus{}asian\PYZus{}price} \PY{o}{=} \PY{n}{bsm\PYZus{}geometric\PYZus{}asian\PYZus{}price}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}==============}
-        \PY{l+s+sd}{Test BSM geometric asian option price}
-        \PY{l+s+sd}{===============\PYZsq{}\PYZsq{}\PYZsq{}}
-        \PY{n}{gbm1} \PY{o}{=} \PY{n}{Gbm\PYZus{}1d}\PY{p}{(}\PY{n}{init\PYZus{}state}\PY{o}{=}\PY{l+m+mf}{100.}\PY{p}{,} \PY{n}{drift\PYZus{}ratio}\PY{o}{=}\PY{l+m+mf}{0.0475}\PY{p}{,} \PY{n}{vol\PYZus{}ratio}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{)}
-        \PY{n}{gao1} \PY{o}{=} \PY{n}{gbm1}\PY{o}{.}\PY{n}{bsm\PYZus{}geometric\PYZus{}asian\PYZus{}price}\PY{p}{(}
-                                  \PY{n}{otype} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,}
-                                  \PY{n}{strike} \PY{o}{=} \PY{l+m+mf}{110.}\PY{p}{,}
-                                  \PY{n}{maturity} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} 
-                                  \PY{n}{num\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{4}
-                                  \PY{p}{)}
-        \PY{c+c1}{\PYZsh{}print(\PYZsq{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{} geometric call option value is \PYZsq{} + str(gao1))}
-\end{Verbatim}
-
-
-    \begin{itemize}
-\tightlist
+  generate (num\_path) many paths by exact sampling;
 \item
-  In the previous section, we have pretty good result on BSM model
-  calibration on the call price of 2-month maturity, see
-  \href{https://nbviewer.jupyter.org/github/songqsh/18ma573pub/blob/master/src/bsm_calibration.ipynb}{here}.
-  We say it is pretty good calibration because the calibrated volatility
-  reproduce 2-mon call price close to corresponding market data. A
-  further step to verify its performance is to use the same calibrated
-  volatility to reproduce other option prices available in the market.
-  In this below, we are going to reproduce geometric asian options given
-  below and justify the calibrated model performance by comparing with
-  the market data.
+  compute discounted payoff for each path;
+\item
+  Take the average for the option price.
 \end{itemize}
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}===============}
-        \PY{l+s+sd}{market available data}
-        \PY{l+s+sd}{==================\PYZsq{}\PYZsq{}\PYZsq{}}
-        \PY{c+c1}{\PYZsh{}paras for stock price}
-        \PY{n}{spot} \PY{o}{=} \PY{l+m+mi}{100}
-        \PY{n}{rate} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{05}
-        
-        \PY{c+c1}{\PYZsh{}paras for geometric asian options}
-        \PY{n}{otype} \PY{o}{=} \PY{l+m+mi}{1}
-        \PY{n}{maturity} \PY{o}{=} \PY{l+m+mi}{2}\PY{o}{/}\PY{l+m+mi}{12}
-        \PY{n}{num\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{8}
-        \PY{n}{strike\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{97}\PY{p}{,} \PY{l+m+mi}{99}\PY{p}{,} \PY{l+m+mi}{101}\PY{p}{,} \PY{l+m+mi}{103}\PY{p}{]}
-        \PY{n}{market\PYZus{}price\PYZus{}list} \PY{o}{=} \PY{p}{[}
-            \PY{l+m+mf}{3.7925736094875964}\PY{p}{,}
-            \PY{l+m+mf}{2.5429985313737244}\PY{p}{,}
-            \PY{l+m+mf}{1.6026613800895042}\PY{p}{,}
-            \PY{l+m+mf}{0.9366198675047346}\PY{p}{]}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}================}
-        \PY{l+s+sd}{calibrated volatility based on vanilla options}
-        \PY{l+s+sd}{==================\PYZsq{}\PYZsq{}\PYZsq{}}
-        \PY{n}{calibarated\PYZus{}vol} \PY{o}{=} \PY{l+m+mf}{0.18109375000000028}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}========}
-        \PY{l+s+sd}{your code is in this below}
-        \PY{l+s+sd}{============\PYZsq{}\PYZsq{}\PYZsq{}}
-        \PY{k}{pass}
-\end{Verbatim}
-
 
 
     % Add a bibliography block to the postdoc

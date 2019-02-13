@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{bm\_1d}
+    \title{hw\_payoff\_correlation}
     
     
     
@@ -280,114 +280,58 @@
     
 
     
-    \section{Exact sampling of Brownian path and Geometric Brownian
-path}\label{exact-sampling-of-brownian-path-and-geometric-brownian-path}
-
-    \subsection{Abstract}\label{abstract}
-
-You will learn eact sampling of BM path and GBM path
-
-Reference:
-
-{[}1{]} Section 3.1 of {[}Gla03{]}: Random walk construction
-
-    \subsection{Analysis}\label{analysis}
-
-To have exact simulation of Brownian path by random walk, one can follow
-(3.2) of {[}1{]}, i.e.
-\[W(t_{i+1}) = W(t_i) + \sqrt{t_{i+1} - t_i} Z_{i+1}.\]
-
-    \subsubsection{A function to generate a BM path using uniform
-mesh}\label{a-function-to-generate-a-bm-path-using-uniform-mesh}
-
-Given an interval \([0,T]\), we can generate exact simulation with \(n\)
-uniform mesh by
-\[\hat W(t_{i+1}) = \hat W(t_i) + \frac{1}{\sqrt n} Z_{i+1}, \hbox{ for } i = 0, 1, \ldots, n-1.\]
-
-    \textbf{Demo} Generate multiple paths and plot
+    Our objective is to investigate the correlations of the payoffs between
+- stock, - european call, - geometric asian call, - arithmetic asian
+call.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}paras are given here}
+         \PY{n}{S0} \PY{o}{=} \PY{l+m+mf}{100.0}
+         \PY{n}{K} \PY{o}{=} \PY{l+m+mf}{110.0}
+         \PY{n}{r}\PY{o}{=}\PY{l+m+mf}{0.0475}
+         \PY{n}{sigma} \PY{o}{=} \PY{l+m+mf}{0.20}
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mf}{1.}
+         \PY{n}{num\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{4}
 \end{Verbatim}
 
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}define a function of BM path generator}
-        \PY{k}{def} \PY{n+nf}{BM\PYZus{}gen}\PY{p}{(}\PY{n}{T1}\PY{p}{,} \PY{n}{T2}\PY{p}{,} \PY{n}{n}\PY{p}{)}\PY{p}{:}  \PY{c+c1}{\PYZsh{}para: start time, end time, and the mesh number }
-            \PY{n}{t} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linspace}\PY{p}{(}\PY{n}{T1}\PY{p}{,} \PY{n}{T2}\PY{p}{,} \PY{n}{num} \PY{o}{=} \PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{}init mesh}
-            \PY{n}{W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{n}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{}init BM}
-            \PY{c+c1}{\PYZsh{}Run (3.2)}
-            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{:}
-                \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{+} \PY{l+m+mf}{1.}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{n}\PY{p}{)} \PY{o}{*} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{normal}\PY{p}{(}\PY{p}{)}
-                
-            \PY{k}{return} \PY{n}{t}\PY{p}{,} \PY{n}{W}
-            
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{}test BM\PYZus{}gen and plot}
-        \PY{c+c1}{\PYZsh{}Also compute average and variance of \PYZdl{}W(n)\PYZdl{}}
-        
-        \PY{n}{MeshN} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{;} \PY{n}{SimN} \PY{o}{=} \PY{l+m+mi}{80}\PY{p}{;} \PY{c+c1}{\PYZsh{}Mesh number and simulation number}
-        \PY{n}{SumW} \PY{o}{=} \PY{l+m+mi}{0}\PY{p}{;} \PY{n}{SqsumW} \PY{o}{=} \PY{l+m+mi}{0} \PY{c+c1}{\PYZsh{}init sum of \PYZdl{}W(n)\PYZdl{} and sum of \PYZdl{}W\PYZca{}2(n)\PYZdl{}}
-        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{SimN}\PY{p}{)}\PY{p}{:}
-            \PY{p}{[}\PY{n}{t}\PY{p}{,}\PY{n}{W}\PY{p}{]} \PY{o}{=} \PY{n}{BM\PYZus{}gen}\PY{p}{(}\PY{l+m+mf}{0.}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{MeshN}\PY{p}{)}
-            \PY{n}{SumW} \PY{o}{+}\PY{o}{=} \PY{n}{W}\PY{p}{[}\PY{n}{MeshN}\PY{p}{]}\PY{p}{;} \PY{n}{SqsumW} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{W}\PY{p}{[}\PY{n}{MeshN}\PY{p}{]}\PY{p}{)}
-            \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{t}\PY{p}{,} \PY{n}{W}\PY{p}{)}\PY{p}{;}
-            
-        \PY{n}{MeanW} \PY{o}{=} \PY{n}{SumW}\PY{o}{/}\PY{n}{SimN}\PY{p}{;} \PY{n}{VarW} \PY{o}{=} \PY{n}{SqsumW}\PY{o}{/}\PY{n}{SimN} \PY{o}{\PYZhy{}} \PY{n}{MeanW}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}    
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mean is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{MeanW}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Variance is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{VarW}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-mean is -0.20913269439465204 Variance is 0.8564578613469325
-
-    \end{Verbatim}
-
-    \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_7_1.png}
-    \end{center}
-    { \hspace*{\fill} \\}
-    
-    \textbf{Generating GBM path}
-
-GBM is given by
-\[X(t) = x_0 \exp\{(r - \frac 1 2 \sigma^2)t + \sigma W(t)\}.\] We can
-replace \(W(t)\) by its exact simulation \(\hat W(t)\) to get exact
-simulation of \(X(t)\), i.e.
-\[\hat X(t) = x_0 \exp\{(r - \frac 1 2 \sigma^2)t + \sigma \hat W(t)\}.\]
-
-    \textbf{Application to Arithmetic asian option price}
-
-    Arithmetic asian call option with maturity \(T\) and strick \(K\) has
-its pay off as \[C(T) = (A(T) - K)^+,\] where \(A(T)\) is arithmetic
-average of the stock price at times
-\(0 \le t_1 < t_2, \ldots, < t_n = T\), i.e.
-\[A(T) = \frac{1}{n} \sum_{i=1}^n S(t_i).\]
-
-The call price can be thus written by
-\[C_0 = \mathbb E [e^{-rT} (A(T) - K)^+].\]
-
-Unlike the geometric asian option, arithmetic counterpart does not have
-explicit formula for its price. In this below, we shall use MC. In
-practice, an arithmetic asian option with a given number \(n\) of time
-steps takes the price average at \(n+1\) points
-\[t_i = (i-1) \frac{T}{n}, \quad i = 1, 2, \ldots, (n+1).\]
-
-    \textbf{Pseudocode} bsm\_arithmetic\_asian\_price(otype, strike,
-maturity, num\_step, num\_path):
-
-\begin{itemize}
+    \begin{itemize}
 \tightlist
 \item
-  generate (num\_path) many paths by exact sampling;
+  Implement the following pseudocode with num\_step = 4 and num\_paths =
+  100
+\end{itemize}
+
+\textbf{pseudocode.} bsm\_option\_payoff\_generators(num\_step,
+num\_paths) - generate (num\_paths) many gbm paths, each path is
+produced from exact smapling with (num\_step) time steps - for each
+path, compute corresponding payoff of the following contract seperately:
+- stock, - european call, - geometric asian call, - arithmetric asian
+call.
+
+    \begin{itemize}
+\tightlist
 \item
-  compute discounted payoff for each path;
+  plot the following three figures with format string 'ro' in your plot
+  arguments:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    aac vs. stk
+  \item
+    aac vs. ec
+  \item
+    aac vs. gac
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
 \item
-  Take the average for the option price.
+  which asset is most highly correlated to aac?
+\item
+  Based on your observation, can you improve OMC computation of aac?
 \end{itemize}
 
 

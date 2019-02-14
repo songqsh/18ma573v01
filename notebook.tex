@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{hw\_vasicek\_calibration}
+    \title{README\_v01}
     
     
     
@@ -280,134 +280,331 @@
     
 
     
-    \section{Vasicek model calibration}\label{vasicek-model-calibration}
+    \section{18ma573v01}\label{ma573v01}
 
-\textbf{Ref} Chapter 7 of {[}Hir13{]}
+\subsection{COMPUTATIONAL METHODS OF FINANCIAL
+MATHEMATICS}\label{computational-methods-of-financial-mathematics}
 
-Our goal is to design pricing engine and calirate vasicek model from
-data
+\textbf{General course info}
 
-    \subsection{Pricing formula for Vasicek
-model}\label{pricing-formula-for-vasicek-model}
+\begin{itemize}
+\tightlist
+\item
+  Syllabus - \href{doc/syllabus_v01.pdf}{pdf}
+\item
+  Final and capston project -\href{./doc/capstone.pdf}{pdf}
+\item
+  Mapping - \href{src/mapping.ipynb}{ipynb}
+\end{itemize}
 
-Notations: - \(P(t, T)\): zero coupon bond price - \(L(t, T)\): LIBOR
-rate - \(s(t, T, N)\): swap rate with \(N\) terms on \([t, T]\)
+    \textbf{Python basics on Jupyter notebook}
 
-The relation to the pricing formulas are
-\[L(t, T) = \frac{100}{T-t} ( \frac{1}{P(t, T)} - 1)\] and
-\[ s(t, T, N) = 100 \frac{1 - P(t, T)}{ \Delta \sum_{j=1}^N P(t, t + j \Delta)}, \hbox{ where } \Delta = \frac{T - t}{N}. \]
+In this section, we will get familiar with python language with Jupyter
+notebook through some financial applications.
 
-    If we further assume Vasicek model for the short rates with parameter
-\(\theta = (\kappa, \mu, \sigma, r_0)\), i.e.
-\[d r_t = \kappa (\mu - r_t) dt + \sigma dW_t, \hbox{ with } r_0,\] the
-rate has its explicit form given by
-\[r_t = r_0 e^{-\kappa t} + \mu ( 1 - e^{-\kappa t}) + \sigma e^{-\kappa t} \int_0^t e^{-\kappa s} dW_s.\]
+\begin{itemize}
+\tightlist
+\item
+  Environment setup
+  \href{https://github.com/songqsh/18ma573pub/blob/master/src/first_notebook_v01.ipynb}{ipynb}
+\item
+  Python on Jupyter notebook \href{src/python_notebook.ipynb}{ipynb}
+\item
+  Pandas \href{src/pandas_basics.ipynb}{ipynb}
+\end{itemize}
 
-    \textbf{Todo}
+\textbf{Finite difference operators with python functions}
 
-Verify the above explicit form \(r_t\) as the solution to the original
-vasicek model.
+Below, we will discuss some simple coding related to finite difference
+operators and convergence rate. This will help you to get to know basic
+coding with python functions. However, it's your responsibility to get
+to know enough coding via online resource.
 
-    \textbf{Todo}
+\begin{itemize}
+\tightlist
+\item
+  First order finite difference operators -
+  \href{src/first_fd_v01.ipynb}{ipynb}
+\item
+  Convergence order - \href{src/ffd_convergence_rate_v01.ipynb}{ipynb}
 
-Design pricing engine of ZCB \(P(0, T)\) using the above explicit
-formula.
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) Second order finite difference operator -
+    \href{src/second_fd.ipynb}{ipynb}
 
-(Hint) ZCB value is determined by
-\[P(0, T) = \mathbb E[e^{- \int_0^T r_t dt}] = e^{A(0, T) - B(0, T) r_0}\]
-with \[B(t, T) = \frac{1 - e^{-\kappa(T-t)}}{\kappa}, \quad 
-A(t, T) = (\mu - \frac{\sigma^2}{2\kappa^2}) [B(t, T) - (T-t)] - \frac{\sigma^2}{4\kappa} B^2(t, T).\]
+    \begin{itemize}
+    \tightlist
+    \item
+      soln - \href{src/second_fd_soln.ipynb}{ipynb}
+    \end{itemize}
+  \item
+    (hw) Finite difference operator with higher order convergence -
+    \href{src/ex_fd.ipynb}{ipynb}
 
-    \textbf{Todo}
+    \begin{itemize}
+    \tightlist
+    \item
+      soln - \href{src/ex_fd_soln.ipynb}{ipynb}
+    \end{itemize}
+  \item
+    (ex) FD - \href{doc/fd_ex.pdf}{ipynb}
+  \end{itemize}
+\end{itemize}
 
-Design alternative pricing engine of ZCB \(P(0,T)\) using exact
-sampling.
+\textbf{BSM option price}
 
-(hint) \(R(T) = \int_0^T r_t dt\) follows a normal distribution with
-\[\mathbb E R_T = \mu T + (r_0 - \mu) \frac{1 - e^{-\kappa T}}{\kappa}\]
-and
-\[Var(R_T) = \frac{\sigma^2}{2 \kappa^3} (2 \kappa T - 3 + 4 e^{-\kappa T} - e^{-2\kappa T}).\]
+\begin{itemize}
+\tightlist
+\item
+  European call/put option class -
+  \href{https://github.com/songqsh/18ma573pub/blob/master/src/european_options_class.ipynb}{ipynb}
 
-    \textbf{Todo}
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) payoff diagram of butterfly -
+    \href{https://github.com/songqsh/18ma573pub/blob/master/src/option_combinations.ipynb}{ipynb}
+  \end{itemize}
+\item
+  BSM formula -
+  \href{https://github.com/songqsh/18ma573pub/blob/master/src/bsm_formula_v01.ipynb}{ipynb}
 
-Compute ZCB \(P(0,1)\) Libor \(L(0,1)\) with the following parameters
-using above two different pricing engines.
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) Bsm price change -
+    \href{https://github.com/songqsh/18ma573pub/blob/master/src/bsm_price_change.ipynb}{ipynb}
+  \end{itemize}
+\item
+  Importing modules -
+  \href{https://github.com/songqsh/18ma573pub/blob/master/src/import_modules.md}{md}
+\end{itemize}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}======paras=======\PYZsq{}\PYZsq{}\PYZsq{}}
-        \PY{n}{theta} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{05}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{003}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{03}\PY{p}{]}
-        \PY{n}{kappa}\PY{p}{,} \PY{n}{mu}\PY{p}{,} \PY{n}{sigma}\PY{p}{,} \PY{n}{r0} \PY{o}{=} \PY{n}{theta}
-\end{Verbatim}
+    \textbf{Calibration}
 
+\begin{itemize}
+\tightlist
+\item
+  implied volatility -
+  \href{https://nbviewer.jupyter.org/github/songqsh/18ma573pub/blob/master/src/implied_vol_v01.ipynb}{ipynb}
 
-    \textbf{Todo}
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) IV -
+    \href{https://nbviewer.jupyter.org/github/songqsh/18ma573pub/blob/master/src/hw_implied_vol.ipynb}{ipynb}
+  \item
+    (ex) Sensitivity - \href{src/ex_montonicity.ipynb}{ipynb}
+  \end{itemize}
+\item
+  volatility smile - \href{src/vol_smile_v01.ipynb}{ipynb}
+\item
+  bsm\_calibration - \href{src/bsm_calibration_v01.ipynb}{ipynb}
 
-find 10 term swap rates with term length 1/2 year, i.e
-\(s(t=0, T =5, N =10)\).
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) -
+    \href{https://nbviewer.jupyter.org/github/songqsh/18ma573pub/blob/master/src/hw_bsm_calibration.ipynb}{ipynb}
+  \end{itemize}
+\item
+  BSM geometric asian option -
+  \href{src/bsm_geometric_asian_option.ipynb}{ipynb}
 
-    \textbf{Todo}
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) calibration performance -
+    \href{src/hw_bsm_geometric_asian_option.ipynb}{ipynb}
 
-Pick a date, and using Libor market data of that data, callibrate
-Vasicek model. - Then compare market rate and calibrated rate in a plot.
-- You may use SSRE - You may do calibration twice using two pricing
-engines, and see which one is better. - You may use the following
-provided market data too.
+    \begin{itemize}
+    \tightlist
+    \item
+      (soln) \href{src/calibration_performance_v01.ipynb}{ipynb}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-        \PY{n}{dfLiborRate} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{maturity (months)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20081029 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{3.1175}\PY{p}{,} \PY{l+m+mf}{3.2738}\PY{p}{,} \PY{l+m+mf}{3.4200}\PY{p}{,} \PY{l+m+mf}{3.4275}\PY{p}{,} \PY{l+m+mf}{3.4213}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20110214 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.2647}\PY{p}{,} \PY{l+m+mf}{0.2890}\PY{p}{,} \PY{l+m+mf}{0.3140}\PY{p}{,} \PY{l+m+mf}{0.4657}\PY{p}{,} \PY{l+m+mf}{0.7975}\PY{p}{]}
-                                  \PY{p}{\PYZcb{}}\PY{p}{)}
-\end{Verbatim}
+    \textbf{Monte Carlo basics}
 
+\begin{itemize}
+\tightlist
+\item
+  Monte Carlo basics: Estimating \(\pi\) -
+  \href{./doc/pi_mc_01.pdf}{pdf} -
+  \href{https://github.com/songqsh/18ma573pub/blob/master/src/pi.ipynb}{ipynb}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{dfLiborRate}
-\end{Verbatim}
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) \href{doc/hw_mc_01.pdf}{pdf}
+  \item
+    (hw)
+    \href{https://github.com/songqsh/18ma573pub/blob/master/src/hw_mc_02.ipynb}{ipynb}
+  \item
+    (ex) \href{src/ex_omc_01.ipynb}{ipynb}
+  \end{itemize}
+\item
+  Ordinary Monte Carlo: Definite integral
+  \href{https://github.com/songqsh/18ma573pub/blob/master/doc/omc_integral_01.pdf}{pdf}
 
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) \href{doc/hw_omc_integral.pdf}{pdf}
+  \end{itemize}
+\item
+  Inverse transform method + Importance sampling: Definite integral -
+  \href{./doc/is_it_integral.pdf}{pdf}
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}4}]:}    20081029 rate(\%)  20110214 rate(\%)  maturity (months)
-        0            3.1175            0.2647                  1
-        1            3.2738            0.2890                  2
-        2            3.4200            0.3140                  3
-        3            3.4275            0.4657                  6
-        4            3.4213            0.7975                 12
-\end{Verbatim}
-            
-    \textbf{Todo}
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) - \href{./doc/hw_is_it_integral.pdf}{pdf}
+  \end{itemize}
+\item
+  Exact sampling of a Brownian path - \href{doc/bm_1d.pdf}{pdf}
 
-Pick a date, and using swap market data of that data, callibrate Vasicek
-model. - Then compare market rate and calibrated rate in a plot. - You
-may use SSRE - You may do calibration twice using two pricing engines,
-and see which one is better. - You may use the following provided market
-data too.
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) bsm + aac + exact sampling -
+    \href{doc/hw_exact_sample.pdf}{pdf}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{dfSwapRate} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{term (year)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20081029 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{2.6967}\PY{p}{,} \PY{l+m+mf}{3.1557}\PY{p}{,} \PY{l+m+mf}{3.8111}\PY{p}{,} \PY{l+m+mf}{4.1497}\PY{p}{,} \PY{l+m+mf}{4.3638}\PY{p}{,} \PY{l+m+mf}{4.3753}\PY{p}{,} \PY{l+m+mf}{4.2772}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20110214 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{1.0481}\PY{p}{,} \PY{l+m+mf}{1.5577}\PY{p}{,} \PY{l+m+mf}{2.5569}\PY{p}{,} \PY{l+m+mf}{3.1850}\PY{p}{,} \PY{l+m+mf}{3.7225}\PY{p}{,} \PY{l+m+mf}{4.1683}\PY{p}{,} \PY{l+m+mf}{4.4407}\PY{p}{]}
-                                  \PY{p}{\PYZcb{}}\PY{p}{)}
-\end{Verbatim}
+    \begin{itemize}
+    \tightlist
+    \item
+      (soln) \href{src/soln_exact_sample.ipynb}{ipynb}
+    \end{itemize}
+  \item
+    (hw) correlations to aac - \href{doc/hw_payoff_correlation.pdf}{pdf}
 
+    \begin{itemize}
+    \tightlist
+    \item
+      (soln) \href{src/soln_payoff_correlation.ipynb}{ipynb}
+    \end{itemize}
+  \item
+    (hw) vasicek model calibration -
+    \href{src/hw_vasicek_calibration.ipynb}{ipynb}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{dfSwapRate}
-\end{Verbatim}
+    \begin{itemize}
+    \tightlist
+    \item
+      (soln part 1) -
+      \href{src/hw_vasicek_calibration_soln_part1.ipynb}{ipynb}
+    \item
+      (soln part 2) -
+      \href{src/calibration_vasicek_libor_swap_part2.ipynb}{ipynb}
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
 
+    \textbf{Fourier method} - References: -
+\href{other/paper/ChiXX_Fourier.pdf}{pdf by Chiu} -
+\href{other/paper/CM99_FFT.pdf}{pdf by Carr and Madan 1999} - Fourier
+method - \href{src/fourier_method.ipynb}{ipynb}\\
+- demo - \href{src/fourier.ipynb}{ipynb} - Fourier method by Carr-Madan
+- \href{src/fourier_carr_madan.ipynb}{ipynb}
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}6}]:}    20081029 rate(\%)  20110214 rate(\%)  term (year)
-        0            2.6967            1.0481            2
-        1            3.1557            1.5577            3
-        2            3.8111            2.5569            5
-        3            4.1497            3.1850            7
-        4            4.3638            3.7225           10
-        5            4.3753            4.1683           15
-        6            4.2772            4.4407           30
-\end{Verbatim}
-            
+    \textbf{Euler scheme} - 1d Euler scheme -
+\href{./doc/euler_sde_1d.pdf}{pdf} - Demo: bm\_1d\_path -
+\href{./src/bm_1d_path.ipynb}{ipynb} - Demo: euler\_1d\_path -
+\href{./src/euler_1d.ipynb}{ipynb} - 2d Euler scheme -
+\href{./doc/euler_sde_2d.pdf}{pdf} - Call on Heston model -
+\href{./src/euler_heston.ipynb}{ipynb} - Heston European option data
+cook - \href{./src/heston_data_cook.ipynb}{ipynb} - geometric asian
+option + Heston + Euler -
+\href{src/heston_geometric_asian_euler.ipynb}{ipynb}
+
+    \textbf{Finite difference method}
+
+\begin{itemize}
+\tightlist
+\item
+  FTCS with a toy - \href{src/ftcs_stability_heat_toy.ipynb}{ipynb} and
+  \href{./doc/stability_ftcs_01.pdf}{pdf}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) FTCS and stability: Heat equation with Cauchy-Dirichlet data -
+    \href{./src/ftcs_stability_heat_1d.ipynb}{ipynb}
+  \item
+    (hw) FTCS stability questions -
+    \href{src/hw_ftcs_stability.ipynb}{ipynb}
+  \end{itemize}
+\item
+  BTCS and CRR model - \href{doc/fdm_crr.pdf}{pdf}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    (hw) \href{doc/hw_crr.pdf}{pdf}
+
+    \begin{itemize}
+    \tightlist
+    \item
+      (soln by) \href{src/L05s01.ipynb}{song}
+    \end{itemize}
+  \item
+    BTCS and stability: Heat equation -
+    \href{./src/btcs_stability_heat_1d.ipynb}{ipynb}
+  \end{itemize}
+\item
+  Stability analysis of FTCS - \href{./doc/stability_ftcs_02.pdf}{pdf}
+\item
+  Crank-Nicolson scheme - \href{./doc/stability_ftcs_03.pdf}{pdf}
+\end{itemize}
+
+    \section{Explicit pricing formula}\label{explicit-pricing-formula}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{./src/explicit_bsm_eu.ipynb}{Explicit Option Price: BSM+Eu}
+\item
+  \href{./src/explicit_bsm_greeks.ipynb}{Project: BSM Greeks}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \href{./src/explicit_bsm_greeks_soln.ipynb}{Soln}
+  \end{itemize}
+\item
+  \href{./src/explicit_vasicek_zcb.ipynb}{Explicit Zero Coupon price:
+  Vasicek+Zcb}
+\item
+  \href{./src/calibration_vasicek_libor_swap.ipynb}{Calibration: Vasicek
+  + Libor + Swap}
+\end{itemize}
+
+\section{Monte Carlo - Exact
+sampling}\label{monte-carlo---exact-sampling}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{./src/es_bsm_eu.ipynb}{Exact Sampling: BSM+Eu}
+\item
+  \href{./src/es_bsm_knock_in.ipynb}{Exact sampling: BSM + Knock-in}
+\item
+  \href{./src/is_bsm_knock_in.ipynb}{Importance sampling: BSM +
+  Knock-in}
+\item
+  \href{./src/control_variates_bsm_aac.ipynb}{Control Variates: BSM+Aac}
+\end{itemize}
+
+\section{Problem Sets}\label{problem-sets}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{./src/problems01.ipynb}{Problems01}
+\end{itemize}
+
 
     % Add a bibliography block to the postdoc
     

@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{hw\_vasicek\_calibration}
+    \title{hw\_es\_bsm\_knock\_in}
     
     
     
@@ -280,134 +280,54 @@
     
 
     
-    \section{Vasicek model calibration}\label{vasicek-model-calibration}
+    Our goial is to apply exact sampling (ES) to Knock-In option associated
+to geometric Brownian motion.
 
-\textbf{Ref} Chapter 7 of {[}Hir13{]}
+    \textbf{Problem}
 
-Our goal is to design pricing engine and calirate vasicek model from
-data
+\begin{itemize}
+\tightlist
+\item
+  Asset follows \(GBM(S_0, r, \sigma^2)\);
+\item
+  Knock-in payoff is given as
+  \[F(S) = 1000 \cdot I(S_T > K) \cdot I\Big(\min_{1\le k \le m} S(t_k) < H\Big).\]
+\item
+  (\textbf{todo}) Find price \[e^{-rT}\mathbb E [F(S)]\]
+\end{itemize}
 
-    \subsection{Pricing formula for Vasicek
-model}\label{pricing-formula-for-vasicek-model}
+    \textbf{Parameters}
 
-Notations: - \(P(t, T)\): zero coupon bond price - \(L(t, T)\): LIBOR
-rate - \(s(t, T, N)\): swap rate with \(N\) terms on \([t, T]\)
+\begin{itemize}
+\tightlist
+\item
+  \(r = 5\%, \sigma = 15\%, S(0) = 95\)
+\item
+  \(T = 0.25, m = 50, H = 85, K = 96.\)
+\item
+  \(k = 1000\), \(n = 1000\)
+\end{itemize}
 
-The relation to the pricing formulas are
-\[L(t, T) = \frac{100}{T-t} ( \frac{1}{P(t, T)} - 1)\] and
-\[ s(t, T, N) = 100 \frac{1 - P(t, T)}{ \Delta \sum_{j=1}^N P(t, t + j \Delta)}, \hbox{ where } \Delta = \frac{T - t}{N}. \]
+    \textbf{Algo}
 
-    If we further assume Vasicek model for the short rates with parameter
-\(\theta = (\kappa, \mu, \sigma, r_0)\), i.e.
-\[d r_t = \kappa (\mu - r_t) dt + \sigma dW_t, \hbox{ with } r_0,\] the
-rate has its explicit form given by
-\[r_t = r_0 e^{-\kappa t} + \mu ( 1 - e^{-\kappa t}) + \sigma e^{-\kappa t} \int_0^t e^{-\kappa s} dW_s.\]
+\begin{itemize}
+\tightlist
+\item
+  Repeat \(k\) times of the following MC:
 
-    \textbf{Todo}
+  \begin{itemize}
+  \tightlist
+  \item
+    Simulate \(n\) paths for \(S_t\) with \(m = 50\) steps;
+  \item
+    Compute payoff for each path, and take average;
+  \end{itemize}
+\item
+  Find mean, MSE, and confidence interval using \(k\) many MC outputs.
+\end{itemize}
 
-Verify the above explicit form \(r_t\) as the solution to the original
-vasicek model.
+    \textbf{Code}
 
-    \textbf{Todo}
-
-Design pricing engine of ZCB \(P(0, T)\) using the above explicit
-formula.
-
-(Hint) ZCB value is determined by
-\[P(0, T) = \mathbb E[e^{- \int_0^T r_t dt}] = e^{A(0, T) - B(0, T) r_0}\]
-with \[B(t, T) = \frac{1 - e^{-\kappa(T-t)}}{\kappa}, \quad 
-A(t, T) = (\mu - \frac{\sigma^2}{2\kappa^2}) [B(t, T) - (T-t)] - \frac{\sigma^2}{4\kappa} B^2(t, T).\]
-
-    \textbf{Todo}
-
-Design alternative pricing engine of ZCB \(P(0,T)\) using exact
-sampling.
-
-(hint) \(R(T) = \int_0^T r_t dt\) follows a normal distribution with
-\[\mathbb E R_T = \mu T + (r_0 - \mu) \frac{1 - e^{-\kappa T}}{\kappa}\]
-and
-\[Var(R_T) = \frac{\sigma^2}{2 \kappa^3} (2 \kappa T - 3 + 4 e^{-\kappa T} - e^{-2\kappa T}).\]
-
-    \textbf{Todo}
-
-Compute ZCB \(P(0,1)\) Libor \(L(0,1)\) with the following parameters
-using above two different pricing engines.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}======paras=======\PYZsq{}\PYZsq{}\PYZsq{}}
-        \PY{n}{theta} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{05}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{003}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{03}\PY{p}{]}
-        \PY{n}{kappa}\PY{p}{,} \PY{n}{mu}\PY{p}{,} \PY{n}{sigma}\PY{p}{,} \PY{n}{r0} \PY{o}{=} \PY{n}{theta}
-\end{Verbatim}
-
-
-    \textbf{Todo}
-
-find 10 term swap rates with term length 1/2 year, i.e
-\(s(t=0, T =5, N =10)\).
-
-    \textbf{Todo}
-
-Pick a date, and using Libor market data of that data, callibrate
-Vasicek model. - Then compare market rate and calibrated rate in a plot.
-- You may use SSRE - You may do calibration twice using two pricing
-engines, and see which one is better. - You may use the following
-provided market data too.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-        \PY{n}{dfLiborRate} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{maturity (months)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20081029 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{3.1175}\PY{p}{,} \PY{l+m+mf}{3.2738}\PY{p}{,} \PY{l+m+mf}{3.4200}\PY{p}{,} \PY{l+m+mf}{3.4275}\PY{p}{,} \PY{l+m+mf}{3.4213}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20110214 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.2647}\PY{p}{,} \PY{l+m+mf}{0.2890}\PY{p}{,} \PY{l+m+mf}{0.3140}\PY{p}{,} \PY{l+m+mf}{0.4657}\PY{p}{,} \PY{l+m+mf}{0.7975}\PY{p}{]}
-                                  \PY{p}{\PYZcb{}}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{dfLiborRate}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}4}]:}    20081029 rate(\%)  20110214 rate(\%)  maturity (months)
-        0            3.1175            0.2647                  1
-        1            3.2738            0.2890                  2
-        2            3.4200            0.3140                  3
-        3            3.4275            0.4657                  6
-        4            3.4213            0.7975                 12
-\end{Verbatim}
-            
-    \textbf{Todo}
-
-Pick a date, and using swap market data of that data, callibrate Vasicek
-model. - Then compare market rate and calibrated rate in a plot. - You
-may use SSRE - You may do calibration twice using two pricing engines,
-and see which one is better. - You may use the following provided market
-data too.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{dfSwapRate} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{term (year)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20081029 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{2.6967}\PY{p}{,} \PY{l+m+mf}{3.1557}\PY{p}{,} \PY{l+m+mf}{3.8111}\PY{p}{,} \PY{l+m+mf}{4.1497}\PY{p}{,} \PY{l+m+mf}{4.3638}\PY{p}{,} \PY{l+m+mf}{4.3753}\PY{p}{,} \PY{l+m+mf}{4.2772}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20110214 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{1.0481}\PY{p}{,} \PY{l+m+mf}{1.5577}\PY{p}{,} \PY{l+m+mf}{2.5569}\PY{p}{,} \PY{l+m+mf}{3.1850}\PY{p}{,} \PY{l+m+mf}{3.7225}\PY{p}{,} \PY{l+m+mf}{4.1683}\PY{p}{,} \PY{l+m+mf}{4.4407}\PY{p}{]}
-                                  \PY{p}{\PYZcb{}}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{dfSwapRate}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}6}]:}    20081029 rate(\%)  20110214 rate(\%)  term (year)
-        0            2.6967            1.0481            2
-        1            3.1557            1.5577            3
-        2            3.8111            2.5569            5
-        3            4.1497            3.1850            7
-        4            4.3638            3.7225           10
-        5            4.3753            4.1683           15
-        6            4.2772            4.4407           30
-\end{Verbatim}
-            
 
     % Add a bibliography block to the postdoc
     

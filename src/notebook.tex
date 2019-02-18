@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{hw\_es\_bsm\_knock\_in}
+    \title{midterm\_v01}
     
     
     
@@ -280,53 +280,9 @@
     
 
     
-    Our goial is to apply exact sampling (ES) to Knock-In option associated
-to geometric Brownian motion.
+    \section{Problem - 1}\label{problem---1}
 
-    \textbf{Problem}
-
-\begin{itemize}
-\tightlist
-\item
-  Asset follows \(GBM(S_0, r, \sigma^2)\);
-\item
-  Knock-in payoff is given as
-  \[F(S) = 1000 \cdot I(S_T > K) \cdot I\Big(\min_{1\le k \le m} S(t_k) < H\Big).\]
-\item
-  (\textbf{todo}) Find price \[e^{-rT}\mathbb E [F(S)]\]
-\end{itemize}
-
-    \textbf{Parameters}
-
-\begin{itemize}
-\tightlist
-\item
-  \(r = 5\%, \sigma = 15\%, S(0) = 95\)
-\item
-  \(T = 0.25, m = 50, H = 85, K = 96.\)
-\item
-  \(k = 1000\), \(n = 1000\)
-\end{itemize}
-
-    \textbf{Algo}
-
-\begin{itemize}
-\tightlist
-\item
-  Repeat \(k\) times of the following MC:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Simulate \(n\) paths for \(S_t\) with \(m = 50\) steps;
-  \item
-    Compute payoff for each path, and take average;
-  \end{itemize}
-\item
-  Find mean, MSE, and confidence interval using \(k\) many MC outputs.
-\end{itemize}
-
-    \textbf{Code}
+    \section{Problem - 2}\label{problem---2}
 
 
     % Add a bibliography block to the postdoc

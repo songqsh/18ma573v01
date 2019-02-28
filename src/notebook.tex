@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{fourier\_carr\_madan}
+    \title{hw\_fourier\_carr\_madan}
     
     
     
@@ -280,31 +280,7 @@
     
 
     
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{integrate} \PY{k}{import} \PY{n}{quad}
-        
-        \PY{k+kn}{from} \PY{n+nn}{contract\PYZus{}v01} \PY{k}{import} \PY{n}{VanillaOption}
-        \PY{k+kn}{from} \PY{n+nn}{sde\PYZus{}1d\PYZus{}v01} \PY{k}{import} \PY{n}{Gbm\PYZus{}1d}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}2}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}===============}
-        \PY{l+s+sd}{Test bsm\PYZus{}price}
-        \PY{l+s+sd}{=================\PYZsq{}\PYZsq{}\PYZsq{}}
-        
-        \PY{n}{gbm1} \PY{o}{=} \PY{n}{Gbm\PYZus{}1d}\PY{p}{(}\PY{n}{init\PYZus{}state}\PY{o}{=}\PY{l+m+mf}{100.}\PY{p}{,} \PY{n}{drift\PYZus{}ratio}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{0475}\PY{p}{,} \PY{n}{vol\PYZus{}ratio}\PY{o}{=}\PY{o}{.}\PY{l+m+mi}{2}\PY{p}{)}
-        \PY{n}{option1} \PY{o}{=} \PY{n}{VanillaOption}\PY{p}{(}\PY{n}{otype} \PY{o}{=} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{strike} \PY{o}{=} \PY{l+m+mf}{110.}\PY{p}{,} \PY{n}{maturity}\PY{o}{=} \PY{l+m+mf}{1.}\PY{p}{,} \PY{n}{market\PYZus{}price}\PY{o}{=}\PY{l+m+mf}{15.}\PY{p}{)} 
-        
-        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{}call value is }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{gbm1}\PY{o}{.}\PY{n}{bsm\PYZus{}price}\PY{p}{(}\PY{n}{option1}\PY{p}{)}\PY{p}{)}\PY{p}{)}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
->>>>>>>>>>call value is 5.943273183452838
-
-    \end{Verbatim}
+    Consider the following parameter for BSM
 
     \begin{Verbatim}[commandchars=\\\{\}]
 {\color{incolor}In [{\color{incolor}3}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}========}
@@ -319,36 +295,14 @@
 \end{Verbatim}
 
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{log\PYZus{}s0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{s0}\PY{p}{)}
-        \PY{n}{log\PYZus{}k} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{log}\PY{p}{(}\PY{n}{K}\PY{p}{)}
-        \PY{n}{mu} \PY{o}{=} \PY{n}{r} \PY{o}{\PYZhy{}} \PY{o}{.}\PY{l+m+mi}{5}\PY{o}{*}\PY{n}{sigma}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}
-        
-        \PY{n}{alpha} \PY{o}{=} \PY{l+m+mi}{1}
-\end{Verbatim}
+    \begin{itemize}
+\tightlist
+\item
+  find bsm price with explicit formula
+\item
+  find bsm price with fourier transorm proposed by carr-madan
+\end{itemize}
 
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{char\PYZus{}fun} \PY{o}{=} \PY{k}{lambda} \PY{n}{u}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{n}{u}\PY{o}{*}\PY{p}{(}\PY{n}{log\PYZus{}s0}\PY{o}{+}\PY{n}{mu}\PY{o}{*}\PY{n}{T}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{o}{.}\PY{l+m+mi}{5}\PY{o}{*}\PY{p}{(}\PY{n}{sigma}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{o}{*}\PY{n}{T}\PY{o}{*}\PY{p}{(}\PY{n}{u}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
-        \PY{n}{psi} \PY{o}{=} \PY{k}{lambda} \PY{n}{nu}\PY{p}{:} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{r}\PY{o}{*}\PY{n}{T}\PY{p}{)}\PY{o}{*}\PY{n}{char\PYZus{}fun}\PY{p}{(}\PY{n}{nu}\PY{o}{\PYZhy{}}\PY{p}{(}\PY{n}{alpha}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{l+m+mi}{1}\PY{n}{j}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{alpha}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{n}{alpha}\PY{o}{\PYZhy{}}\PY{n}{nu}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{o}{+}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{p}{(}\PY{l+m+mi}{2}\PY{o}{*}\PY{n}{alpha}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{*}\PY{n}{nu}\PY{p}{)}
-        \PY{n}{integrand} \PY{o}{=} \PY{k}{lambda} \PY{n}{nu}\PY{p}{:} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{n}{j}\PY{o}{*}\PY{n}{nu}\PY{o}{*}\PY{n}{log\PYZus{}k}\PY{p}{)}\PY{o}{*}\PY{n}{psi}\PY{p}{(}\PY{n}{nu}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{real}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{call} \PY{o}{=} \PY{n}{quad}\PY{p}{(}\PY{n}{integrand}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{inf}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{alpha}\PY{o}{*}\PY{n}{log\PYZus{}k}\PY{p}{)}\PY{o}{/}\PY{n}{np}\PY{o}{.}\PY{n}{pi}
-\end{Verbatim}
-
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{call}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}7}]:} 5.943273183452849
-\end{Verbatim}
-            
 
     % Add a bibliography block to the postdoc
     

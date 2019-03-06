@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{hw\_fourier\_carr\_madan}
+    \title{hw\_payoff\_correlation}
     
     
     
@@ -280,27 +280,75 @@
     
 
     
-    Consider the following parameter for BSM
+    Our objective is to investigate the correlations of the payoffs between
+- stock, - european call, - geometric asian call, - arithmetic asian
+call.
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}========}
-        \PY{l+s+sd}{paras}
-        \PY{l+s+sd}{============\PYZsq{}\PYZsq{}\PYZsq{}}
-        \PY{n}{s0} \PY{o}{=} \PY{l+m+mi}{100}
-        \PY{n}{r} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{0475}
-        \PY{n}{sigma} \PY{o}{=} \PY{o}{.}\PY{l+m+mi}{2}
-        \PY{n}{otype} \PY{o}{=} \PY{l+m+mi}{1}
-        \PY{n}{K} \PY{o}{=} \PY{l+m+mf}{110.}
-        \PY{n}{T} \PY{o}{=} \PY{l+m+mf}{1.}
+{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}paras are given here}
+         \PY{n}{S0} \PY{o}{=} \PY{l+m+mf}{100.0}
+         \PY{n}{K} \PY{o}{=} \PY{l+m+mf}{110.0}
+         \PY{n}{r}\PY{o}{=}\PY{l+m+mf}{0.0475}
+         \PY{n}{sigma} \PY{o}{=} \PY{l+m+mf}{0.20}
+         \PY{n}{T} \PY{o}{=} \PY{l+m+mf}{1.}
+         \PY{n}{num\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{4}
 \end{Verbatim}
 
 
     \begin{itemize}
 \tightlist
 \item
-  find bsm price with explicit formula
+  Implement the following pseudocode with num\_step = 4 and num\_paths =
+  100
+\end{itemize}
+
+    \textbf{pseudocode.} bsm\_option\_payoff\_generators(num\_step,
+num\_paths)
+
+\begin{itemize}
 \item
-  find bsm price with fourier transorm proposed by carr-madan
+  generate (num\_paths) many gbm paths, each path is produced from exact
+  smapling with (num\_step) time steps
+\item
+  for each path, compute corresponding payoff of the following contract
+  seperately:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    stock,
+  \item
+    european call,
+  \item
+    geometric asian call,
+  \item
+    arithmetric asian call.
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  plot the following three figures with format string 'ro' in your plot
+  arguments:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    aac vs. stk
+  \item
+    aac vs. ec
+  \item
+    aac vs. gac
+  \end{itemize}
+\end{itemize}
+
+    \begin{itemize}
+\tightlist
+\item
+  which asset is most highly correlated to aac?
+\item
+  Based on your observation, can you improve OMC computation of aac?
 \end{itemize}
 
 

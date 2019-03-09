@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{hw\_payoff\_correlation}
+    \title{hw\_char\_fun\_normal}
     
     
     
@@ -280,75 +280,23 @@
     
 
     
-    Our objective is to investigate the correlations of the payoffs between
-- stock, - european call, - geometric asian call, - arithmetic asian
-call.
-
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}22}]:} \PY{c+c1}{\PYZsh{}paras are given here}
-         \PY{n}{S0} \PY{o}{=} \PY{l+m+mf}{100.0}
-         \PY{n}{K} \PY{o}{=} \PY{l+m+mf}{110.0}
-         \PY{n}{r}\PY{o}{=}\PY{l+m+mf}{0.0475}
-         \PY{n}{sigma} \PY{o}{=} \PY{l+m+mf}{0.20}
-         \PY{n}{T} \PY{o}{=} \PY{l+m+mf}{1.}
-         \PY{n}{num\PYZus{}step} \PY{o}{=} \PY{l+m+mi}{4}
-\end{Verbatim}
-
-
-    \begin{itemize}
-\tightlist
-\item
-  Implement the following pseudocode with num\_step = 4 and num\_paths =
-  100
-\end{itemize}
-
-    \textbf{pseudocode.} bsm\_option\_payoff\_generators(num\_step,
-num\_paths)
+    Our goal is to derive the characteristic function for a normal
+distribution.
 
 \begin{itemize}
+\tightlist
 \item
-  generate (num\_paths) many gbm paths, each path is produced from exact
-  smapling with (num\_step) time steps
-\item
-  for each path, compute corresponding payoff of the following contract
-  seperately:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    stock,
-  \item
-    european call,
-  \item
-    geometric asian call,
-  \item
-    arithmetric asian call.
-  \end{itemize}
+  (todo) Let \[X_t = e^{iu W_t}\] for a brownian motion \(W\). Find
+  \[\phi(t) = \mathbb E[X_t].\]
 \end{itemize}
 
     \begin{itemize}
 \tightlist
 \item
-  plot the following three figures with format string 'ro' in your plot
-  arguments:
-
-  \begin{itemize}
-  \tightlist
-  \item
-    aac vs. stk
-  \item
-    aac vs. ec
-  \item
-    aac vs. gac
-  \end{itemize}
-\end{itemize}
-
-    \begin{itemize}
-\tightlist
-\item
-  which asset is most highly correlated to aac?
-\item
-  Based on your observation, can you improve OMC computation of aac?
+  (todo) Let \[Y \sim \mathcal{N}(\mu, \sigma^2)\] be a random variable.
+  Prove that its characteristic function
+  \[\phi(u) = \mathbb E[e^{iuY}]\] is
+  \[\phi(u) = e^{iu \mu - \frac 1 2 u^2 \sigma^2}.\]
 \end{itemize}
 
 

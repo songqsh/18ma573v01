@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{hw\_vasicek\_calibration}
+    \title{midterm\_v02}
     
     
     
@@ -280,134 +280,347 @@
     
 
     
-    \section{Vasicek model calibration}\label{vasicek-model-calibration}
+    \textbf{Name}
 
-\textbf{Ref} Chapter 7 of {[}Hir13{]}
+\textbf{Rules}
 
-Our goal is to design pricing engine and calirate vasicek model from
-data
-
-    \subsection{Pricing formula for Vasicek
-model}\label{pricing-formula-for-vasicek-model}
-
-Notations: - \(P(t, T)\): zero coupon bond price - \(L(t, T)\): LIBOR
-rate - \(s(t, T, N)\): swap rate with \(N\) terms on \([t, T]\)
-
-The relation to the pricing formulas are
-\[L(t, T) = \frac{100}{T-t} ( \frac{1}{P(t, T)} - 1)\] and
-\[ s(t, T, N) = 100 \frac{1 - P(t, T)}{ \Delta \sum_{j=1}^N P(t, t + j \Delta)}, \hbox{ where } \Delta = \frac{T - t}{N}. \]
-
-    If we further assume Vasicek model for the short rates with parameter
-\(\theta = (\kappa, \mu, \sigma, r_0)\), i.e.
-\[d r_t = \kappa (\mu - r_t) dt + \sigma dW_t, \hbox{ with } r_0,\] the
-rate has its explicit form given by
-\[r_t = r_0 e^{-\kappa t} + \mu ( 1 - e^{-\kappa t}) + \sigma e^{-\kappa t} \int_0^t e^{\kappa s} dW_s.\]
-
-    \textbf{Todo}
-
-Verify the above explicit form \(r_t\) as the solution to the original
-vasicek model.
-
-    \textbf{Todo}
-
-Design pricing engine of ZCB \(P(0, T)\) using the above explicit
-formula.
-
-(Hint) ZCB value is determined by
-\[P(0, T) = \mathbb E[e^{- \int_0^T r_t dt}] = e^{A(0, T) - B(0, T) r_0}\]
-with \[B(t, T) = \frac{1 - e^{-\kappa(T-t)}}{\kappa}, \quad 
-A(t, T) = (\mu - \frac{\sigma^2}{2\kappa^2}) [B(t, T) - (T-t)] - \frac{\sigma^2}{4\kappa} B^2(t, T).\]
-
-    \textbf{Todo}
-
-Design alternative pricing engine of ZCB \(P(0,T)\) using exact
-sampling.
-
-(hint) \(R(T) = \int_0^T r_t dt\) follows a normal distribution with
-\[\mathbb E R_T = \mu T + (r_0 - \mu) \frac{1 - e^{-\kappa T}}{\kappa}\]
-and
-\[Var(R_T) = \frac{\sigma^2}{2 \kappa^3} (2 \kappa T - 3 + 4 e^{-\kappa T} - e^{-2\kappa T}).\]
-
-    \textbf{Todo}
-
-Compute ZCB \(P(0,1)\) Libor \(L(0,1)\) with the following parameters
-using above two different pricing engines.
+\begin{itemize}
+\tightlist
+\item
+  After finish, you should email to me PDF version with file name
+  "firstname\_lastname\_midterm.pdf"
+\item
+  Any kind of communications are strictly prohibited. But you can use
+  book, note, or internet.
+\item
+  All your answers shall be rigourously justified.
+\item
+  No python modules shall be imported except those given below
+\end{itemize}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}1}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}======paras=======\PYZsq{}\PYZsq{}\PYZsq{}}
-        \PY{n}{theta} \PY{o}{=} \PY{p}{[}\PY{o}{.}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{05}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{003}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{03}\PY{p}{]}
-        \PY{n}{kappa}\PY{p}{,} \PY{n}{mu}\PY{p}{,} \PY{n}{sigma}\PY{p}{,} \PY{n}{r0} \PY{o}{=} \PY{n}{theta}
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats} \PY{k}{import} \PY{n}{norm}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{integrate} \PY{k}{import} \PY{n}{quad}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{import} \PY{n}{fmin}
 \end{Verbatim}
 
 
-    \textbf{Todo}
+    \textbf{Problem}
 
-find 10 term swap rates with term length 1/2 year, i.e
-\(s(t=0, T =5, N =10)\).
-
-    \textbf{Todo}
-
-Pick a date, and using Libor market data of that data, callibrate
-Vasicek model. - Then compare market rate and calibrated rate in a plot.
-- You may use SSRE - You may do calibration twice using two pricing
-engines, and see which one is better. - You may use the following
-provided market data too.
+    We consider BSM model with the following parameters:
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}3}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
-        \PY{n}{dfLiborRate} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{maturity (months)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{12}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20081029 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{3.1175}\PY{p}{,} \PY{l+m+mf}{3.2738}\PY{p}{,} \PY{l+m+mf}{3.4200}\PY{p}{,} \PY{l+m+mf}{3.4275}\PY{p}{,} \PY{l+m+mf}{3.4213}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20110214 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.2647}\PY{p}{,} \PY{l+m+mf}{0.2890}\PY{p}{,} \PY{l+m+mf}{0.3140}\PY{p}{,} \PY{l+m+mf}{0.4657}\PY{p}{,} \PY{l+m+mf}{0.7975}\PY{p}{]}
-                                  \PY{p}{\PYZcb{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}2}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}======parameters=============\PYZsq{}\PYZsq{}\PYZsq{}}
+        \PY{n}{s0}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{sigma}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{p}{,} \PY{n}{otype} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{30.}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{02}\PY{p}{,} \PY{l+m+mf}{0.3}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mf}{31.0}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{} spot, rate, vol, maturity, strike, option type}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    Write for the european call the explicit pricing formula, then find
+    call price.
+  \end{enumerate}
+\end{itemize}
+
+    (your latex here)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}========}
+        \PY{l+s+sd}{Black\PYZhy{}Scholes\PYZhy{}Merton formula. }
+        \PY{l+s+sd}{==========\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+        \PY{k}{def} \PY{n+nf}{bsm}\PY{p}{(}\PY{n}{s0}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{sigma}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{p}{,} \PY{n}{otype}\PY{p}{)}\PY{p}{:}
+            \PY{k}{pass}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}\PYZgt{}\PYZgt{}\PYZgt{} your answer below: }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{dfLiborRate}
-\end{Verbatim}
+>>>> your answer below: 
 
+    \end{Verbatim}
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}4}]:}    20081029 rate(\%)  20110214 rate(\%)  maturity (months)
-        0            3.1175            0.2647                  1
-        1            3.2738            0.2890                  2
-        2            3.4200            0.3140                  3
-        3            3.4275            0.4657                  6
-        4            3.4213            0.7975                 12
-\end{Verbatim}
-            
-    \textbf{Todo}
+    \begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \item
+  \end{enumerate}
 
-Pick a date, and using swap market data of that data, callibrate Vasicek
-model. - Then compare market rate and calibrated rate in a plot. - You
-may use SSRE - You may do calibration twice using two pricing engines,
-and see which one is better. - You may use the following provided market
-data too.
+  \begin{itemize}
+  \tightlist
+  \item
+    write Fourier transform \(\phi\) of \(\ln S_T\);
+  \item
+    write down the call price in terms of \(\phi\);
+  \item
+    then find call price using the above formula.
+  \end{itemize}
+\end{itemize}
 
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{dfSwapRate} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{term (year)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{30}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20081029 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{2.6967}\PY{p}{,} \PY{l+m+mf}{3.1557}\PY{p}{,} \PY{l+m+mf}{3.8111}\PY{p}{,} \PY{l+m+mf}{4.1497}\PY{p}{,} \PY{l+m+mf}{4.3638}\PY{p}{,} \PY{l+m+mf}{4.3753}\PY{p}{,} \PY{l+m+mf}{4.2772}\PY{p}{]}\PY{p}{,}
-                                    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20110214 rate(}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{1.0481}\PY{p}{,} \PY{l+m+mf}{1.5577}\PY{p}{,} \PY{l+m+mf}{2.5569}\PY{p}{,} \PY{l+m+mf}{3.1850}\PY{p}{,} \PY{l+m+mf}{3.7225}\PY{p}{,} \PY{l+m+mf}{4.1683}\PY{p}{,} \PY{l+m+mf}{4.4407}\PY{p}{]}
-                                  \PY{p}{\PYZcb{}}\PY{p}{)}
-\end{Verbatim}
-
+    (your latex here)
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{dfSwapRate}
+{\color{incolor}In [{\color{incolor}4}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}========}
+        \PY{l+s+sd}{Black\PYZhy{}Scholes\PYZhy{}Merton price by Fourier transform. }
+        \PY{l+s+sd}{==========\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+        \PY{k}{def} \PY{n+nf}{bsm\PYZus{}fourier}\PY{p}{(}\PY{n}{s0}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{sigma}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{K}\PY{p}{,} \PY{n}{otype}\PY{p}{)}\PY{p}{:}
+            \PY{k}{pass}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZgt{}\PYZgt{}\PYZgt{} your answer below }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}6}]:}    20081029 rate(\%)  20110214 rate(\%)  term (year)
-        0            2.6967            1.0481            2
-        1            3.1557            1.5577            3
-        2            3.8111            2.5569            5
-        3            4.1497            3.1850            7
-        4            4.3638            3.7225           10
-        5            4.3753            4.1683           15
-        6            4.2772            4.4407           30
+    \begin{Verbatim}[commandchars=\\\{\}]
+>>> your answer below 
+
+    \end{Verbatim}
+
+    \begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    Prove that call price is increasing with respect to its maturity,
+    and demonstrate your result numerically.
+  \end{enumerate}
+\end{itemize}
+
+    (your latex here)
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}====your code here===\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+        \PY{k}{pass}
 \end{Verbatim}
-            
+
+
+    \begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    Do you think that call price is also increasing with respect to its
+    maturity for Heston model? Please justify your answer.
+  \end{enumerate}
+\end{itemize}
+
+    (your latex here)
+
+    \begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    With the same parameters for GBM above, price the arithmetic asian
+    option with \(T = 1\), \(K= 31\), and two periods (i.e. average
+    prices of three time instants)
+  \end{enumerate}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}====your code here===\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+        \PY{k}{pass}
+\end{Verbatim}
+
+
+    \textbf{Problem}
+
+    We consider the call price underlying XYZ stock with spot price \(\$30\)
+and interest rate \(2\%\). Below is the current market call prices
+corresponding to its maturity \(T=1\) and different strikes:
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{s0}\PY{p}{,} \PY{n}{r}\PY{p}{,} \PY{n}{T}\PY{p}{,} \PY{n}{otype} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{30.}\PY{p}{,} \PY{o}{.}\PY{l+m+mi}{02}\PY{p}{,} \PY{l+m+mf}{1.}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]} \PY{c+c1}{\PYZsh{} spot, rate, maturity, option type}
+        \PY{n}{strike\PYZus{}arr} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{28.0}\PY{p}{,} \PY{l+m+mf}{28.5}\PY{p}{,} \PY{l+m+mf}{29.0}\PY{p}{,} \PY{l+m+mf}{29.5}\PY{p}{,} \PY{l+m+mf}{30.0}\PY{p}{,} \PY{l+m+mf}{30.5}\PY{p}{,} \PY{l+m+mf}{31.0}\PY{p}{,} \PY{l+m+mf}{31.5}\PY{p}{,} \PY{l+m+mf}{32.0}\PY{p}{]} \PY{c+c1}{\PYZsh{} strike array}
+        \PY{n}{market\PYZus{}call\PYZus{}arr} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{5.7}\PY{p}{,} \PY{l+m+mf}{5.0}\PY{p}{,} \PY{l+m+mf}{4.5}\PY{p}{,} \PY{l+m+mf}{4.1}\PY{p}{,} \PY{l+m+mf}{3.8}\PY{p}{,} \PY{l+m+mf}{3.6}\PY{p}{,} \PY{l+m+mf}{3.6}\PY{p}{,} \PY{l+m+mf}{3.7}\PY{p}{,} \PY{l+m+mf}{3.9}\PY{p}{]} \PY{c+c1}{\PYZsh{} corresponding market price}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    Find their implied volatilities and draw its volatility smile
+  \end{enumerate}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}====your code here====\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+        \PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\tightlist
+\item
+  (Q.) Find bsm calibrated volatility to the above data by minimizing
+  \(L^2\) norm in the error.
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}====your code here====\PYZsq{}\PYZsq{}\PYZsq{}}
+        
+        \PY{k}{pass}
+\end{Verbatim}
+
+
+    \textbf{Problem}
+
+    Let \(f:\mathbb R\mapsto \mathbb R\) be a smooth even function
+satisfying \(f(0) = 0\). Our objective is to approximate the second
+order derivative \(f''(0)\). - (Q.) Prove that \(f'(0) = 0.\) - (Q.)
+Ziyue proposes the following estimator for \(f''(0)\): for a step size
+\(h\) \[a_{h} = \frac{2f(h)}{h^{2}}.\] Please justify that Ziyue's
+estimation has its convergence \(O(h^{2})\). - (Q.) Is there anyway to
+improve the above convergence to \(O(h^{4})\) in the form of
+\[b_{h} = \frac{c_{1} f(h) + c_{2}f(2h)}{h^{2}}\] for some constants
+\(c_{1}\) and \(c_{2}\)? - (Q.) If the above function \(f\) is odd and
+other properties remain the same, how do you want to find the \(f''(0)\)
+efficiently?
+
+    \textbf{Soln} (your latex input here)
+
+    \textbf{Problem}
+
+    Thomas proposed the following estimator for the value \(\pi\).
+\[\hat \pi = c \cdot I(X_1^2 + X_2^2< 1/2)\] where \(X_1\) and \(X_2\)
+are two independent uniform random variables on \((-1,1)\).
+
+\begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    find the constant \(c\) so that \(\hat \pi\) is unbiased estimator
+    to \(\pi\);
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    for \(c?\) in your above answer, what is its MSE?
+  \end{enumerate}
+\end{itemize}
+
+    (your latex here)
+
+    \begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    can you propose a better mc estimator with smaller MSE?
+  \end{enumerate}
+\end{itemize}
+
+    \textbf{Soln} (your latex here)
+
+    \begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    can you demonstrate the theoretical MSE obtained in your algorithm
+    above numerically via python code?
+  \end{enumerate}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}====== your code here =======\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{k}{pass}
+\end{Verbatim}
+
+
+    \textbf{Problem}
+
+    \begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    find the conditional probability of a random varialbe \(Z\) in
+    \(B_{1/2}\), given that \(Z\) is uniformly distributed on \(B_1\).
+  \end{enumerate}
+\end{itemize}
+
+    \textbf{Soln}(your latex here)
+
+    \begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    Demonstrate your answer numerically by doing so:
+  \end{enumerate}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Generate 1000 samplings uniformly from \(B_1\);
+  \item
+    count the points in \(B_{1/2}\).
+  \item
+    find the ratio of number of points in the small ball and the big
+    ball.
+  \end{itemize}
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}===== your code here======\PYZsq{}\PYZsq{}\PYZsq{}}
+         \PY{n}{num\PYZus{}sample} \PY{o}{=} \PY{l+m+mi}{1000}
+         \PY{n}{sample\PYZus{}arr} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,}\PY{n}{num\PYZus{}sample}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{pass}
+\end{Verbatim}
+
+
+    \begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{(\Alph{enumi})}
+  \setcounter{enumi}{16}
+  \tightlist
+  \item
+    Justify your random sampling in the previous question
+  \end{enumerate}
+\end{itemize}
+
+    \textbf{soln} (your latex here)
+
 
     % Add a bibliography block to the postdoc
     

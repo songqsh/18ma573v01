@@ -3,4 +3,4 @@
 ## COMPUTATIONAL METHODS OF FINANCIAL MATHEMATICS
 
 
-[Start here](README_v01.ipynb)
+[Start here](index01.ipynb)

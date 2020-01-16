@@ -4,3 +4,4 @@
 - [python](src/20python_notebook.ipynb)
 - [pandas](src/20pandas.ipynb)
 - [first order finite difference](src/20fd1.ipynb)
+- [convergence rate of first order](src/20fd1_rate.ipynb)

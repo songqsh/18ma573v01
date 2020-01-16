@@ -3,3 +3,4 @@
 - [git+colab](src/20s_github.ipynb)
 - [python](src/20python_notebook.ipynb)
 - [pandas](src/20pandas.ipynb)
+- [first order finite difference](src/20fd1.ipynb)

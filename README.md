@@ -3,4 +3,4 @@
 ## COMPUTATIONAL METHODS OF FINANCIAL MATHEMATICS
 
 - [20spring](20s-readme.md)
-- [Start here for 18spring](index01.ipynb)
+- [19spring](index01.ipynb)

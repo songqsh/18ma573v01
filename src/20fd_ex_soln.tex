@@ -1,0 +1,124 @@
+\documentclass{article}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=blue,pdfstartview=FitH]{hyperref}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{5px}
+
+%\input{macrosblog}
+
+%%%%%%%%% For wordpress conversion
+
+\def\more{}
+
+\newif\ifblog
+\newif\iftex
+\blogfalse
+\textrue
+
+
+\usepackage{ulem}
+\def\em{\it}
+\def\emph#1{\textit{#1}}
+
+\def\image#1#2#3{\begin{center}\includegraphics[#1pt]{#3}\end{center}}
+
+\let\hrefnosnap=\href
+
+\newenvironment{btabular}[1]{\begin{tabular} {#1}}{\end{tabular}}
+
+\newenvironment{red}{\color{red}}{}
+\newenvironment{green}{\color{green}}{}
+\newenvironment{blue}{\color{blue}}{}
+
+%%%%%%%%% Typesetting shortcuts
+
+\def\B{\{0,1\}}
+\def\xor{\oplus}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\var{{\bf Var}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\def\Q{{\mathbb Q}}
+\def\eps{{\epsilon}}
+
+\def\bz{{\bf z}}
+
+\def\true{{\tt true}}
+\def\false{{\tt false}}
+
+%%%%%%%%% Theorems and proofs
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$} %\medskip} 
+%%%%%%%%% I added
+\newtheorem{assumption}{Assumption}
+%%%%%%%%
+
+\begin{document}
+
+\begin{enumerate}
+ \item Suppose that we wish to approximate the first derivative $u'(x)$ of a very smooth function with an error of only $O(h)^4$, where $h$ is the step size. Which difference approximation could we use? (Hint: you may consider to use more than two points in the neighborhood)
+ 
+ {\bf soln.} $$f'(x) \simeq \frac 2 3 \delta_{\pm h} f(x) - \frac 1 {12} \delta_{\pm 2h} f(x).$$
+ 
+ \item 
+Let $f:\mathbb R\mapsto \mathbb R$ be a smooth even function 
+satisfying $f(0) = 0$. 
+Our objective is to approximate  the second order derivative $f''(0)$. 
+\begin{itemize}
+ \item Prove that $f'(0) = 0.$
+ \item Chenyu proposes the following estimator for $f''(0)$: for a step size $h$
+ $$a_{h} = \frac{2f(h)}{h^{2}}.$$
+ Please justify that Chenyu's estimation has its convergence $O(h^{2})$.
+ \item Is there anyway to improve the above 
+ convergence to $O(h^{4})$ in the form of 
+ $$b_{h} = \frac{c_{1} f(h) + c_{2}f(2h)}{h^{2}}$$
+ for some constants $c_{1}$ and $c_{2}$?
+ \item If the above function $f$ is odd and other properties remain the same, how do you want to find the $f''(0)$ efficiently?
+\end{itemize}
+
+{\bf Solution}
+\begin{itemize}
+ \item it can be directly shown from the definition of $f'$.
+ \item $f^{n}(0) = 0$ for all odd number $n$. Therefore, 
+ taylor expansion gives 
+ $$f(h) = \frac 1 2 h^{2} f''(0) + \frac 1 {24} h^{4}f^{(4)}(0) + O(h^{6}),$$
+ and the result follows.
+ \item we can combine the above taylor expansion with
+ $$f(2h) = 2h^{2} f''(0) + \frac 2 3 h^{4} f^{(4)}(0) + O(h^{6}).$$
+ It yields that, with $c_{1} = 8/3$ and $c_{2} = - 1/6$, 
+ $$c_{1} f(h) + c_{2}f(2h) = h^{2}f''(0) + O(h^{6}).$$
+ \item 
+ If $f$ is odd, then $f''(0) = 0$ and no estimate is needed any more.
+\end{itemize}
+\end{enumerate}
+
+
+
+
+
+\end{document}

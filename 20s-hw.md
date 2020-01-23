@@ -6,8 +6,9 @@
     - [soln](src/20fd_ex_soln.pdf)
 - [payoff structure of option combinations](src/20option_combinations.ipynb)
 - [bsm price change](src/20bsm_price_change.ipynb)
-- [bsm_greeks](src/20explicit_bsm_greeks.ipynb)
+- [bsm greeks](src/20explicit_bsm_greeks.ipynb)
     - [soln](src/20explicit_bsm_greeks_soln.ipynb)
+    
 
 
 

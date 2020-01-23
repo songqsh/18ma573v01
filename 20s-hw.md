@@ -5,6 +5,7 @@
 - hw3 - [increasing rate of finite difference](src/20fd_ex.pdf)
     - [soln](src/20fd_ex_soln.pdf)
 - hw4 - [payoff structure of option combinations](src/20option_combinations.ipynb)
+- hw5 - [bsm price change](src/20bsm_price_change.ipynb)
 
 
     

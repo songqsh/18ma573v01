@@ -6,6 +6,7 @@
   - Page 267-Table4.4: Konck-in barrier options with IS
   - Page 272-Table4.5: Asian options with IS
 - Ali Hirsa, Computational Methods in Finance. Chapman Hall/CRC 2013.
+  - Page 163, Table 4.1-4.2: Vanilla option under Heston
 ## Papers
 - Longstaff and Schwartz, Valuing American Options by Simulation: A Simple Least-Squares Approach, The review of financial studies, 2001, [pdf](https://github.com/songqsh/songqsh.github.io/blob/master/paper/01LSAmericanOption.pdf)
   - This paper provides a least square method of American option pricing. 

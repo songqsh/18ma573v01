@@ -1,6 +1,7 @@
 # 20spring
 
 - [Syllabus](doc/20syl_v01.pdf)
+- [References](src/20refs.md)
 ------------
 - [git+colab](src/20s_github.ipynb)
 - [python](src/20python_notebook.ipynb)

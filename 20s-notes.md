@@ -1,6 +1,7 @@
 # 20spring
 
 - [Syllabus](doc/20syl_v01.pdf)
+------------
 - [git+colab](src/20s_github.ipynb)
 - [python](src/20python_notebook.ipynb)
 - [pandas](src/20pandas.ipynb)
@@ -11,6 +12,9 @@
 - [implied volatility](src/20imp_vol_v01.ipynb)
 - [volatility smile](src/20vol_smile_v01.ipynb)
 - [python module/test](src/20bsm01_test.ipynb)
+--------------
+- [Crude Monte Carlo: Estimation of $\pi$](src/20mcpi01.pdf)
+
 
 
 

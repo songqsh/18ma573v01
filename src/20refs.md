@@ -1,7 +1,8 @@
 # Final project guidelines
 
-The final project should be done in a group of 2-3 people, and independently uploaded to your GitHub at last.
-Your analytic (non-coding) part shall be strictly in the range of 3-8 pages. 
+The final project should be done in a group of 2-3 people, and independently uploaded to your GitHub at last. Your analytic (non-coding) part shall be strictly in the range of 3-8 pages. 
+- The topic could be from any problems from the class and in-depth investigation is needed for a satisfactory credit. 
+- Alternatively, you can recover some numerical results from the existing literature either by methods provided by the reference or learned from class. 
 
 
 

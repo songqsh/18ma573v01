@@ -14,7 +14,7 @@
 - [volatility smile](src/20vol_smile_v01.ipynb)
 - [python module/test](src/20bsm01_test.ipynb)
 --------------
-- [Project and References](src/20refs.md)
+- [Final project guideline and References](src/20refs.md)
 ----
 - [Crude Monte Carlo: Estimation of $\pi$](src/20mcpi01.pdf)
 

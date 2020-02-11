@@ -18,7 +18,8 @@
 ----
 - [Crude Monte Carlo: Estimation of $\pi$](src/20mcpi01.pdf)
 - [Definite Integral by MC](src/20omc_integral_01.pdf)
-
+----
+- [Importance sampling and inverse transorm](src/20is_it_integral.pdf)
 
 
 

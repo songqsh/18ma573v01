@@ -6,6 +6,9 @@
 \usepackage{color}
 
 
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
 \setlength{\oddsidemargin}{0pt}
 \setlength{\evensidemargin}{0pt}
 \setlength{\textwidth}{6.0in}
@@ -88,12 +91,15 @@ You will learn
 \end{itemize}
 
 \section{Problem}
+
+\begin{example}\label{ex:integral}
 Our goal is to compute, using OMC by exact sampling
 $$\alpha = \int_0^1 h(x) dx$$
 where
 $$h(x) = 100 \cdot I_{(0, 1/100]}(x) + 1\cdot I_{(1/100, 1)} (x).$$
 The exact value shall be 
 $$\alpha = 1.98.$$
+\end{example}
 
 \section{Analysis}
 
@@ -105,7 +111,7 @@ $$\{iid \ X_i \sim p(x): i = 1, 2, \ldots, n, \} .$$
 Then, one can compute the approximation of $\alpha$ by
 $$\hat \alpha_n = \frac 1 n \sum_{i=1}^n X_i.$$
 
-We say $\hat \alpha_n$ as OMC by exact sampling, since the sample $X_i$
+We say $\hat \alpha_n$ as OMC by {\it exact sampling}, since the sample $X_i$
 produced by random generator has the same distribution as true distribution $X$, 
 i.e. 
 $$X_i \sim X, \ \forall i.$$
@@ -115,27 +121,37 @@ The properties of the OMC by exact sampling are listed below:
  $$\mathbb E [X_1] = \alpha.$$
  However, MSE is big, ie.
  $$MSE(X_1) = Var(X) = \int x^2 p(x) dx.$$
- \item $\hat \alpha_n$ is consistent almost surely due by LLN, i.e.
+ \item $\hat \alpha_n$ is {\it consistent almost surely} due to LLN, i.e.
  $$\hat \alpha_n \to \alpha, \hbox{ almost surely as } n\to \infty.$$
  Moreover, $\hat \alpha_n$ is unbiased too, and
  $$MSE(\hat \alpha_n) = Var(\hat \alpha_n) = \frac 1 n Var(X) \to 0.$$
 \end{itemize}
 
 \subsection{Evaluation of integral}
-Back to our example, we write
+Back to our Example \ref{ex:integral}, we write
 $$\alpha = \mathbb E[X] = \mathbb E[h(Y)],$$
 where $X = h(Y)$ and $Y\sim U(0,1)$.
 In other words, although $X$-sampling is not directly available in python, 
 one can use $U(0,1)$ random generator (see {\it numpy.random.uniform}) to produce $Y_i$, then compute $h(Y_i)$ for 
 the sample $X_i$.
 
-Pseudocode for omc\_integral(n):
-\begin{itemize}
-\item Generate $n$ iid samples $$\{iid \ Y_i\sim U(0,1): i = 1, 2, \ldots, n\};$$
-\item Compute $n$ $X$ samples by
-$$\{X_i = h(Y_i): i = 1, 2, \ldots, n\};$$
-\item Take average of $X_i$'s
-\end{itemize}
+
+\begin{algorithm}
+\caption{Integral by MC - Example \ref{ex:integral}}
+\label{alg:mcpi}
+\begin{algorithmic}[1]
+\Procedure{mcintegral}{$N$}\Comment{$N$ is total number of samples}
+\State  $s \gets 0$ \Comment{$s$ is the sum of samples}
+\For {$i = 1...N$}
+	\State generate two numbers $Y$ from $U(0,1)$ \Comment{use  {\it numpy.random.uniform}}
+	\State $s\gets s+h(Y)$ 
+\EndFor
+\State \textbf{return} $\frac{s}{N}$ \Comment{return the average}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
 
 
 \end{document}

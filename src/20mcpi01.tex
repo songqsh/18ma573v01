@@ -106,9 +106,6 @@ $$\hbox{ Prob of succesful shot } = \frac{\hbox{Area of  }B_{1}} { \hbox{ Area o
 
 
 This means that, as long as one can approximate probability of successful shot, one can approximate $\pi$ by multiplying $4$. This can be done by computer: 
-\begin{itemize}
-\item Simulate many uniform shots, and compute the ratio of successful shots.
-\end{itemize}
 
 
 \begin{algorithm}
@@ -147,7 +144,7 @@ A random estimator $\hat \alpha$ to a deterministic value $\alpha$ is called as 
 $$Bias = \mathbb E [\hat \alpha] - \alpha$$
 and 
 $$MSE = \mathbb E [(\hat \alpha - \alpha)^2].$$
-\item If Bias is zero, then we call this as unbiased MC.
+\item (def) If Bias is zero, then we call this as {\it unbiased} MC.
 \end{itemize}
 
 \begin{proposition}
@@ -182,7 +179,7 @@ If $X\in L^2$, then we say it's square integrable.}
  $$\beta_N = \frac 1 N \sum_{i=1}^N \hat \alpha_i.$$
  \item $\beta_N$ is unbiased again. (why?)
  \item $MSE(\beta_N) = \frac 1 N MSE(\hat \alpha) \to 0$. (why?)
- \item $\beta_N$ is almost surely consistent,
+ \item $\beta_N$ is {\it  almost surely consistent},
   (why?)  i.e. 
   $$\beta_{N} \to \alpha, \ \hbox{ almost surely  or }
   \mathbb P(\lim_N \beta_N = \alpha) = 1.$$

@@ -1,0 +1,171 @@
+\documentclass{article}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=blue,pdfstartview=FitH]{hyperref}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{5px}
+
+%\input{macrosblog}
+
+%%%%%%%%% For wordpress conversion
+
+\def\more{}
+
+\newif\ifblog
+\newif\iftex
+\blogfalse
+\textrue
+
+
+\usepackage{ulem}
+\def\em{\it}
+\def\emph#1{\textit{#1}}
+
+\def\image#1#2#3{\begin{center}\includegraphics[#1pt]{#3}\end{center}}
+
+\let\hrefnosnap=\href
+
+\newenvironment{btabular}[1]{\begin{tabular} {#1}}{\end{tabular}}
+
+\newenvironment{red}{\color{red}}{}
+\newenvironment{green}{\color{green}}{}
+\newenvironment{blue}{\color{blue}}{}
+
+%%%%%%%%% Typesetting shortcuts
+
+\def\B{\{0,1\}}
+\def\xor{\oplus}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\var{{\bf Var}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\def\Q{{\mathbb Q}}
+\def\eps{{\epsilon}}
+
+\def\bz{{\bf z}}
+
+\def\true{{\tt true}}
+\def\false{{\tt false}}
+
+%%%%%%%%% Theorems and proofs
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$} %\medskip} 
+%%%%%%%%% I added
+\newtheorem{assumption}{Assumption}
+%%%%%%%%
+
+\begin{document}
+
+\section{Abstract}
+
+\begin{itemize}
+ \item We will evaluate the same definite integral
+ \item We use importance sampling to improve its efficiency
+ \item We use inverse transform for exact sampling
+\end{itemize}
+
+\section{Problem}
+Our goal is to compute
+$$\alpha = \int_0^1 h(x) dx$$
+where
+$$h(x) = 100 \cdot I_{(0, 1/100]}(x) + 1\cdot I_{(1/100, 1)} (x).$$
+Of course, the exact value shall be 
+$$\alpha = 1.98.$$
+Pretended not to know the exact value, we have used OMC with exact sampling of uniform random variable, denoted by omc\_integral(n). 
+
+Next, we are going to improve the efficiency of omc\_integral(n) by using importance sampling. We also extend our skill on exact sampling by using inverse transform.
+
+\section{Analysis}
+
+\subsection{Importance sampling}
+Recall that, to estimate the above integral $\alpha$, 
+we use the uniform random variable $X$, 
+whose density is $p(x) = I_{(0,1)}(x)$, and write
+$$\alpha = \mathbb E[h(X) | X \sim p] = \int_{0}^{1} h(x) p(x) dx.$$
+Naturally, one can sample iid uniform random numbers by computer, denoted by
+$$\{\ X_i \sim p: i = 1, 2, \ldots, n\} ,$$
+then taking their average for its approximation of $\alpha$, i.e.
+$$\hat \alpha_n = \frac 1 n \sum_{i=1}^n h(X_i).$$
+
+\begin{example}
+ Compute MSE of $\hat \alpha_{n}$.
+\end{example}
+{\bf Solution}.
+Since it is unbiased, MSE is the same as Variance of $\hat \alpha_{n}$, 
+and it is again equal to $1/n$ of 
+$$Var[h(X) | X\sim p].
+$$Therefore, it is
+$\frac{100.99}{n}$. \hfill $\Box$
+
+
+IS considers, with a smart choice of a pdf $p_{1}$, 
+$$\alpha = \int_{0}^{1} h(x)\frac{p(x)}{p_{1}(x)} p_{1} (x) dx= 
+\mathbb E \Big[h(X) \frac{p(X)}{p_{1}(X)} \Big| X\sim p_{1}(x) \Big] $$
+Since we observe that the interval $(0, 1/100)$ is much more {\it important}
+than $(1/100, 1)$, our choice of $p_{1}$ is the following:
+$$p_{1} (x) = \frac{1}{C} (2 \cdot I_{(0, 1/100]} (x) + 1 \cdot I_{(1/100, 1)}(x)),$$
+where
+$C = 101/100$ is the normalizing constant to make $p_{1}$ to be a valid pdf.
+
+Pseudocode 
+\\importance\_sampling\_integral(n): 
+\begin{itemize}
+ \item Generate iid $p_{1}$ samples, denoted by
+ $$\{X_{i}: i = 1, 2, \ldots, n\}.$$
+ \item Compute the average of the integrand $h$ adjusted by 
+ likelyhood ratio (also referred to radon-nikodym derivative) $p/p_{1}$, i.e.
+ $$\bar \alpha_{n} = \frac 1 n \sum_{i=1}^{n} h(X_{i}) \cdot 
+ \frac{p(X_{i})}{p_{1}(X_{i})}.$$
+\end{itemize}
+
+\begin{example}
+ Prove that MSE of $\hat \alpha_{n}$ is $51.4999/n$.
+\end{example}
+
+\subsection{Inverse transform method}
+To implement the is\_integral($n$), we  shall generate $p_{1}$ samples.
+But this is not directly available by python. 
+Inverse transform method provides exact sampling as long as the inverse of CDF is explicitly available. Its theoretic basis is given next.
+
+\begin{proposition}
+ Suppose $X$ has its CDF $F$ and $F^{-1}$ exists, then 
+ $F^{-1}(U) \sim X$, where $U\sim U(0,1)$.
+\end{proposition}
+\begin{proof}
+ $$\mathbb P(F^{-1}(U) \le x) = \mathbb P(U\le F(x)) = F(x).$$
+\end{proof}
+
+Pseudocode 
+\\inverse\_transform\_sampling($F^{-1}, n$):
+\begin{itemize}
+ \item Generate iid $U(0,1)$ random variables
+ $$\{Y_{i}: i = 1, \ldots, n\}.$$
+ \item Compute
+ $$\{X_{i} = F^{-1}(Y_{i}): i = 1, \ldots, n\}.$$
+\end{itemize}
+
+\end{document}

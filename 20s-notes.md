@@ -17,7 +17,7 @@
 - [Final project guideline and References](src/20refs.md)
 ----
 - [Crude Monte Carlo: Estimation of $\pi$](src/20mcpi01.pdf)
-- [Definite Integral by MC](src/20ome_integral_01.pdf)
+- [Definite Integral by MC](src/20omc_integral_01.pdf)
 
 
 

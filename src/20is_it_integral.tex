@@ -6,6 +6,9 @@
 \usepackage{color}
 
 
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
 \setlength{\oddsidemargin}{0pt}
 \setlength{\evensidemargin}{0pt}
 \setlength{\textwidth}{6.0in}
@@ -89,15 +92,35 @@
 \end{itemize}
 
 \section{Problem}
-Our goal is to compute
+
+\begin{example}\label{ex:integral}
+Our goal is to compute, using OMC by exact sampling
 $$\alpha = \int_0^1 h(x) dx$$
 where
 $$h(x) = 100 \cdot I_{(0, 1/100]}(x) + 1\cdot I_{(1/100, 1)} (x).$$
+\end{example}
 Of course, the exact value shall be 
 $$\alpha = 1.98.$$
-Pretended not to know the exact value, we have used OMC with exact sampling of uniform random variable, denoted by omc\_integral(n). 
+Pretended not to know the exact value, we have used OMC with exact sampling of uniform random variable as follows:
 
-Next, we are going to improve the efficiency of omc\_integral(n) by using importance sampling. We also extend our skill on exact sampling by using inverse transform.
+\begin{algorithm}
+\caption{Integral by MC - Example \ref{ex:integral}}
+\label{alg:mcpi}
+\begin{algorithmic}[1]
+\Procedure{mcintegral}{$N$}\Comment{$N$ is total number of samples}
+\State  $s \gets 0$ \Comment{$s$ is the sum of samples}
+\For {$i = 1...N$}
+	\State generate two numbers $Y$ from $U(0,1)$ \Comment{use  {\it numpy.random.uniform}}
+	\State $s\gets s+h(Y)$ 
+\EndFor
+\State \textbf{return} $\frac{s}{N}$ \Comment{return the average}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+ 
+
+Next, we are going to improve the efficiency by using importance sampling. We also extend our skill on exact sampling by using inverse transform.
 
 \section{Analysis}
 
@@ -112,7 +135,7 @@ then taking their average for its approximation of $\alpha$, i.e.
 $$\hat \alpha_n = \frac 1 n \sum_{i=1}^n h(X_i).$$
 
 \begin{example}
- Compute MSE of $\hat \alpha_{n}$.
+ Compute MSE of $\hat \alpha_{n}$. Verify it with your code.
 \end{example}
 {\bf Solution}.
 Since it is unbiased, MSE is the same as Variance of $\hat \alpha_{n}$, 
@@ -122,7 +145,7 @@ $$Therefore, it is
 $\frac{100.99}{n}$. \hfill $\Box$
 
 
-IS considers, with a smart choice of a pdf $p_{1}$, 
+IS considers, with a smart choice of a pdf $p_{1}$ (to be determined), 
 $$\alpha = \int_{0}^{1} h(x)\frac{p(x)}{p_{1}(x)} p_{1} (x) dx= 
 \mathbb E \Big[h(X) \frac{p(X)}{p_{1}(X)} \Big| X\sim p_{1}(x) \Big] $$
 Since we observe that the interval $(0, 1/100)$ is much more {\it important}
@@ -131,41 +154,55 @@ $$p_{1} (x) = \frac{1}{C} (2 \cdot I_{(0, 1/100]} (x) + 1 \cdot I_{(1/100, 1)}(x
 where
 $C = 101/100$ is the normalizing constant to make $p_{1}$ to be a valid pdf.
 
-Pseudocode 
-\\importance\_sampling\_integral(n): 
-\begin{itemize}
- \item Generate iid $p_{1}$ samples, denoted by
- $$\{X_{i}: i = 1, 2, \ldots, n\}.$$
- \item Compute the average of the integrand $h$ adjusted by 
- likelyhood ratio (also referred to radon-nikodym derivative) $p/p_{1}$, i.e.
- $$\bar \alpha_{n} = \frac 1 n \sum_{i=1}^{n} h(X_{i}) \cdot 
- \frac{p(X_{i})}{p_{1}(X_{i})}.$$
-\end{itemize}
+\begin{algorithm}\label{pc:is}
+\caption{Integral by importance sampling - Example \ref{ex:integral}}
+\label{alg:mcpi}
+\begin{algorithmic}[1]
+\Procedure{isintegral}{$N$}\Comment{$N$ is total number of samples}
+\State  $s \gets 0$ \Comment{$s$ is the sum of samples}
+\For {$i = 1...N$}
+	\State generate a number $Y \sim p_1$ by inverse transform method \Comment{ITM to be explained}
+	\State $s\gets s+ h(Y) \cdot \frac{p(Y)}{p_1(Y)}$ 
+\EndFor
+\State \textbf{return} $\frac{s}{N}$ \Comment{return the average}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+ 
+
 
 \begin{example}
- Prove that MSE of $\hat \alpha_{n}$ is $51.4999/n$.
+ Prove that MSE of $\hat \alpha_{n}$ is $51.4999/n$. Verify it with your code.
 \end{example}
 
 \subsection{Inverse transform method}
-To implement the is\_integral($n$), we  shall generate $p_{1}$ samples.
+To implement the IS, we  shall generate $p_{1}$ samples.
 But this is not directly available by python. 
 Inverse transform method provides exact sampling as long as the inverse of CDF is explicitly available. Its theoretic basis is given next.
 
+\begin{algorithm}\label{pc:itm}
+\caption{ITM sample generation for $X\sim F$ given $F^{-1}$}
+\label{alg:mcpi}
+\begin{algorithmic}[1]
+\Procedure{isintegral}{$F^{-1}$}\Comment{$F^{-1}$ is the inverse of CDF}
+\State generate a number $Y$ from $U(0,1)$ \Comment{use  {\it numpy.random.uniform}}
+\State $X = F^{-1}(Y)$
+\State \textbf{return} $X$ 
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+
 \begin{proposition}
- Suppose $X$ has its CDF $F$ and $F^{-1}$ exists, then 
+ Suppose $X$ has its CDF $F$ and its inverse $F^{-1}$ exists, then 
  $F^{-1}(U) \sim X$, where $U\sim U(0,1)$.
 \end{proposition}
 \begin{proof}
  $$\mathbb P(F^{-1}(U) \le x) = \mathbb P(U\le F(x)) = F(x).$$
 \end{proof}
 
-Pseudocode 
-\\inverse\_transform\_sampling($F^{-1}, n$):
-\begin{itemize}
- \item Generate iid $U(0,1)$ random variables
- $$\{Y_{i}: i = 1, \ldots, n\}.$$
- \item Compute
- $$\{X_{i} = F^{-1}(Y_{i}): i = 1, \ldots, n\}.$$
-\end{itemize}
+
+
 
 \end{document}

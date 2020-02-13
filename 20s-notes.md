@@ -19,6 +19,7 @@
 - [Crude Monte Carlo: Estimation of $\pi$](src/20mcpi01.pdf)
 - [Definite Integral by MC](src/20omc_integral_01.pdf)
 - [Exact sampling of BM1d path](src/20bm1d.pdf)
+- [Euler for SDE](src/20sde.pdf)
 ----
 - [Importance sampling and inverse transorm](src/20is_it_integral.pdf)
 

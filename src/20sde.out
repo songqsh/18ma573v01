@@ -1,14 +1,17 @@
 \BOOKMARK [1][-]{section.1}{Abstract}{}% 1
 \BOOKMARK [1][-]{section.2}{SDE}{}% 2
 \BOOKMARK [2][-]{subsection.2.1}{General problem}{section.2}% 3
-\BOOKMARK [3][-]{subsubsection.2.1.1}{Example: 2-d SDE}{subsection.2.1}% 4
-\BOOKMARK [2][-]{subsection.2.2}{Financial models}{section.2}% 5
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Arithmetic BM}{subsection.2.2}% 6
-\BOOKMARK [3][-]{subsubsection.2.2.2}{Geometric BM}{subsection.2.2}% 7
-\BOOKMARK [3][-]{subsubsection.2.2.3}{Stochastic volatility model: Local volatility}{subsection.2.2}% 8
-\BOOKMARK [3][-]{subsubsection.2.2.4}{Stochastic volatility model: Heston model}{subsection.2.2}% 9
-\BOOKMARK [3][-]{subsubsection.2.2.5}{Vasicek model}{subsection.2.2}% 10
-\BOOKMARK [3][-]{subsubsection.2.2.6}{Ho-Lee model}{subsection.2.2}% 11
-\BOOKMARK [3][-]{subsubsection.2.2.7}{Hull-White model}{subsection.2.2}% 12
-\BOOKMARK [3][-]{subsubsection.2.2.8}{CIR model}{subsection.2.2}% 13
-\BOOKMARK [3][-]{subsubsection.2.2.9}{Affine class: Multifactor model}{subsection.2.2}% 14
+\BOOKMARK [2][-]{subsection.2.2}{Example: 2-d SDE}{section.2}% 4
+\BOOKMARK [1][-]{section.3}{Stock models}{}% 5
+\BOOKMARK [2][-]{subsection.3.1}{Arithmetic BM}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.2}{Geometric BM}{section.3}% 7
+\BOOKMARK [2][-]{subsection.3.3}{Stochastic volatility model: Local volatility}{section.3}% 8
+\BOOKMARK [3][-]{subsubsection.3.3.1}{CEV}{subsection.3.3}% 9
+\BOOKMARK [2][-]{subsection.3.4}{Stochastic volatility model: Heston model}{section.3}% 10
+\BOOKMARK [1][-]{section.4}{Short rate models}{}% 11
+\BOOKMARK [2][-]{subsection.4.1}{Vasicek model}{section.4}% 12
+\BOOKMARK [2][-]{subsection.4.2}{Ho-Lee model}{section.4}% 13
+\BOOKMARK [2][-]{subsection.4.3}{Hull-White model}{section.4}% 14
+\BOOKMARK [2][-]{subsection.4.4}{CIR model}{section.4}% 15
+\BOOKMARK [2][-]{subsection.4.5}{Affine term structure: Multifactor model}{section.4}% 16
+\BOOKMARK [3][-]{subsubsection.4.5.1}{Guassian Multifactor models}{subsection.4.5}% 17

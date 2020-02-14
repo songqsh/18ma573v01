@@ -8,6 +8,7 @@
 - [pandas](src/20pandas.ipynb)
 - [first order finite difference](src/20fd1.ipynb)
 - [convergence rate of first order](src/20fd1_rate.ipynb)
+---
 - [class of option payoff](src/20european_options_class.ipynb)
 - [bsm formula](src/20bsm_formula.ipynb)
 - [implied volatility](src/20imp_vol_v01.ipynb)
@@ -18,6 +19,7 @@
 ----
 - [Crude Monte Carlo: Estimation of $\pi$](src/20mcpi01.pdf)
 - [Definite Integral by MC](src/20omc_integral_01.pdf)
+---
 - [Exact sampling of BM1d path](src/20bm1d.pdf)
 - [Euler for SDE](src/20sde.pdf)
 ----

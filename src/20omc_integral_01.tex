@@ -122,7 +122,7 @@ $$X_i \sim X, \ \forall i.$$
 
  
 
-\begin{example}
+\begin{proposition}
 Prove the  properties of the OMC by exact sampling below:
 \begin{itemize}
  \item $X_1$ itself can be treated as an unbiased MC, because
@@ -134,7 +134,7 @@ Prove the  properties of the OMC by exact sampling below:
  Moreover, $\hat \alpha_n$ is unbiased too, and
  $$MSE(\hat \alpha_n) = Var(\hat \alpha_n) = \frac 1 n Var(X) \to 0.$$
 \end{itemize}
-\end{example}
+\end{proposition}
 
 \subsection{Evaluation of integral}
 Back to our Example \ref{ex:integral}, we write
@@ -161,6 +161,20 @@ the sample $X_i$.
 \end{algorithm}
 
 
+\begin{proposition}
+ \label{ex:conv1}
+ Suppose 
+\begin{itemize}
+ \item  $\hat Y$ is exact sampling of $Y$, ie, $\hat Y \sim Y$ 
+ \item $h$ is almost surely continuous w.r.t $Y$, i.e. $$\mathbb P Y^{-1} (D_{h}) = \mathbb P(Y\in D_{h}) = 0,$$
+ where $D_{h}$ is the set of discontinuous points of the function $h$.
+\end{itemize}
+Then, $h(\hat Y) $ is unbiased estimator of $\mathbb Eh(Y)$, i.e. 
+$\mathbb E h(\hat Y) = \mathbb E h(Y)$.
+\end{proposition}
 
+\begin{example}
+ Prove that $h(\hat Y)$ is unbiased estimator of $\alpha$ in Example \ref{ex:integral}.
+\end{example}
 
 \end{document}

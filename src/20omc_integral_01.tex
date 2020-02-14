@@ -98,16 +98,20 @@ $$\alpha = \int_0^1 h(x) dx$$
 where
 $$h(x) = 100 \cdot I_{(0, 1/100]}(x) + 1\cdot I_{(1/100, 1)} (x).$$
 The exact value shall be 
-$$\alpha = 1.98.$$
+$$\alpha = 1.99.$$
 \end{example}
 
 \section{Analysis}
 
 \subsection{OMC by exact sampling}
-To estimate 
+The objective is to 
+\begin{itemize}
+ \item estimate 
 $$\alpha = \mathbb E[X], \quad X \sim p(x)$$
 one can use random number generator by computer (if possible)
 $$\{iid \ X_i \sim p(x): i = 1, 2, \ldots, n, \} .$$
+\end{itemize}
+
 Then, one can compute the approximation of $\alpha$ by
 $$\hat \alpha_n = \frac 1 n \sum_{i=1}^n X_i.$$
 
@@ -115,9 +119,13 @@ We say $\hat \alpha_n$ as OMC by {\it exact sampling}, since the sample $X_i$
 produced by random generator has the same distribution as true distribution $X$, 
 i.e. 
 $$X_i \sim X, \ \forall i.$$
-The properties of the OMC by exact sampling are listed below:
+
+ 
+
+\begin{example}
+Prove the  properties of the OMC by exact sampling below:
 \begin{itemize}
- \item $X_1$ its self can be treated as an unbiased MC, because
+ \item $X_1$ itself can be treated as an unbiased MC, because
  $$\mathbb E [X_1] = \alpha.$$
  However, MSE is big, ie.
  $$MSE(X_1) = Var(X) = \int x^2 p(x) dx.$$
@@ -126,6 +134,7 @@ The properties of the OMC by exact sampling are listed below:
  Moreover, $\hat \alpha_n$ is unbiased too, and
  $$MSE(\hat \alpha_n) = Var(\hat \alpha_n) = \frac 1 n Var(X) \to 0.$$
 \end{itemize}
+\end{example}
 
 \subsection{Evaluation of integral}
 Back to our Example \ref{ex:integral}, we write

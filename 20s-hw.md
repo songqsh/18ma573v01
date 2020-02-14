@@ -17,6 +17,8 @@
 - [MC for $\pi$](src/20mcpi01.pdf) Ex 1, 3, 4
     - solns: [Ex1](src/20mcpiex1.ipynb)
 - [Excercise and solution: MC for $\pi$](src/20exmcpi01.ipynb)
+- [MC for integral](src/20omc_integral_01.pdf) - Ex 2
+
     
 
 

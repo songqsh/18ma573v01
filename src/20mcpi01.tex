@@ -124,7 +124,13 @@ This means that, as long as one can approximate probability of successful shot, 
 \end{algorithmic}
 \end{algorithm}
 
+\begin{example}\label{exm:mcpi}
+\begin{itemize}
+ \item Using Algo\ref{alg:mcpi}, design estimator $\hat \pi(N)$ and 
+ compute $\hat \pi(10000)$.
+\end{itemize}
 
+\end{example}
 
 
 \section{Monte Carlo basics}
@@ -193,8 +199,36 @@ If $X\in L^2$, then we say it's square integrable.}
 As a conclusion, one can always use crude MC to make better approximation provided there exists an unbiased MC $\hat \alpha$, which is obtainable in sacrifice of  higher computational cost.
 Given a fixed amount of computational cost, to improve the efficiency, it is essential to reduce $Var(\hat \alpha)$ as much as possible.
 
-{\bf Ex.}
-Prove that $L^2$ consistency implies consistency in probability.
+\begin{proposition}
+Prove that both almost sure and $L^2$ consistency implies consistency in probability. 
+\end{proposition}
+
+\begin{example}
+ Consider $\alpha_{n}$ is a sequence of estimators to the value $\alpha$. 
+ Prove that, if $MSE(\alpha_{n}) \to 0$, then $\alpha_{n}$ is $L^{2}$ consistent to $\alpha$.
+\end{example}
+
+\begin{example} \label{exm:mse}
+ Given i.i.d $\{\alpha_i: i\in 1, 2, \ldots, N\}$, we use 
+$$\bar \alpha_N = \frac 1 N \sum_{i=1}^N \alpha_i$$
+as its estimator of the mean $\mathbb E[\alpha_1]$ 
+and use
+$$\beta_N = \frac 1 N \sum_{i=1}^N (\alpha_i -\bar \alpha_N)^2$$
+as the estimator of $Var(\alpha_1)$. Suppose $\alpha_1\in L^4$, then 
+\begin{itemize}
+ \item Prove $\beta_N$ is biased.
+ \item Prove that $\beta_N$ is consistent in $L^2$.
+ \item Can you propose an unbiased estimator?
+ \end{itemize}
+\end{example}
+\begin{example}
+\begin{itemize}
+ \item Use $\beta_{100}$ of Example \ref{exm:mse} to estimate 
+ $MSE(\hat \pi_{N})$ by repeating $\pi_{N}$ of Example \ref{exm:mcpi}. One must write both pseudocode and python code.
+ \item Repeat above estimation of $MSE(\hat \pi_{N})$ for $N= 2^{-i}: i = 5, ...10$ and plot log-log chart.
+\end{itemize}
+ 
+\end{example}
 
 
 

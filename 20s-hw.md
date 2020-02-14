@@ -15,7 +15,8 @@
 - [bsm calibration](src/20bsm_calibration_v01hw.ipynb)
     - [soln](src/20bsm_calibration_v01.ipynb)
 - [MC for $\pi$](src/20mcpi01.pdf) Excercise 1, 3, 4
-- [Excercise: MC for $\pi$](src/20exmcpi01.ipynb)
+    - solns: [Ex1]
+- [Excercise and solution: MC for $\pi$](src/20exmcpi01.ipynb)
     
 
 

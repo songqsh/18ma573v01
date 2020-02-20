@@ -22,7 +22,7 @@
 ---
 - [Exact sampling of BM1d path](src/20bm1d.pdf)
 - [SDE in fianncial models](src/20sde.pdf)
-- [Euler for SDE1d}(src/20euler_sde_1d.pdf)
+- [Euler for SDE1d](src/20euler_sde_1d.pdf)
 ----
 - [Importance sampling and inverse transorm](src/20is_it_integral.pdf)
 

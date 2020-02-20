@@ -6,6 +6,10 @@
 \usepackage{color}
 
 
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+
 \setlength{\oddsidemargin}{0pt}
 \setlength{\evensidemargin}{0pt}
 \setlength{\textwidth}{6.0in}
@@ -94,10 +98,11 @@ $$d X_{t} = \mu(X_{t}) dt + \sigma(X_{t}) dW_{t}, X(0) = x_{0}$$
 We shall find, for some small step size $\delta$
 $$X^{\delta} (t) \approx X(t), \forall t\ge 0$$
 in some sense.
-
-\section{Analysis}
 For convenience, we assume $\mu$ and $\sigma$ are infinitely smooth and bounded in all its values and derivatives.
-\subsection{Euler scheme}
+
+
+%\section{Analysis}
+\section{Euler scheme}
 The above SDE can be written as the following integral form:
 $$
 X_{t} = x_{0}  + \int_{0}^{t}  \mu(X_{s}) ds + \sigma(X_{s}) dW_{s}
@@ -134,26 +139,29 @@ $$
 
 
 We can write the following pseudocode.
-%\begin{itemize}
- %\item 
+\begin{algorithm}
+\caption{Euler for SDE 1d to simulate $\hat X \approx \langle X, \Pi_{T,N}\rangle$}
+\label{alg:eulerpath1d}
+\begin{algorithmic}[1]
+\State \textbf{inputs:} drfit $\mu(\cdot)$ and volatility $\sigma(\cdot)$
+\Procedure{euler1d}{$x, T, N$}
+\Comment{$x$: initial state, $T$: terminal time,}
+\State \Comment{$N$: number of meshes}
+\State  $\delta \gets T/N$; $X_{0}^{\delta} \gets x$; \Comment{Init}
+\For {$i = 0...N-1$}
+	\State $t_{i+1} \gets t_i + \delta$
+	\State $Z \gets \mathcal N(0,1)$
+	\State $X_{i+1}^\delta \gets X_i^\delta + \mu(X_i^\delta) \delta + \sigma(X_i^\delta) \sqrt{\delta} Z$
+\EndFor
+\State \textbf{return} $\{(t_i, X_i^\delta): i = 0, 1, \ldots, N\}$. \Comment{output is a discrete path}
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
 
-pseudocode eulder\_1d\_path(T, N):
-\begin{itemize}
- \item partition $[0, T]$ equally by $\delta = T/N$;
- \item set initial $X_{0}^{\delta} = x_{0}$;
- \item For $i = 0, \ldots, N-1$,  with iid standard normal $Z_{i}$, 
-\begin{itemize}
- \item perform $X_{i+1}^{\delta} = X_{i}^{\delta} + \mu(X_{i}^{\delta}) \delta + 
- \sigma(X_{i}^{\delta}) \sqrt \delta Z_{i}.$
-\end{itemize}
+ 
 
-\end{itemize}
-%\end{itemize}
-
-
-\subsection{Strong convergence rate}
-
-euler\_1d\_path(T, N) gives a sequence of numbers:
+\section{Strong convergence rate}
+Algo \ref{alg:eulerpath1d} gives a sequence of numbers:
 $$(X_{0}^{\delta}, X_{1}^{\delta}, \ldots, X_{N}^{\delta}) := X^{\delta}.$$
 To compare with continuous true path $(X_{t}: t\in [0,T])$, we first do the piecewise linear interpolation of $X^{\delta}$, that is
 $$L^{\delta}_{t} = \frac{(i+1)\delta - t}{\delta} X_{i}^{\delta} 
@@ -172,7 +180,7 @@ i\delta \le t < (i+1)\delta.$$
 {\bf ex.} Show that 
 $$\mathbb E [ |X_{T} - L_{T}^{\delta} | ] \le K \delta^{1/2}.$$
 
-\subsubsection{A remark on constant interpolation of Euler solution}
+\subsection{A remark on constant interpolation of Euler solution}
 If we denote the piecewise constant interpolation by
 $$C_{t}^{\delta} = 
 X_{i}^{\delta}, \hbox{ if } i\delta \le t < (i+1) \delta, $$
@@ -194,7 +202,7 @@ $$RMSE \ge  \sqrt \delta  \mathbb E
 \Big [\sup_{i = 0, \ldots, N-1} |Z_{i}| \Big ]
 > O(\delta^{1/2}).$$
 
-\subsection{Weak convergence rate}
+\section{Weak convergence rate}
 Given $Y^{\delta}$ and $X$, we define
 $$e^{g} (\delta) = \Big| \mathbb E[ g(X_{T})] - 
 \mathbb E[g (Y^{\delta}_{T})] \Big|.$$

@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  20 FEB 2020 10:26
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2018) (preloaded format=pdflatex 2018.4.16)  20 FEB 2020 11:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**euler_sde_1d.tex
-(./euler_sde_1d.tex
+**20euler_sde_1d.tex
+(./20euler_sde_1d.tex
 LaTeX2e <2018-04-01> patch level 2
 Babel <3.18> and hyphenation patterns for 84 language(s) loaded.
 (/usr/local/texlive/2018/texmf-dist/tex/latex/base/article.cls
@@ -273,8 +273,8 @@ Package: ulem 2012/05/18
 \c@example=\count113
 \c@assumption=\count114
 
-(./euler_sde_1d.aux)
-\openout1 = `euler_sde_1d.aux'.
+(./20euler_sde_1d.aux)
+\openout1 = `20euler_sde_1d.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
 LaTeX Font Info:    ... okay on input line 81.
@@ -305,9 +305,9 @@ LaTeX Info: Redefining \ref on input line 81.
 LaTeX Info: Redefining \pageref on input line 81.
 LaTeX Info: Redefining \nameref on input line 81.
 
-(./euler_sde_1d.out) (./euler_sde_1d.out)
+(./20euler_sde_1d.out) (./20euler_sde_1d.out)
 \@outlinefile=\write3
-\openout3 = `euler_sde_1d.out'.
+\openout3 = `20euler_sde_1d.out'.
 
 
 (/usr/local/texlive/2018/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -359,54 +359,48 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/usr/local/texlive/2018/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-(./euler_sde_1d.bbl (./euler_sde_1d.brf)
+(./20euler_sde_1d.bbl (./20euler_sde_1d.brf)
 \tf@brf=\write4
-\openout4 = `euler_sde_1d.brf'.
+\openout4 = `20euler_sde_1d.brf'.
 
 )
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 217.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 218.
  [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 217.
- (./euler_sde_1d.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 217.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 217.
-Package rerunfilecheck Info: File `euler_sde_1d.out' has not changed.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 218.
+ (./20euler_sde_1d.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 218.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 218.
+Package rerunfilecheck Info: File `20euler_sde_1d.out' has not changed.
 (rerunfilecheck)             Checksum: 439A1F70957C3D02CEB18D11C7D88B3D;442.
-Package rerunfilecheck Info: File `euler_sde_1d.brf' has not changed.
+Package rerunfilecheck Info: File `20euler_sde_1d.brf' has not changed.
 (rerunfilecheck)             Checksum: 632CBA9F7E4EC780523F11A044EFD025;77.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 217.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 218.
  ) 
 Here is how much of TeX's memory you used:
- 6262 strings out of 492649
- 89870 string characters out of 6129622
- 181852 words of memory out of 5000000
- 10062 multiletter control sequences out of 15000+600000
- 10710 words of font info for 42 fonts, out of 8000000 for 9000
+ 6242 strings out of 492649
+ 89706 string characters out of 6129622
+ 181860 words of memory out of 5000000
+ 10050 multiletter control sequences out of 15000+600000
+ 7610 words of font info for 30 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,8n,28p,266b,323s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 32i,6n,28p,268b,323s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
 </usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
 /usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></us
-r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/
-local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
-cal/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loca
-l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/
-texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/tex
-live/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texliv
-e/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2
-018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
-18/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2018
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2018/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2018/te
-xmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/201
-8/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on euler_sde_1d.pdf (3 pages, 194724 bytes).
+usr/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></us
+r/local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+local/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/loc
+al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
+l/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/
+texlive/2018/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/t
+exlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/loc
+al/texlive/2018/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on 20euler_sde_1d.pdf (3 pages, 146541 bytes).
 PDF statistics:
- 141 PDF objects out of 1000 (max. 8388607)
- 115 compressed objects within 2 object streams
- 17 named destinations out of 1000 (max. 500000)
+ 114 PDF objects out of 1000 (max. 8388607)
+ 95 compressed objects within 1 object stream
+ 16 named destinations out of 1000 (max. 500000)
  57 words of extra memory for PDF output out of 10000 (max. 10000000)
 

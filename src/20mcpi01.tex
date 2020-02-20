@@ -209,22 +209,24 @@ Prove that both almost sure and $L^2$ consistency implies consistency in probabi
 \end{example}
 
 \begin{example} \label{exm:mse}
- Given i.i.d $\{\alpha_i: i\in 1, 2, \ldots, N\}$, we use 
-$$\bar \alpha_N = \frac 1 N \sum_{i=1}^N \alpha_i$$
+ Given i.i.d $\{\alpha_i: i\in 1, 2, \ldots, M\}$, we use 
+$$\bar \alpha_M = \frac 1 M \sum_{i=1}^M \alpha_i$$
 as its estimator of the mean $\mathbb E[\alpha_1]$ 
 and use
-$$\beta_N = \frac 1 N \sum_{i=1}^N (\alpha_i -\bar \alpha_N)^2$$
+$$\beta_M = \frac 1 M \sum_{i=1}^M (\alpha_i -\bar \alpha_M)^2$$
 as the estimator of $Var(\alpha_1)$. Suppose $\alpha_1\in L^4$, then 
 \begin{itemize}
- \item Prove $\beta_N$ is biased.
- \item (optional) Prove that $\beta_N$ is consistent in $L^2$.
+ \item Prove $\beta_M$ is biased.
+ \item (optional) Prove that $\beta_M$ is consistent in $L^2$.
  \item Can you propose an unbiased estimator?
  \end{itemize}
 \end{example}
 \begin{example}
+Our goal is to estimate $MSE(\hat \pi_{N})$ for $\hat \pi_{N}$ of Example \ref{exm:mcpi}. Since $\hat \pi_{N}$ is unbiased, its MSE is equal to its variance $Var(\hat \pi_{N})$.
 \begin{itemize}
  \item Use $\beta_{100}$ of Example \ref{exm:mse} to estimate 
- $MSE(\hat \pi_{N})$ by repeating $\pi_{N}$ of Example \ref{exm:mcpi}. One must write both pseudocode and python code.
+ $MSE(\hat \pi_{N})$ after collecting $\{\hat \pi_{N, i}: i= 1,\ldots,100\}$. 
+ One must write both pseudocode and python code.
  \item Repeat above estimation of $MSE(\hat \pi_{N})$ for $N= 2^{i}: i = 5, ...10$ and plot log-log chart.
 \end{itemize}
  

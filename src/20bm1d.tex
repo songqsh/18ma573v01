@@ -136,13 +136,6 @@ We can replace $W(t)$ by its exact simulation $\hat W(t)$ to get exact simulatio
 \hat X(t) = x_0 \exp\{(r - \frac 1 2 \sigma^2)t + \sigma \hat W(t)\}.
 \end{equation}
 
-In general, we have
-\begin{proposition}\label{p:01}
-Let $\hat X$ be an exact sampling of $X$ taking values in a metric space $S$, i.e. $\hat X \sim X$. 
-If $f: S\mapsto S'$ is a continuous function from $S$ to another metric space $S'$, then 
-$f(\hat X)$ is an exact sampling of $f(X)$.
-\end{proposition}
-
 
 \begin{example}\label{exm:gbm}
 Let $\Pi_{T, N}$ be the uniform mesh and $X$ be $GBM(x_0, r, \sigma)$.
@@ -159,8 +152,10 @@ Write pseudocode.
 \EndProcedure
 \end{algorithmic}
 \end{algorithm}
-\item Prove that $\hat X$ is exact sampling of $\langle X, \Pi_{T, N}\rangle$ by Proposition \ref{p:01}
+
 \end{itemize}
+
+
 \end{example}
 
 \subsection{Application to Arithmetic asian option price}
@@ -183,7 +178,10 @@ $$t_i = (i-1) \frac{T}{n}, \quad i = 1, 2, \ldots, (n+1).$$
 \begin{example}\label{exm:aao}  Consider  Arithmetic asian option price on BSM by exact sampling.
 \begin{itemize}
 \item Write a pseudocode for Arithmetic asian option price on BSM
-\item To the Gbm class, add a method \begin{center} {\it arithmeticasian(otype, strike, maturity, nstep, npath)} \end{center} 
+\item To the Gbm class, add a method 
+\begin{center} 
+{\rm arasian(otype, strike, maturity, nstep, npath)}
+\end{center} 
 for the price by exact sampling.
 \item Use your code to compute Arithmetic asian option of 
 $$S_0 = 100.0, \sigma= 0.20, r=0.0475, K = 110.0, T = 1.0, otype = 1, nstep = 5.$$

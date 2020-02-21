@@ -140,10 +140,7 @@ Prove the  properties of the OMC by exact sampling below:
 Back to our Example \ref{ex:integral}, we write
 $$\alpha = \mathbb E[X] = \mathbb E[h(Y)],$$
 where $X = h(Y)$ and $Y\sim U(0,1)$.
-In other words, although $X$-sampling is not directly available in python, 
-one can use $U(0,1)$ random generator (see {\it numpy.random.uniform}) to produce $Y_i$, then compute $h(Y_i)$ for 
-the sample $X_i$.
-
+In other words, although $X$-exact sampling is not directly available in python, one can use $U(0,1)$ random generator (see {\it numpy.random.uniform}) to produce $Y$ sampling and take function $h(Y) = X$.
 
 \begin{algorithm}
 \caption{Integral by MC - Example \ref{ex:integral}}
@@ -167,21 +164,5 @@ the sample $X_i$.
 
 \end{itemize}
  \end{example}
-
-\begin{proposition}
- \label{ex:conv1}
- Suppose 
-\begin{itemize}
- \item  $\hat Y$ is exact sampling of $Y$, ie, $\hat Y \sim Y$ 
- \item $h$ is almost surely continuous w.r.t $Y$, i.e. $$\mathbb P Y^{-1} (D_{h}) = \mathbb P(Y\in D_{h}) = 0,$$
- where $D_{h}$ is the set of discontinuous points of the function $h$.
-\end{itemize}
-Then, $h(\hat Y) $ is unbiased estimator of $\mathbb Eh(Y)$, i.e. 
-$\mathbb E h(\hat Y) = \mathbb E h(Y)$.
-\end{proposition}
-
-\begin{example}
- Prove that $h(\hat Y)$ is unbiased estimator of $\alpha$ in Example \ref{ex:integral}.
-\end{example}
 
 \end{document}

@@ -18,7 +18,8 @@
     - solns: [Ex1](src/20mcpiex1.ipynb)
 - [Excercise and solution: MC for $\pi$](src/20exmcpi01.ipynb)
 - [MC for integral](src/20omc_integral_01.pdf) - Ex 2
-
+- [bm1d path simulation](src/20bm1d.pdf) - Ex 1,3
+- [models](src/20sde.pdf) - Ex 1
     
 
 

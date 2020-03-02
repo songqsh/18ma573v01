@@ -22,4 +22,6 @@ Be creative and look forward to your new findings!
 - Longstaff and Schwartz, Valuing American Options by Simulation: A Simple Least-Squares Approach, The review of financial studies, 2001, [pdf](https://github.com/songqsh/songqsh.github.io/blob/master/paper/01LSAmericanOption.pdf)
   - This paper provides a least square method of American option pricing. 
   - Table 1: American options underlying bs model with LS.
-- 
+- Dereich, Neuenkirch, and Szpruch, An Euler-type method for the strong approximation of the Cox–Ingersoll–Ross process, [pdf](https://github.com/songqsh/songqsh.github.io/blob/master/paper/11DNS_euler_cir.pdf)
+  - This paper proposes euler method after squared transformation, which is different from the conventional truncation method.
+  - Strong convergence order is shown 1/2.

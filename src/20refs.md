@@ -25,3 +25,6 @@ Be creative and look forward to your new findings!
 - Dereich, Neuenkirch, and Szpruch, An Euler-type method for the strong approximation of the Cox–Ingersoll–Ross process, [pdf](https://github.com/songqsh/songqsh.github.io/blob/master/paper/11DNS_euler_cir.pdf)
   - This paper proposes euler method after squared transformation, which is different from the conventional truncation method.
   - Strong convergence order is shown 1/2.
+- Wenhao Qiu, Qingshuo Song, George Yin, Solving Elliptic Hamilton-Jacobi-Bellman Equations in A Value Space, preprint [pdf](https://github.com/songqsh/songqsh.github.io/blob/master/paper/20QSYepdenum.pdf)
+  - This paper studies value iteration and deep learning approach on the MDP approximating elliptic HJB.
+  - Deep learning approach is not sufficiently stable. In principle, one can use any reinforcement learning technique on MDP other than value iteration, which is described as the future work.

@@ -19,12 +19,13 @@ Be creative and look forward to your new findings!
 - Ali Hirsa, Computational Methods in Finance. Chapman Hall/CRC 2013.
   - Page 163, Table 4.1-4.2: Vanilla option under Heston
 ## Papers
+- Dereich, Neuenkirch, and Szpruch, An Euler-type method for the strong approximation of the Cox–Ingersoll–Ross process, 2011 [pdf](https://github.com/songqsh/songqsh.github.io/blob/master/paper/11DNS_euler_cir.pdf)
+  - This paper proposes euler method after squared transformation, which is different from the conventional truncation method.
+  - Strong convergence order is shown 1/2.
 - Longstaff and Schwartz, Valuing American Options by Simulation: A Simple Least-Squares Approach, The review of financial studies, 2001, [pdf](https://github.com/songqsh/songqsh.github.io/blob/master/paper/01LSAmericanOption.pdf)
   - This paper provides a least square method of American option pricing. 
   - Table 1: American options underlying bs model with LS.
-- Dereich, Neuenkirch, and Szpruch, An Euler-type method for the strong approximation of the Cox–Ingersoll–Ross process, [pdf](https://github.com/songqsh/songqsh.github.io/blob/master/paper/11DNS_euler_cir.pdf)
-  - This paper proposes euler method after squared transformation, which is different from the conventional truncation method.
-  - Strong convergence order is shown 1/2.
+---
 - Wenhao Qiu, Qingshuo Song, George Yin, Solving Elliptic Hamilton-Jacobi-Bellman Equations in A Value Space, [pdf](https://github.com/songqsh/songqsh.github.io/blob/master/paper/20QSYepdenum.pdf)
   - This paper studies value iteration and deep learning approach on the MDP approximating elliptic HJB.
   - Deep learning approach is not sufficiently stable. In principle, one can use any reinforcement learning technique on MDP other than value iteration, which is described as the future work.

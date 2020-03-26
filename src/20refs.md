@@ -32,3 +32,6 @@ Be creative and look forward to your new findings!
 - Qingshuo Song, Convergence of Markov chain approximation on generalized HJB equation and its applications, 2008, [pdf](https://github.com/songqsh/songqsh.github.io/blob/master/paper/08Son-Auto.pdf)
   - This paper studies MDP approximation for parabolic HJB.
   - No numerical computation is given in this paper.
+- Qingshuo Song, George Yin, Zhimin Zhang, AN epsilon-UNIFORM FINITE ELEMENT METHOD FOR SINGULARLY PERTURBED BOUNDARY VALUE PROBLEMS, [pdf](https://github.com/songqsh/songqsh.github.io/blob/master/paper/07SYZ-FEM.pdf)
+  - This paper studies epsilon uniform finite element method
+  - It improves efficiency of FEM using two interpolations.

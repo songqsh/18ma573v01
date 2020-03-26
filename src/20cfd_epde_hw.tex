@@ -1,0 +1,107 @@
+\documentclass{article}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=blue,pdfstartview=FitH]{hyperref}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{5px}
+
+%\input{macrosblog}
+
+%%%%%%%%% For wordpress conversion
+
+\def\more{}
+
+\newif\ifblog
+\newif\iftex
+\blogfalse
+\textrue
+
+
+\usepackage{ulem}
+\def\em{\it}
+\def\emph#1{\textit{#1}}
+
+\def\image#1#2#3{\begin{center}\includegraphics[#1pt]{#3}\end{center}}
+
+\let\hrefnosnap=\href
+
+\newenvironment{btabular}[1]{\begin{tabular} {#1}}{\end{tabular}}
+
+\newenvironment{red}{\color{red}}{}
+\newenvironment{green}{\color{green}}{}
+\newenvironment{blue}{\color{blue}}{}
+
+%%%%%%%%% Typesetting shortcuts
+
+\def\B{\{0,1\}}
+\def\xor{\oplus}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\var{{\bf Var}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\def\Q{{\mathbb Q}}
+\def\eps{{\epsilon}}
+
+\def\bz{{\bf z}}
+
+\def\true{{\tt true}}
+\def\false{{\tt false}}
+
+%%%%%%%%% Theorems and proofs
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$} %\medskip} 
+%%%%%%%%% I added
+\newtheorem{assumption}{Assumption}
+%%%%%%%%
+
+\begin{document}
+Consider ODE
+\begin{equation}\label{eq:01}
+ - \epsilon u'' + u = x, \ \forall x\in (0,1), \ u(0) = u(1) = 0,
+\end{equation}
+with $\epsilon = 10^{-10}$. This examples is taken from Example 5.2 of 
+\begin{itemize}
+ \item Qingshuo Song, George Yin, Zhimin Zhang, AN epsilon-uniform finite element method for singularly perturbed boundary value problems.
+\end{itemize}
+Instead of FEM, we are going to discuss CFD solution of \eqref{eq:01}.
+Answer the following questions:
+\begin{enumerate}
+ \item Prove that 
+ $$u(x) = x - \frac{\exp(\frac{x-1}{\sqrt \epsilon}) -  \exp(- \frac{x +1}{\sqrt \epsilon})}{ 1 - \exp(-\frac{2}{\sqrt \epsilon})}$$
+ is the unique solution.
+ \item Using CFD on \eqref{eq:01}, find out the matrix $L^{h}$ and vector $R^{h} f$, such that the numerical solution satisfies $L^{h} u^{h} = R^{h} f$.
+ \item Prove the consistency and stability of $L^{h}$.
+ \item Compute CFD solution $u^{h}$ with $h = 1/5$. Compare with the FEM solution of the paper, which one is better?
+ 
+\end{enumerate}
+
+
+\end{document}

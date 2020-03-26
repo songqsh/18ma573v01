@@ -21,6 +21,7 @@
 - [bm1d path simulation](src/20bm1d.pdf) - Ex 1,3
 - [models](src/20sde.pdf) - Ex 1
 - [CEV with Euler](src/20euler_sde_1d.pdf) - Ex 1.
+- [CFD on BVP](src/20cfd_epde_hw.pdf)
 
 
     

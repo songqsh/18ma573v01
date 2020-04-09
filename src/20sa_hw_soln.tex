@@ -1,0 +1,130 @@
+\documentclass{article}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=blue,pdfstartview=FitH]{hyperref}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{5px}
+
+%\input{macrosblog}
+
+%%%%%%%%% For wordpress conversion
+
+\def\more{}
+
+\newif\ifblog
+\newif\iftex
+\blogfalse
+\textrue
+
+
+\usepackage{ulem}
+\def\em{\it}
+\def\emph#1{\textit{#1}}
+
+\def\image#1#2#3{\begin{center}\includegraphics[#1pt]{#3}\end{center}}
+
+\let\hrefnosnap=\href
+
+\newenvironment{btabular}[1]{\begin{tabular} {#1}}{\end{tabular}}
+
+\newenvironment{red}{\color{red}}{}
+\newenvironment{green}{\color{green}}{}
+\newenvironment{blue}{\color{blue}}{}
+
+%%%%%%%%% Typesetting shortcuts
+
+\def\B{\{0,1\}}
+\def\xor{\oplus}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\var{{\bf Var}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\def\Q{{\mathbb Q}}
+\def\eps{{\epsilon}}
+
+\def\bz{{\bf z}}
+
+\def\true{{\tt true}}
+\def\false{{\tt false}}
+
+%%%%%%%%% Theorems and proofs
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$} %\medskip} 
+%%%%%%%%% I added
+\newtheorem{assumption}{Assumption}
+%%%%%%%%
+
+\begin{document}
+
+Let $D = \{X_{i}: i\in \mathbb N\}$ be a data set of iid sequence from a random generator of distribution $\mathcal N(b, \sigma^{2})$ for some unknown parameters $b$ and $\sigma$.
+Our goal is to estimate $b$ using so called stochastic approximation (SA)
+with a given learning rate $\alpha \in (0,1)$:
+\begin{itemize}
+ \item initialize $b_{0}$
+ \item iterate $b_{n+1} = b_{n} + \alpha (x_{k} - b_{k})$.
+\end{itemize}
+We want to examine the convergence $b_{n} \to b$.
+For simplicity, let's fix $\alpha = 0.01$.
+\begin{enumerate}
+ \item Write pseudocode for SA.
+ \item Generate a data set $D = \{x_{i}: 1\le i \le 10000\}$ with $\mathcal N (1, 4)$.
+ \item Write a code to implement SA on $D$, and demonstrate $b_{n} \to b$ as $n\to \infty$.
+ \item Prove that $ \lim_{n}\mathbb E b_{n} = b$.
+ \item Can you prove or disprove that $b_{n} \to b$ in $L^{2}$? 
+\end{enumerate}
+
+Solution
+\begin{enumerate}
+ \item 
+ \item 
+ \item
+ \item By taking expectation on both sides, it's enough to show that
+ $$y_{n+1} = y_{n} (1 - \alpha),$$
+ where $y_{n} = \mathbb E[b_{n}] - b$.
+ \item Let 
+ $$\epsilon_{n} = b_{n} - b.$$
+ If we have $L^{2}$ convergence, then it means $\|\epsilon\|_{2} \to 0$.
+Since, we can write
+ $$\epsilon_{n+1}  - (1-\alpha) \epsilon_{n} = \alpha (x_{k} - b),$$
+this implies that
+ $$
+ \|\alpha (x_{k} - b)\|_{2} =
+ \|\epsilon_{n+1}  - (1-\alpha) \epsilon_{n}\|_{2}\le 2 \|\epsilon_{n+1}\|_{2} +
+ 2 (1-\alpha)^{2} \|\epsilon_{n} \|_{2} \to 0.
+ $$
+ Hence, we have contradiction
+ $$ 0<\alpha^{2} \sigma^{2} = \|\alpha (x_{k} - b)\|_{2}\le 0.$$
+ 
+
+\end{enumerate}
+
+
+\end{document}

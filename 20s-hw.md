@@ -23,6 +23,8 @@
 - [CEV with Euler](src/20euler_sde_1d.pdf) - Ex 1.
 - [CFD on BVP](src/20cfd_epde_hw.pdf)
 - [Value iteration on nd BVP](src/20cfd_ndbvp_hw.pdf)
+- [Stochastic Approximation](src/20sa_hw.pdf)
+    - [Soln](src/20sa_hw_soln.pdf)
 
     
 

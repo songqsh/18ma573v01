@@ -25,7 +25,7 @@
 - [Value iteration on nd BVP](src/20cfd_ndbvp_hw.pdf)
 - [Stochastic Approximation](src/20sa_hw.pdf)
     - [Soln](src/20sa_hw_soln.pdf)
-
+- [MC/TD on nd BVP](src/20td_ndbvp_hw.pdf)
     
 
 

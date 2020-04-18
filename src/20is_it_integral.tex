@@ -100,7 +100,7 @@ where
 $$h(x) = 100 \cdot I_{(0, 1/100]}(x) + 1\cdot I_{(1/100, 1)} (x).$$
 \end{example}
 Of course, the exact value shall be 
-$$\alpha = 1.98.$$
+$$\alpha = 1.99.$$
 Pretended not to know the exact value, we have used OMC with exact sampling of uniform random variable as follows:
 
 \begin{algorithm}
@@ -110,7 +110,7 @@ Pretended not to know the exact value, we have used OMC with exact sampling of u
 \Procedure{mcintegral}{$N$}\Comment{$N$ is total number of samples}
 \State  $s \gets 0$ \Comment{$s$ is the sum of samples}
 \For {$i = 1...N$}
-	\State generate two numbers $Y$ from $U(0,1)$ \Comment{use  {\it numpy.random.uniform}}
+	\State generate a number $Y$ from $U(0,1)$ \Comment{use  {\it numpy.random.uniform}}
 	\State $s\gets s+h(Y)$ 
 \EndFor
 \State \textbf{return} $\frac{s}{N}$ \Comment{return the average}
@@ -142,7 +142,7 @@ Since it is unbiased, MSE is the same as Variance of $\hat \alpha_{n}$,
 and it is again equal to $1/n$ of 
 $$Var[h(X) | X\sim p].
 $$Therefore, it is
-$\frac{100.99}{n}$. \hfill $\Box$
+$\frac{97.0299}{n}$. \hfill $\Box$
 
 
 IS considers, with a smart choice of a pdf $p_{1}$ (to be determined), 

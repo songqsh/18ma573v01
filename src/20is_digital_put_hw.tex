@@ -1,0 +1,44 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{Brief Article}
+\author{The Author}
+%\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+%\maketitle
+%\section{}
+%\subsection{}
+
+
+ %\item 
+\noindent Asset price under $\mathbb Q$ follows
+ $$S_{t} = S_{0} \exp\{\mu t +\sigma W_{t}\}.$$
+ %\item 
+ Consider Digital put with its payoff
+ $$h(S_{T}) = I(S_{T} < S_{0} e^{-b}).$$
+ We want to find the forward price:
+ $$v = \mathbb E^{\mathbb Q}[ h(S_{T})].$$
+%\begin{itemize}\item 
+Parameters are given as
+ $$r = .03, \sigma = .2, \mu = r- \frac 1 2 \sigma^{2} = .01, T = 1, b = .39.$$
+%\end{itemize}
+
+ 
+\begin{itemize}
+ \item Prove that the exact price is $0.02275$.
+ \item Use OMC find the price
+ \item Use IS($\alpha$) find the price. 
+ \item Can you show your approach is optimal?
+ \item Prove or demonstrate IS is more efficient to OMC.
+\end{itemize}
+
+
+\end{document}  

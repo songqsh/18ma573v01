@@ -1,0 +1,192 @@
+\documentclass{article}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=blue,pdfstartview=FitH]{hyperref}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{5px}
+
+%\input{macrosblog}
+
+%%%%%%%%% For wordpress conversion
+
+\def\more{}
+
+\newif\ifblog
+\newif\iftex
+\blogfalse
+\textrue
+
+
+\usepackage{ulem}
+\def\em{\it}
+\def\emph#1{\textit{#1}}
+
+\def\image#1#2#3{\begin{center}\includegraphics[#1pt]{#3}\end{center}}
+
+\let\hrefnosnap=\href
+
+\newenvironment{btabular}[1]{\begin{tabular} {#1}}{\end{tabular}}
+
+\newenvironment{red}{\color{red}}{}
+\newenvironment{green}{\color{green}}{}
+\newenvironment{blue}{\color{blue}}{}
+
+%%%%%%%%% Typesetting shortcuts
+
+\def\B{\{0,1\}}
+\def\xor{\oplus}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\var{{\bf Var}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\def\Q{{\mathbb Q}}
+\def\eps{{\epsilon}}
+
+\def\bz{{\bf z}}
+
+\def\true{{\tt true}}
+\def\false{{\tt false}}
+
+%%%%%%%%% Theorems and proofs
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$} %\medskip} 
+%%%%%%%%% I added
+\newtheorem{assumption}{Assumption}
+%%%%%%%%
+
+\begin{document}
+Consider ODE
+%\begin{equation}\label{eq:01}
+$$ -  u'' + u = x, \ \forall x\in (0,1), \ u(0) = u(1) = 0.$$
+%\end{equation} 
+Answer the following questions:
+\begin{enumerate}
+ \item Prove that 
+ %$$u(x) = x - \frac{\exp(\frac{x-1}{\sqrt \epsilon}) -  \exp(- \frac{x +1}{\sqrt \epsilon})}{ 1 - \exp(-\frac{2}{\sqrt \epsilon})}$$
+ $$u(x) = x - \frac{\exp{(x-1}) -  \exp{(- x -1)}}{ 1 - \exp(-2)}$$
+ is the unique solution.
+ \item Using upwind finite difference scheme, find out the matrix $L^{h}$ and vector $R^{h} f$, such that the numerical solution satisfies $L^{h} u^{h} = R^{h} f$.
+\item Convert $L^{h} u^{h} = R^{h} f$ to Markovian Reward Process.
+\item Write a pseudocode for value iteration.
+\item Write a pseudocode for first visit Monte-Carlo method.
+ \item Prove the consistency
+ \item Prove the stability.
+ \item Find convergence rate.
+\end{enumerate}
+
+Hint: 
+\begin{enumerate}
+\item The equation to solve is $u\in C^2(0,1) \cap C[0,1]$ satisfying $Lu = \hat f$, where
+the differential operator is
+$$ L u(x) = \left\{ 
+\begin{array}
+{ll}
+- u''(x) + u(x), & 0<x<1\\
+u(x), & x = 0
+\end{array}
+\right. 
+\ \forall u \in C^2
+$$
+The source term is 
+$$ \hat f (x) = \left\{
+\begin{array}
+{ll}
+f(x), & 0<x<1\\
+0, & x = 0,1
+\end{array}
+\right.
+$$
+
+Let $h = 1/n$. UFD is the same as CFD since there is no first order term, and UFD is to solve for $u\in \mathbb R^{n+1}$ from $L^h u = R^h \hat f$, where
+$$L^h u = 
+\begin{bmatrix}
+u_0 \\
+- r u_0 + s u_1 - t u_2\\
+\vdots \\
+-r u_{i-1} + s u_i - t u_{i+1}\\
+\vdots\\
+-r u_{n-2} + s u_{n-1} - t u_n\\
+u_n
+\end{bmatrix}•
+\ \forall u\in \mathbb R^{n+1},
+$$
+with
+$$r = 1/h^2, s = 2/h^2 +1, t = 1/h^2.$$
+and
+$$
+R^h f = [ f(x_0),  f(x_1), \ldots, f(x_{n-1}), f(x_n)], \forall f\in C([0,1])
+$$ 
+
+\item One needs to show the following for the consistency: there exists $\alpha>0$ such that
+$$\|L^h R^h v - R^h L v\|_\infty \le K h^\alpha, \forall v\in C^2(0,1) \cap C[0,1], \forall \hbox{ small } h.$$
+If $i=0$, then
+$$(L^h R^h v)_i = (R^h v)_0 = v(x_0) = 0,$$
+while
+$$(R^h L v)_i = L v(x_0) = v(x_0) = 0.$$
+If $i=n$, then
+$$(L^h R^h v)_i = (R^h v)_n = v(x_n) = 0,$$
+while
+$$(R^h L v)_i = L v(x_n) = v(x_n) = 0.$$
+If $1\le i \le n-1$, then
+$$(L^h R^h v)_i = - \delta_h\delta_{-h} v (x_i) + v(x_i)$$
+while
+$$
+(R^h L v)_i = - v''(x_i) + v(x_i).$$
+Therefore, Taylor theorem implies that
+$$\|L^h R^h v - R^h L v\|_\infty \le K h^2, \forall v\in C^2(0,1) \cap C[0,1], \forall \hbox{ small } h.$$
+
+\item One needs to show the following for the stability: there exists $K$ such that
+$$\|v\|_\infty \le K \|L^h v\|_\infty, \forall v\in \mathbb R^{n+1}.$$
+If $|v_0| = \|v\|_\infty$, then
+$$\|L^h v\|_\infty \ge |(L^h v)_0| = |v_0| = \|v\|_\infty.$$
+If $|v_n| = \|v\|_\infty$, then
+$$\|L^h v\|_\infty \ge |(L^h v)_n| = |v_n| = \|v\|_\infty.$$
+If $|v_i| = \|v\|_\infty$ for some $1\le i \le n-1$, then
+$$\|L^h v\|_\infty \ge |(L^h v)_i| 
+= |- r v_{i-1} + s v_i - t v_{i+1}|
+\ge s|v_i| - r|v_{i-1}| - t|v_{i+1}|
+\ge (s - r - t) |v_i| \ge |v_i| = \|v\|_\infty.$$
+
+\item Let $u^h$ be the numerical solution.
+$$
+\begin{array}
+{ll}
+\|u^h - R^h u\|_\infty 
+ & \le \|L^h (u^h - R^h u)\|_\infty \\
+& = \|L^h u^h - L^h R^h u\|_\infty \\
+ & = \|R^h \hat f - L^h R^h u\|_\infty\\
+& = \|R^h L u - L^h R^h u\|_\infty = O(h^2).
+\end{array}•
+$$
+\end{enumerate}
+
+
+\end{document}

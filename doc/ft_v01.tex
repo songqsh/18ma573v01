@@ -1,0 +1,173 @@
+\documentclass{article}
+\usepackage[pagebackref,letterpaper=true,colorlinks=true,pdfpagemode=none,urlcolor=blue,linkcolor=blue,citecolor=blue,pdfstartview=FitH]{hyperref}
+
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{color}
+
+
+\setlength{\oddsidemargin}{0pt}
+\setlength{\evensidemargin}{0pt}
+\setlength{\textwidth}{6.0in}
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{8.5in}
+
+
+\setlength{\parindent}{0in}
+\setlength{\parskip}{5px}
+
+%\input{macrosblog}
+
+%%%%%%%%% For wordpress conversion
+
+\def\more{}
+
+\newif\ifblog
+\newif\iftex
+\blogfalse
+\textrue
+
+
+\usepackage{ulem}
+\def\em{\it}
+\def\emph#1{\textit{#1}}
+
+\def\image#1#2#3{\begin{center}\includegraphics[#1pt]{#3}\end{center}}
+
+\let\hrefnosnap=\href
+
+\newenvironment{btabular}[1]{\begin{tabular} {#1}}{\end{tabular}}
+
+\newenvironment{red}{\color{red}}{}
+\newenvironment{green}{\color{green}}{}
+\newenvironment{blue}{\color{blue}}{}
+
+%%%%%%%%% Typesetting shortcuts
+
+\def\B{\{0,1\}}
+\def\xor{\oplus}
+
+\def\P{{\mathbb P}}
+\def\E{{\mathbb E}}
+\def\var{{\bf Var}}
+
+\def\N{{\mathbb N}}
+\def\Z{{\mathbb Z}}
+\def\R{{\mathbb R}}
+\def\C{{\mathbb C}}
+\def\Q{{\mathbb Q}}
+\def\eps{{\epsilon}}
+
+\def\bz{{\bf z}}
+
+\def\true{{\tt true}}
+\def\false{{\tt false}}
+
+%%%%%%%%% Theorems and proofs
+
+\newtheorem{exercise}{Exercise}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{example}{Example}
+\newtheorem{remark}[theorem]{Remark}
+\newenvironment{proof}{\noindent {\sc Proof:}}{$\Box$} %\medskip} 
+%%%%%%%%% I added
+\newtheorem{assumption}{Assumption}
+%%%%%%%%
+
+\begin{document}
+
+\begin{center}
+Fourier transform in option pricing
+\end{center}
+
+\begin{abstract}
+Our goal is
+to use Fourier transform method for European call pricing whenever characteristic function is available for its log price.
+\end{abstract}
+
+\section{Fourier transform}
+There are  different types Fourier transforms. 
+If we use wiki, one definition of FT is given by the following:
+\begin{equation}
+\label{eq:ft01}
+\hat f(u) = \int_{-\infty}^\infty e^{-2\pi ix u} f(x) dx.
+\end{equation}
+
+{\bf ex.} Write $\hat f(-u)$.
+
+\begin{proposition} \label{p:ift01}
+If $\hat f$ is FT of $f$ in the above sense, then $f$ is the inverse FT of $\hat f$ in the sense
+$$f(x) = \int_{-\infty}^\infty e^{2\pi ix u} \hat f(u) du = \hat {\hat f} (-x).$$
+\end{proposition}
+
+In our context, we will use different definition of Fourier transform.
+\begin{definition}
+\label{d:ft01}
+FT of $f$ is a function defined by
+$$\mathcal F[f] (u) = \int_{-\infty}^\infty e^{ ix u} f(x) dx.$$
+If $f$ is a density function of a random variable $X$, then $\mathcal F[f]$ is called characteristic function of $X$.
+\end{definition}
+
+{\bf ex.}
+Prove $\mathcal F[f] (u) = \hat f(- \frac{u}{2 \pi})$.
+
+\begin{proposition}
+Inverse transform of $\mathcal F$ is given by
+$$\mathcal F^{-1}[h](x) = \frac{1}{2\pi}\int_{-\infty}^\infty h(u) e^{-iux} du.$$
+\end{proposition}
+\begin{proof}
+It's enough to show that
+$$\mathcal F^{-1} \circ \mathcal F[f] = f.$$
+Setting $h (u) = \mathcal F[f] (u) =  \hat f(- \frac{u}{2 \pi})$, we have
+$$
+\begin{array}
+{ll}
+\mathcal F^{-1}[h](x) &= \frac{1}{2\pi}\int_{-\infty}^\infty \hat f(- \frac{u}{2 \pi}) e^{-iux} du
+\\ & = \int_{-\infty}^\infty \hat f(v) e^{2\pi i v x} dv
+\end{array}
+$$
+and the conclusion holds by Propostion \ref{p:ift01}.
+\end{proof}
+
+{\bf ex.} If $f$ is a real valued function, then prove that
+\begin{enumerate}
+\item
+The real part of $\mathcal F[f]$ is even,
+\item The imaginary part of $\mathcal F[f]$ is odd.
+\end{enumerate}
+
+
+There are many useful well known Fourier transforms, see \url{https://en.wikipedia.org/wiki/Fourier_transform}.
+For instance, 
+$$\mathcal F[\frac 1 x](u) = i \pi \text{sgn}(u).$$
+Let's use this to prove the following identity. 
+
+{\bf ex.}
+Prove $$\int_0^\infty \frac{\sin x}{x} dx.$$
+
+{\bf Proof.}
+$$
+\begin{array}
+{ll}
+\int_0^\infty \frac{\sin x}{x} dx & = \frac 1 2 \int_{-\infty}^\infty \frac{\sin x}{x} dx
+\\ & = 
+\frac 1 2 \text{Img} \int_{-\infty}^\infty \frac{e^{ix}}{x} dx
+\\ & = 
+\frac 1 2 \text{Img} \int_{-\infty}^\infty \frac{e^{i u x}}{x} dx \Big|_{u = 1}
+\\ & = 
+\frac 1 2 \text{Img} \mathcal F[1/x](1) = \pi/2.
+\end{array}•
+$$
+
+
+
+%\bibliographystyle{plain}
+%\bibliographystyle{plainnat}
+%\bibliographystyle{apalike}
+%\bibliography{/Users/songqsh/Dropbox/R/refs}
+
+\end{document}

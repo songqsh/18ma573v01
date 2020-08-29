@@ -147,7 +147,7 @@ $$\mathcal F[\frac 1 x](u) = i \pi \text{sgn}(u).$$
 Let's use this to prove the following identity. 
 
 {\bf ex.}
-Prove $$\int_0^\infty \frac{\sin x}{x} dx.$$
+Prove $$\int_0^\infty \frac{\sin x}{x} dx = \pi/2.$$
 
 {\bf Proof.}
 $$
@@ -160,8 +160,132 @@ $$
 \frac 1 2 \text{Img} \int_{-\infty}^\infty \frac{e^{i u x}}{x} dx \Big|_{u = 1}
 \\ & = 
 \frac 1 2 \text{Img} \mathcal F[1/x](1) = \pi/2.
-\end{array}•
+\end{array}
 $$
+
+\section{Fourier transform methods in option pricing}
+We consider the price of European call with maturity $T$ and strike $K$ underlying a given stock price $S_T$.
+In many cases, the characteristic function of the log price $\ln S_T$ can be explicitly written, for instance in BSM and Heston.
+Our question is: 
+\begin{center}
+If a characteristic function of $\ln S_T$ is given, what is the price of Call with $T$ and $K$?
+\end{center}
+
+We assume that 
+\begin{itemize}
+\item
+interest rate is $r>0$, 
+\item $s_T = \ln S_T$
+\item $k = \ln K$
+\item and the characteristic function of a random variable $s_T = \ln S_T$ is given by
+$$\phi(u) = \mathbb E \exp(iu s_T).$$
+\end{itemize}
+\subsection{ First Fourier transform method}
+Our objective is to design an engine with
+\begin{itemize}
+\item
+Input: $r, \phi, T, K$
+\item
+output: $C = e^{-rT} \mathbb E[(S_T - K)^+]$.
+\end{itemize}
+
+
+\begin{proposition}
+The price of Call(T, K) is
+$$ C = S_0 I_1 - K e^{-rT} I_2,$$
+where
+$$I_1(\phi, k) = \frac 1 2 + \frac 1 \pi \int_0^\infty Re \Big( \frac{e^{-iu k} \phi(u - i)}{iu \phi(-i)} \Big) du$$
+and 
+$$I_2(\phi, k) = \frac 1 2 + \frac 1 \pi \int_0^\infty Re \Big( \frac{e^{-iu k} \phi(u)}{iu} \Big) du.$$
+\end{proposition}
+
+The above presentation actually gives straightforward evaluation for python as long as the characteristic function is available. One may use scipy.integrate.quad for two integrations in the formula.
+
+
+\begin{proof}
+One can verify step by step
+\begin{itemize}
+\item 
+$I(a>b) = \frac 1 2 + \frac 1 \pi \int_0^\infty \frac{\sin (u(a-b))}{u} du$ from from $\int_0^\infty \frac{\sin x}{x} dx = \pi/2$ in 
+the exercise in the above, 
+\item
+For $\phi = \phi_X$, we have
+$$\mathbb P(X>H) = I_2(\phi, H)$$
+and
+$$\frac{\mathbb E[e^X I(X>H)]}{\mathbb E[ e^X]} = I_1(\phi, H).$$
+\end{itemize}
+
+$$C = \mathbb E [ e^{-rT} S_T I(\ln S_T > \ln K)] - K e^{-rT} \mathbb E [ I(\ln S_T > \ln K)].$$
+Note that 
+$$ \mathbb E[e^{-rT} S_T] = S_0.$$
+Therefore, we have
+$$C = S_0 
+\frac{\mathbb E [ S_T I(\ln S_T > \ln K)]}{\mathbb E[S_T]} - K e^{-rT} \mathbb E [ I(\ln S_T > \ln K)].$$
+Now, we conclude the result by utilizing the above lemmas with $X = \ln S_T$.
+
+\end{proof}
+
+
+\subsection{Fourier transform method by Carr-Madan}
+We denote
+\begin{itemize}
+\item $$C_T(k) = e^{-rT} \mathbb E[(S_T - K)^+]$$
+\item For some damping factor $\alpha>0$, we denote
+$$c_T(k) = e^{\alpha k} C_T(k)$$
+\item $$\psi = \mathcal F[c_T].$$
+\end{itemize}
+
+The key is to find a formula of $\psi_T$ in terms of $\phi$, and take inverse FT for $c_T(k)$. 
+Our objective is to design an engine with
+\begin{itemize}
+\item
+Input: $r, \phi, T, k, \alpha$
+\item
+output: $C_T(K)$
+\end{itemize}
+In theory, any $\alpha>0$ works for this pricing engine. However, the performance is dependent to the choice of $\alpha$.
+Often, $\alpha$ is chosen in $[1/2, 2]$ for better performance.
+
+\begin{proposition}
+The call price is 
+$$C_T(k) = \frac{e^{-\alpha k}}{\pi} \int_0^\infty e^{-i w k} \psi(w) dw,$$
+where
+$$\psi(w) = \frac{e^{-rT} \phi(w - (\alpha + 1) i)}{\alpha^2 + \alpha - w^2 + i (2\alpha+1)w}.$$
+\end{proposition}
+\begin{proof}
+First we look for $\psi$. 
+By definition, we have with $p_T$ the density of $s_T$
+$$
+\begin{array}
+{ll}
+\psi(w) &= 
+\int_{-\infty}^{\infty} e^{iwk} e^{\alpha k} e^{-rT} \int_k^\infty (e^s - e^k) p_T(s) ds dk
+\\ & = 
+\int_{-\infty}^{\infty} e^{-rT} p_T(s) \int_{-\infty}^s (e^{(iw+\alpha)k + s} - e^{(iw+\alpha+1)k}) dkds
+\end{array}
+$$
+This leads to the formula of $\psi$ after some calculations.
+
+Next, we write $c_T$.
+\begin{itemize}
+\item
+We can prove that $w \mapsto \psi(w) e^{-i w x}$ has even real part and odd imaginary part.
+Indeed, $c_T$ is real, we have $$\psi = \text{even} + i \text{odd}.$$
+Therefore, $$\psi(w) e^{-i w x} = (\text{even} + i \text{odd})(\text{even} + i \text{odd}) = \text{even} + i \text{odd}.$$
+\item 
+$$\begin{array}
+{ll}
+c_T(x) &= \mathcal F^{-1} [\psi](x) 
+\\ & = 
+\frac 1 {2\pi} \int_{-\infty}^\infty \psi(w) e^{-i w x} dw
+\\ & = 
+\frac 1 {\pi}  \int_{0}^\infty  \psi(w) e^{-i w x} dw
+\end{array}
+$$
+\end{itemize}
+Finally, we use the definition of $C_T(x) = e^{-\alpha k} c_T(k)$.
+\end{proof}
+
 
 
 

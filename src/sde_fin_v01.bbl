@@ -1,0 +1,9 @@
+\def\cprime{$'$}
+\begin{thebibliography}{1}
+
+\bibitem{Cai04}
+A.~Cairns.
+\newblock {\em Interest Rate Models: An Introduction}.
+\newblock Princeton University Press, 2004.
+
+\end{thebibliography}
